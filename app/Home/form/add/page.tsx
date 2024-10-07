@@ -28,6 +28,7 @@ import axios from "../../../../utils/axiosConfig";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/headers";
 import { useState } from "react";
+import { color } from "framer-motion";
 
 // Definindo a interface para os campos do formulário
 interface Field {
@@ -44,11 +45,16 @@ const initialAvailableFields: { type: string; label: string }[] = [
   { type: 'checkbox', label: 'Checkbox' },
   { type: 'select', label: 'Select' },
 ];
+const colorDispose = [
+  'primary.200','primary.300','primary.600','primary.700','primary.800','primary.900','primary.500'
+]
 
 const Form: React.FC = () => {
   const [fields, setFields] = useState<Field[]>([]);
   const [availableFields] = useState(initialAvailableFields);
   const [formName, setFormName] = useState(''); // Estado para o nome do formulário
+  const [formColor, setFormColor] = useState('primary.300')
+  const [showOptionColors,setshowOptionColors] = useState<boolean>(false);
   const router = useRouter();
 
   const handleAddField = (type: string) => {
@@ -67,6 +73,13 @@ const Form: React.FC = () => {
     updatedFields[index].label = newLabel;
     setFields(updatedFields);
   };
+  const handleColorChange = (color:string)=>{
+    setFormColor(color);
+    setshowOptionColors(false);
+  }
+  const showOptions = ()=>{
+    setshowOptionColors(true);
+  }
 
   const handleOptionChange = (fieldIndex: number, optionIndex: number, value: string) => {
     const updatedFields = [...fields];
@@ -104,6 +117,7 @@ const Form: React.FC = () => {
       }
 
       const payload = {
+        color: formColor,
         nameform: formName || "Anamnese para atendimento",
         fields: fields.map(field => ({
           label: field.label,
@@ -161,7 +175,44 @@ const Form: React.FC = () => {
                     {field.label}
                   </Button>
                 ))}
-              </SimpleGrid>
+                <Button 
+                    size={"sm"}
+                    boxShadow={"md"}
+                    bgColor={"white"}
+                    color={"primary.250"}
+                    fontWeight={"bold"}
+                    border={"2px"}
+                    borderColor={"primary.100"}
+                    mt  = "4"
+                    onClick={()=>{showOptions()}}
+                    _hover={{backgroundColor:"primary.100",color:"primary.250"}}>
+                    Cor
+                    <Box 
+                    width="20px" 
+                    height="20px" 
+                    borderRadius="50%" 
+                    bg={formColor}
+                    ml="4"
+                  /></Button>
+                  {showOptionColors&&<Box bgColor={"white"} borderRadius={"md"} p="2" boxShadow={"md"} fontWeight={"bold"} fontSize={"sm"}>
+  Cores:
+  <Box display="grid" gridTemplateColumns="repeat(4, 1fr)" gap="10px" ml="4">
+    {colorDispose.map((item: string, i) => {
+      return (
+        <Box 
+          key={i} 
+          width="20px" 
+          height="20px" 
+          borderRadius="50%" 
+          bg={item}
+          onClick={()=>{handleColorChange(item)}}
+          cursor={"pointer"}
+        />
+      );
+    })}
+  </Box>
+</Box>}
+ </SimpleGrid>
             </Box>
             <Box overflowY="auto" width="85%" height="calc(100vh - 120px)" p={2} backgroundColor={"white"} borderRadius={"md"} boxShadow={"md"} mr={"4"}>
               <FormControl mb={4}>
@@ -244,7 +295,7 @@ const Form: React.FC = () => {
                             color="primary.300"
                             _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
                             size={"sm"}
-                            onClick={() => handleAddOption(index)}>Adicionar Opção</Button>
+                            onClick={() => handleAddOption(index)}>+ Opção</Button>
                         </VStack>
                       )}
                       {field.type === 'select' && (
@@ -282,7 +333,7 @@ const Form: React.FC = () => {
                             color="primary.300"
                             _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
                             size={"sm"}
-                            onClick={() => handleAddOption(index)}>Adicionar Opção</Button>
+                            onClick={() => handleAddOption(index)}>+ Opção</Button>
                         </VStack>
                       )}
                       

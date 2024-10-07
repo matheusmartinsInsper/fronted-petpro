@@ -17,7 +17,8 @@ import {
   Image,
   Select,
   Link,
-  useToast
+  useToast,
+  Circle
 } from '@chakra-ui/react';
 import { Service } from "../page";
 import { CheckCircleIcon, WarningIcon, InfoOutlineIcon } from '@chakra-ui/icons';
@@ -154,7 +155,9 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
 
           <VStack align="start" spacing={4} mt={4} width="100%"  >
             <Flex justify="space-between" width={"100%"}>
-            <Text fontSize="lg" fontWeight="bold" mb={2}>Serviço - {service.title}</Text>
+            <Text display={"flex"}  flexDirection={"row"} alignItems={"center"} fontSize="lg" fontWeight="bold" mb={2}>Serviço - {service.title} 
+            <Circle size="10px" bg="primary.800" ml={"2"}/><Text fontSize={"sm"} ml={2} color="primary.800">Médio</Text>
+              </Text>
             
             <Text fontSize="sm" fontWeight="bold" mb={2} border={"2px"} borderColor={"primary.700"} color={"primary.700"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Profissional - {service.nameprofissional}</Text>
             </Flex>

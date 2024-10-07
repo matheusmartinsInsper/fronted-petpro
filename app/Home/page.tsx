@@ -1,8 +1,8 @@
 "use client"
-import { Box, Heading, Flex, Text, SimpleGrid, Card, CardBody, Icon, useTheme, Button,Link } from '@chakra-ui/react';
+import { Box, Heading, Flex, Text, SimpleGrid, Card, CardBody, Icon, useTheme, Button,Link,IconButton } from '@chakra-ui/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell,BarChart,Bar,AreaChart, Area } from 'recharts';
 import { FaEnvelope } from 'react-icons/fa';
-import { MdEvent, MdPeople, MdStore } from 'react-icons/md';
+import { MdEvent, MdPeople, MdStore,MdMoreHoriz } from 'react-icons/md';
 import Sidebar from './components/Sidebar';
 import Header from "./components/headers";
 import {
@@ -100,14 +100,16 @@ const UserPage: React.FC = () => {
             <Link  href='Home/solicitations'  _hover={{ textDecoration: 'none', color: 'inherit' }} >
             <Card>
               <CardBody color="primary.250"  _hover={{backgroundColor:"primary.300",color:"primary.100",borderRadius:"md",transition:"0.2"}} transition={"1"} cursor={"pointer"}>
+             
                 <Flex align="center" >
-                  <Icon as={BellIcon} boxSize={4}  mr={"2"}/>
+                    <Icon as={BellIcon} boxSize={4}  mr={"2"}/>
                   <Heading size="sm" >Solicitações</Heading>
                 </Flex>
                 <Flex align={"end"} mt={2}>
                 <Text fontSize="xl" fontWeight="bold"  mr={2} mb={-1}>{solicitacoes} </Text>
                 <Text fontSize="sm"  color="gray.500" >Pendentes </Text>
                 </Flex>
+                
               </CardBody>
             </Card>
             </Link>

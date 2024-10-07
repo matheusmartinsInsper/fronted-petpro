@@ -20,7 +20,9 @@ import {
   ModalBody,
   Circle,
   Switch,
-  useToast
+  useToast,
+  Progress,
+  Divider
 } from '@chakra-ui/react';
 import {
   SearchIcon,
@@ -222,156 +224,192 @@ const Agenda: React.FC = () => {
     <Header />
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor="primary.100">
       <Sidebar />
-      <Box
-        marginLeft="250px"
-        py="2"
-        width="calc(100% - 250px)"
-        flex="1"
-        borderRadius="md"
-        position="relative"
-      >
-        <Flex  justify="space-between" align="center" mb="2"  borderBottomColor={"gray.200"} borderBottomWidth={"1px"} pb={"1"} px = "4" fontFamily="Nunito, sans-serif">
-          <Box flexDirection={"row"} display={"flex"}> <Heading as="h1" size="sm" color={"primary.200"} display={"flex"} flexDirection={"row"}><Text color="gray.500">Main Menu 
-      <ChevronRightIcon /> 
-          
-        </Text> Agenda</Heading>
-          <Button backgroundColor={"white"} borderRadius={"md"} size={"sm"} py={"2"} mt="1"  boxShadow={"md"}  ml={"4"} _hover={{backgroundColor:"white"}}>
-            <Box ml="0">
-              <Switch
-                colorScheme="purple"
-                isChecked={toggleState === "rede"}
-                onChange={handleToggleChange}
-                size="sm"
-                tabIndex={-1}
-      _focus={{ outline: "none", boxShadow: "none" }} // Remove a borda de foco
-      _active={{ outline: "none", boxShadow: "none" }} // Remove o estilo de foco do Switch
-      onMouseDown={(e) => e.preventDefault()}
-              />
-            </Box>
-            <Text ml="2" color="primary.250" fontWeight={"bold"} fontSize={"sm"}>
-              {toggleState === "Pessoal" ? "Pessoal" : "Rede"}
-            </Text>
+      <Box marginLeft="250px" py="2" width="calc(100% - 250px)" flex="1" borderRadius="md" position="relative">
+        <Flex justify="space-between" align="center" mb="2" borderBottomColor="gray.200" borderBottomWidth="1px" pb="1" px="4" fontFamily="Nunito, sans-serif">
+          <Box flexDirection="row" display="flex">
+            <Heading as="h1" size="sm" color="primary.200" display="flex" flexDirection="row">
+              <Text color="gray.500">
+                Main Menu
+                <ChevronRightIcon />
+              </Text>
+              Agenda
+            </Heading>
+            <Button
+              backgroundColor="white"
+              borderRadius="md"
+              size="sm"
+              py="2"
+              mt="1"
+              boxShadow="md"
+              ml="4"
+              _hover={{ backgroundColor: "white" }}
+            >
+              <Box ml="0">
+                <Switch
+                  colorScheme="purple"
+                  isChecked={toggleState === "rede"}
+                  onChange={handleToggleChange}
+                  size="sm"
+                  tabIndex={-1}
+                  _focus={{ outline: "none", boxShadow: "none" }}
+                  _active={{ outline: "none", boxShadow: "none" }}
+                  onMouseDown={(e) => e.preventDefault()}
+                />
+              </Box>
+              <Text ml="2" color="primary.250" fontWeight="bold" fontSize="sm">
+                {toggleState === "Pessoal" ? "Pessoal" : "Rede"}
+              </Text>
             </Button>
-            </Box>
+          </Box>
           <Box>
-            <Button display={"flex"}  right={"0"}   backgroundColor={"primary.500"} maxWidth={"110px"}
-            leftIcon={<AddIcon fontSize={"sm"}/>}
-                color="primary.300"
-                size={"sm"}
-                _hover={{ backgroundColor: "primary.300", color: "primary.100" }} >Agendar
-                </Button>
-            </Box>
-       
-            
+            <Button
+              display="flex"
+              right="0"
+              backgroundColor="primary.500"
+              maxWidth="110px"
+              leftIcon={<AddIcon fontSize="sm" />}
+              color="primary.300"
+              size="sm"
+              _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
+            >
+              Agendar
+            </Button>
+          </Box>
         </Flex>
-       
+  
+        <Flex direction="row" height="calc(100vh - 120px)" mx="4">
+        <Box width={"22%"} borderRadius="md" boxShadow="md" height="100%" bg="primary.100" px="2" mr="4">
+  <DayPicker style={{ transform: "scale(0.8)", transformOrigin: "top left" }} onDayClick={handleDateSelect} />
 
-        <Box position="relative" height="calc(100vh - 120px)" mx={"4"} >
-          
-        
-        <Box  position="sticky"
-            top="0"
-            bg="primary.200"
-            height={"50px"}
-            pt={"2"}
-            borderTopRadius={"md"}
-            color={"primary.100"}
-            zIndex={"10"}>
-            <Grid templateColumns="repeat(8, 1fr)" mb="4" alignItems="center">
-              <GridItem>
-                <Button onClick={onOpen} size="sm" ml="4" fontSize={"sm"} bgColor={"primary.250"} boxShadow={"md"} color={"primary.100"} _hover={{backgroundColor:"primary.250"}}>
-                  {selectedDate ? formatDate(selectedDate) : 'Selecionar'}
-                </Button>
-              </GridItem>
-              {currentWeek.map((date) => (
-                <GridItem key={date.toString()}>
-                  <Flex align="center">
-                    <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2}>
-                      {daysOfWeek[date.getDay()]}, {date.getDate()} {monthAbbreviations[date.getMonth()]}
-                    </Text>
-                    {hasServiceOnDate(date) && (
-                      <Circle size="10px" bg="primary.600" />
-                    )}
-                  </Flex>
-                </GridItem>
-              ))}
-            </Grid>
-          </Box>
-          <Box   borderRadius={"md"}
-            boxShadow={"md"}
-            height="calc(100vh - 170px)"
-            overflowY="scroll"
-            py={1}
-            px={2}
-            zIndex={9}
-            bg={"primary.100"}
-            width={"100%"}>
-            <Grid templateColumns="repeat(8, 1fr)" gap={0}>
-              <GridItem>
-                {Array.from({ length: 24 }, (_, i) => (
-                  <Box
-                    key={i}
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    borderBottom="1px solid #E2E8F0"
-                    height={`${heightsPerHour[i]}px`} // Aplicando a altura máxima calculada
-                  >
-                    {`${i}:00`}
-                  </Box>
-                ))}
-              </GridItem>
-              {currentWeek.map((date) => (
-                <GridItem key={date.toString()} borderLeft="1px solid #E2E8F0">
-                  {Array.from({ length: 24 }, (_, hour) => {
-                    // Obter o número de serviços para a hora específica
-                    const servicesCount = getServicesForTimeSlot(date, hour).length;
-                    // Calcular a altura baseando-se na altura máxima calculada
-                    const height = `${heightsPerHour[hour]}px`;
-
-                    return (
-                      <Box
-                        key={hour}
-                        py={1}
-                        px={2}
-                        borderBottom="1px solid #E2E8F0"
-                        height={height}
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                        width="100%"
-                        backgroundColor={servicesCount ? 'primary.100' : 'transparent'}
-                        cursor={servicesCount ? 'pointer' : 'default'}
-                      >
-                        {getServicesForTimeSlot(date, hour).map((service, index) => (
-                          <ServiceCard key={index} service={service} />
-                        ))}
-                      </Box>
-                    );
-                  })}
-                </GridItem>
-              ))}
-            </Grid>
-          </Box>
-        </Box>
-
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Selecionar Data</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <DayPicker onDayClick={handleDateSelect} />
-              </ModalBody>
-            </ModalContent>
-          </Modal>
-
-          
-        </Box>
+<Divider borderColor="gray.200" />
+  <Box mt={"4"}>
+    {/* Botões para alterar a visualização */}
+    <Flex justifyContent="space-around" mb={4}>
+      <Button
+        size="sm"
+        bg="primary.100"
+        color="primary.200"
+        boxShadow={"md"}
+        _hover={{ bg: "gray.100" }}
+        fontWeight={"bold"}
+      >
+        Preferência
+      </Button>
+      <Button
+        size="sm"
+        color="primary.200"
+        bgColor={"primary.100"}
+        boxShadow={"md"}
+        _hover={{ bg: "gray.100" }}
+        fontWeight={"bold"}
+      >
+        Status
+      </Button>
     </Flex>
-    </>
-    
-  );
+
+    {/* Título para a seção de progresso */}
+    <Text fontSize="sm" fontWeight="bold" mb={2}>Agendamentos por preferência</Text>
+
+    {/* Barras de progresso para os níveis de emergência */}
+    <Box mb={4}>
+      <Text fontSize="xs" mb={1}>Baixa: 25</Text>
+      <Progress bgColor={"primary.100"} size="sm" value={25} sx={{ "& > div": { backgroundColor: "primary.900" } }} borderRadius={"md"} />
+    </Box>
+    <Box mb={4}>
+      <Text fontSize="xs" mb={1}>Médio: 200</Text>
+      <Progress bgColor={"primary.100"} size="sm" value={200} sx={{ "& > div": { backgroundColor: "primary.800" } }} borderRadius={"md"} />
+    </Box>
+    <Box mb={4}>
+      <Text fontSize="xs" mb={1}>Grave: 70</Text>
+      <Progress bgColor={"primary.100"} size="sm" value={70} sx={{ "& > div": { backgroundColor: "primary.300" } }} borderRadius={"md"} />
+    </Box>
+    <Box mb={4}>
+      <Text fontSize="xs" mb={1}>Muito grave: 25</Text>
+      <Progress bgColor={"primary.100"} size="sm" value={25} sx={{ "& > div": { backgroundColor: "primary.600" } }} borderRadius={"md"} />
+    </Box>
+  </Box>
+</Box>
+
+
+  
+          <Box width={"78%"} borderRadius="md" boxShadow="md" height="100%" zIndex={9} bg="primary.100">
+            <Box position="sticky" top="0" bg="primary.200" height={"50px"} pt={"2"} borderTopRadius={"md"} color={"primary.100"} zIndex={"10"}>
+              <Grid templateColumns={`repeat(${currentWeek.length + 1}, 1fr)`} mb="4" alignItems="center">
+                <GridItem width="100px"> {/* Tamanho fixo para as horas */}
+                  <Text width={"100%"} justifyContent={"center"} display={"flex"} alignItems={"center"}>Hora</Text>
+                </GridItem>
+                {currentWeek.map((date) => (
+                  <GridItem key={date.toString()} height={"100%"} minWidth="100px"> {/* Mantendo o mesmo width fixo para cada dia */}
+                    <Flex align="center" justify="center" display={"flex"} flexDirection={"column"}>
+                      <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2} display={"flex"} flexDirection={"row"} alignItems={"center"}>
+                        {daysOfWeek[date.getDay()]}
+                        {hasServiceOnDate(date) && (
+                        <Circle size="10px" bg="primary.600" ml={"2"}/>
+                      )}
+                      </Text>
+                      <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2} textAlign={"center"}>
+                      {date.getDate()} {monthAbbreviations[date.getMonth()]}
+                      
+                      </Text>
+                    </Flex>
+                  </GridItem>
+                ))}
+              </Grid>
+            </Box>
+            
+            <Box borderRadius={"md"} boxShadow={"md"} height="calc(100vh - 170px)" overflowY="scroll" py={1} px={2} zIndex={9} bg={"primary.100"} width={"100%"}>
+              <Grid templateColumns={`repeat(${currentWeek.length + 1}, 1fr)`} gap={0}>
+                <GridItem width="100px"> {/* Tamanho fixo para as horas */}
+                  {Array.from({ length: 24 }, (_, i) => (
+                    <Box
+                      key={i}
+                      display="flex"
+                      justifyContent="center"
+                      alignItems="center"
+                      borderBottom="1px solid #E2E8F0"
+                      height={`${heightsPerHour[i]}px`}
+                    >
+                      {`${i}:00`}
+                    </Box>
+                  ))}
+                </GridItem>
+                {currentWeek.map((date) => (
+                  <GridItem key={date.toString()} borderLeft="1px solid #E2E8F0" minWidth="100px"> {/* Mantendo o mesmo width fixo para os agendamentos */}
+                    {Array.from({ length: 24 }, (_, hour) => {
+                      const servicesCount = getServicesForTimeSlot(date, hour).length;
+                      const height = `${heightsPerHour[hour]}px`;
+  
+                      return (
+                        <Box
+                          key={hour}
+                          py={1}
+                          px={2}
+                          borderBottom="1px solid #E2E8F0"
+                          height={height}
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                          width="100%"
+                          backgroundColor={servicesCount ? 'primary.100' : 'transparent'}
+                          cursor={servicesCount ? 'pointer' : 'default'}
+                        >
+                          {getServicesForTimeSlot(date, hour).map((service, index) => (
+                            <ServiceCard key={index} service={service} />
+                          ))}
+                        </Box>
+                      );
+                    })}
+                  </GridItem>
+                ))}
+              </Grid>
+            </Box>
+          </Box>
+        </Flex>
+      </Box>
+    </Flex>
+  </>
+  
+);
 };
 
 export default Agenda;

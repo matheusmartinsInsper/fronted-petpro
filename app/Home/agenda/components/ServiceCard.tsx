@@ -46,7 +46,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
         p={2}
         borderRadius="md"
         mb={1}
-        width="100%"
+        minWidth="100px"
         boxShadow="md"
         position="relative"
         onClick={onOpen}
@@ -64,17 +64,6 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
               {statusIcons[service.status]}
             </Flex>
           </Box>
-          <IconButton
-            aria-label={isExpanded ? 'Recolher' : 'Expandir'}
-            icon={isExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />}
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsExpanded(!isExpanded);
-            }}
-            size="sm"
-            bg="transparent"
-            _hover={{ bg: "transparent" }}
-          />
         </Flex>
         {isExpanded && (
           <Box mt={1}>

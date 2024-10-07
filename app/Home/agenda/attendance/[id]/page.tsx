@@ -144,9 +144,12 @@ const Atendimento = () => {
           <Flex align="start" borderBottom={"1px"} borderBottomColor={"gray.200"} mb = "4">
               
                   <Heading size="sm" my="4" ml="6" mr="2" cursor={"pointer"} color={"primary.200"}>Atendimento</Heading>
-                  <Heading size="sm" my="4" mx="4" cursor={"pointer"} color={"gray.500"}>Retorno</Heading>
-                  <Heading size="sm" my="4" mx="2" cursor={"pointer"} color={"gray.500"}>Prescrição</Heading>
                   <Heading size="sm" my="4" mx="2" cursor={"pointer"} color={"gray.500"}>Anamnese</Heading>
+                  <Heading size="sm" my="4" mx="2" cursor={"pointer"} color={"gray.500"}>Prescrição</Heading>
+                  <Heading size="sm" my="4" mx="2" cursor={"pointer"} color={"gray.500"}>Protocolo</Heading>
+                  <Heading size="sm" my="4" mx="4" cursor={"pointer"} color={"gray.500"}>Retorno</Heading>
+                  
+                  
             </Flex>
             <Flex mx={"6"} align="start" mb={4} boxShadow={"md"} p={"4"} borderRadius={"md"} borderLeftColor={"#FFFBDA"} borderLeftWidth={"6px"} borderTopColor={"primary.100"} borderTopWidth={"2px"}>
               <Box boxSize="100px" borderRadius="full" overflow="hidden" mr={4}>

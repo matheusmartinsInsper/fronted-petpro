@@ -43,6 +43,7 @@ interface Attribute {
 
 interface Form {
   idform: string;
+  color: string;
   nameform: string;
   attributes: Attribute[];
 }
@@ -64,7 +65,7 @@ const EditFormModal: React.FC<EditFormModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
       <ModalContent height="80vh">
-        <ModalHeader borderTopRadius={"md"} border={"1px"} bgColor={"primary.300"} borderColor={"primary.300"} color={"primary.100"}>Dados do formulario</ModalHeader>
+        <ModalHeader borderTopRadius={"md"} border={"1px"} bgColor={form.color} borderColor={form.color} color={"primary.100"}>Dados do formulario</ModalHeader>
         <ModalCloseButton color={"primary.100"}/>
         <ModalBody overflowY="auto" height="100%">
           <Text fontWeight="bold" my="2" boxShadow={"md"} p={"2"} alignItems={"center"} textAlign={"center"} borderRadius={"md"} border={"2px"} borderColor={"primary.100"}>{form.nameform}</Text>

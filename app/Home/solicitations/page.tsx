@@ -287,11 +287,12 @@ const Services = () => {
                       <Text
                         textAlign={"center"}
                         minWidth={"70px"}
+                        fontSize={"sm"}
                         backgroundColor={"green.100"}
                         p={"1"}
                         borderRadius={"5px"}
-                        color={"green.600"}
-                        fontWeight={"semi-bold"}
+                        color={"#2EB086"}
+                        fontWeight={"bold"}
                       >
                         {service.servicePrice} R$
                       </Text>

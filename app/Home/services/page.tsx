@@ -295,7 +295,7 @@ const Services = () => {
                   <Td paddingY={"2"}>{service.nomeDoServiço}</Td>
                   <Td paddingY={"2"}>{service.titulo}</Td>
                   <Td paddingY={"2"}>
-                    <Text textAlign={"center"} minWidth={"70px"} 
+                    <Text textAlign={"center"} minWidth={"70px"} fontWeight={"bold"}  fontSize={"sm"}
                     backgroundColor={service.preço === 0 ? "#FF407D" : "green.100"} 
                      p={"1"} 
                      borderRadius={"5px"} 
