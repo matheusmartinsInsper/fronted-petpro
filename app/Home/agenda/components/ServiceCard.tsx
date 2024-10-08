@@ -32,6 +32,22 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
     Cancelado: 'primary.600',
     Pendente : 'yellow.400'
   };
+  const getPriorityColor = (status: string) => {
+    switch (status) {
+      case 'Não urgente':
+        return 'primary.1100';
+      case 'Pouco urgente':
+        return 'primary.800';
+      case 'Urgente':
+        return 'primary.900';
+      case "Muito urgente":
+        return 'primary.1000';
+      case "Emergencia":
+        return "primary.600"
+      default:
+        return 'gray.500';
+    }
+  };
 
   const statusIcons: any = {
     Concluído: <CheckCircleIcon color="#2EB086" />,
@@ -56,7 +72,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
         <Flex justify="space-between" align="center">
           <Box flex="1" pr={2}>
             <Text fontSize="sm" fontWeight="bold">{service.categoryname}</Text>
-            <Text fontSize="xs" color="gray.500">{service.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+            <Text fontSize="xs" color="gray.500"  display={"flex"} flexDirection={"row"} alignItems={"center"}>{service.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}{service.priority=="Emergencia"||service.priority=="Muito urgente"?<Circle size="10px" bg={getPriorityColor(service.priority)} ml={"2"}/>:<></>} </Text>
             <Flex align="center">
               <Text fontSize="xs" color={statusColors[service.status]} mr={2}>
                 {service.status}

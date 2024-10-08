@@ -107,7 +107,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         <ModalHeader >
           <Flex align="center" justify="start" width="100%">
             
-            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"  border={"2px"} borderColor={"primary.700"} color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Responsavel - {service.nameuserowner}</Text>
+            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Responsavel - {service.nameuserowner}</Text>
             <Text ml={4} fontSize="lg" fontWeight="bold">
               Agendamento 
             </Text>
@@ -147,14 +147,18 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Text>{service.petName}</Text>
               </Box>
               <Box flex="1" pr={4}>
-                <Text><strong>Raça:</strong></Text>
-                <Text>{service.petBreed}</Text>
-              </Box>
-              <Box flex="1" pr={4}>
                 <Text><strong>Espécie:</strong></Text>
                 <Text>{service.petSpecies}</Text>
               </Box>
               <Box flex="1" pr={4}>
+                <Text><strong>Raça:</strong></Text>
+                <Text>{service.petBreed}</Text>
+              </Box>
+              <Box flex="1" pr={4}>
+                <Text><strong>Castrado:</strong></Text>
+                <Text>{service.castrated==true?"Sim":"Não"}</Text>
+              </Box>
+              <Box flex="1" pr={0}>
                 <Text><strong>Peso:</strong></Text>
                 <Text>{service.petWeight}</Text>
               </Box>
@@ -162,6 +166,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Text><strong>Idade:</strong></Text>
                 <Text>{service.petAge}</Text>
               </Box>
+              
             </Flex>
             <Text fontSize="md" fontWeight="bold">Comentário do Tutor</Text>
             <Box border="1px" borderColor="gray.200" borderRadius="md" p={4} mb={4}>

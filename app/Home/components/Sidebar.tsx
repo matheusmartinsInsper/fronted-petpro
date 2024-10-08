@@ -6,7 +6,7 @@ import { FaUser, FaChartBar } from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
-  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon,CheckIcon
+  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon,CheckIcon,AtSignIcon 
 } from '@chakra-ui/icons';
 import { useRouter } from 'next/navigation';
 
@@ -107,6 +107,14 @@ const Sidebar = () => {
               <HStack>
                 <CalendarIcon color={"primary.200"}/>
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Agenda</Text>}
+              </HStack>
+            </Link>
+            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.200", opacity: "100%" }}
+              width={"100%"} p={1} pl={2}
+              borderRadius={"md"} href='/Home/solicitations'>
+              <HStack>
+                <AtSignIcon  color={"primary.200"}/>
+                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Clientes</Text>}
               </HStack>
             </Link>
             <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}

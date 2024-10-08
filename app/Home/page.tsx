@@ -75,7 +75,6 @@ const UserPage: React.FC = () => {
           borderRadius="md"
           position="relative"
           mt={"-10px"}
-          
         >
             <Box
             borderTop={"1px"}
@@ -87,7 +86,7 @@ const UserPage: React.FC = () => {
               left={0}
               right={0}// Coloca atrás dos cards
               px="4"
-               zIndex="initial"
+              willChange="transform" 
             >
               <Heading  as="h1" mb="1" mt = "6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>Best Clinica</Text></Heading>
               <Text color={"gray.500"} mb={"1"}>Acompanhe suas metricas semanais e mensais! </Text>
@@ -97,9 +96,9 @@ const UserPage: React.FC = () => {
             <Text color={"gray.500"} mb={"1"}>Acompanhe suas metricas semanais e mensais! </Text>
 
           <SimpleGrid   columns={{ base: 1, md: 2, lg: 4 }} spacing="2" >
-            <Link  href='Home/solicitations'  _hover={{ textDecoration: 'none', color: 'inherit' }} >
+            <Link  href='Home/solicitations'  _hover={{ textDecoration: 'none', color: 'inherit' }}  >
             <Card>
-              <CardBody color="primary.250"  _hover={{backgroundColor:"primary.300",color:"primary.100",borderRadius:"md",transition:"0.2"}} transition={"1"} cursor={"pointer"}>
+              <CardBody  color="primary.250"  _hover={{backgroundColor:"primary.300",color:"primary.100",borderRadius:"md",transition:"0.2"}} transition={"1"} cursor={"pointer"}>
              
                 <Flex align="center" >
                     <Icon as={BellIcon} boxSize={4}  mr={"2"}/>

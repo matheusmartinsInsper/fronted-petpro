@@ -63,6 +63,7 @@ export interface Subcategory {
 }
 
 export interface Service {
+  castrated: boolean;
   priority: string;
   nameuserowner:string;
   nameprofissional:string;
@@ -169,6 +170,7 @@ const Agenda: React.FC = () => {
           petName: service.pet.petname,
           petBreed: service.pet.race,
           petSpecies: service.pet.species,
+          castrated: service.pet.castrated,
           petWeight: `${service.pet.weight}kg`,
           petAge: service.pet.age,
           servicePrice: service.price,
@@ -216,6 +218,14 @@ const Agenda: React.FC = () => {
     setCurrentWeek(generateWeekDates(date));
   };
 
+  const getServiceCountForDate = (date:Date) => {
+    // Exemplo: Filtrar os agendamentos que correspondem à data
+    const servicesForDate = services.filter(service => 
+      new Date(service.date).toDateString() === date.toDateString()
+    );
+    return servicesForDate.length;
+  };
+  
   const getServicesForTimeSlot = (date: Date, hour: number): Service[] => {
     return services
       .filter(service => 
@@ -420,21 +430,22 @@ const Agenda: React.FC = () => {
                   <Text width={"100%"} justifyContent={"center"} display={"flex"} alignItems={"center"}>Hora</Text>
                 </GridItem>
                 {currentWeek.map((date) => (
-                  <GridItem key={date.toString()} height={"100%"} minWidth="110px"> {/* Mantendo o mesmo width fixo para cada dia */}
-                    <Flex align="center" justify="center" display={"flex"} flexDirection={"column"}>
-                      <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2} display={"flex"} flexDirection={"row"} alignItems={"center"}>
-                        {daysOfWeek[date.getDay()]}
-                        {hasServiceOnDate(date) && (
-                        <Circle size="10px" bg="primary.600" ml={"2"}/>
-                      )}
-                      </Text>
-                      <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2} textAlign={"center"}>
-                      {date.getDate()} {monthAbbreviations[date.getMonth()]}
-                      
-                      </Text>
-                    </Flex>
-                  </GridItem>
-                ))}
+  <GridItem key={date.toString()} height={"100%"} minWidth="110px"> {/* Mantendo o mesmo width fixo para cada dia */}
+    <Flex align="center" justify="center" display={"flex"} flexDirection={"column"}>
+      <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2} display={"flex"} flexDirection={"row"} alignItems={"center"}>
+        {daysOfWeek[date.getDay()]}
+        {hasServiceOnDate(date) && (
+          <Circle size="20px" bg="primary.300" ml={"2"} fontSize={"xs"}>
+            {getServiceCountForDate(date)} {/* Exibir a quantidade de agendamentos */}
+          </Circle>
+        )}
+      </Text>
+      <Text fontSize="sm" fontWeight="bold" color="primary.100" mr={2} textAlign={"center"}>
+        {date.getDate()} {monthAbbreviations[date.getMonth()]}
+      </Text>
+    </Flex>
+  </GridItem>
+))}
               </Grid>
             </Box>
             
