@@ -18,7 +18,7 @@ import {
   Circle,
   VStack
 } from '@chakra-ui/react';
-import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon, WarningIcon } from '@chakra-ui/icons';
+import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon, WarningIcon,InfoOutlineIcon,CheckIcon } from '@chakra-ui/icons';
 import { Service } from "../page";
 import {ServiceDetailsModal} from "./ModalService"
 
@@ -35,7 +35,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
 
   const statusIcons: any = {
     Concluído: <CheckCircleIcon color="#2EB086" />,
-    Cancelado: <WarningIcon color="primary.600" />
+    Cancelado: <WarningIcon color="primary.600" />,
   };
 
   return (
@@ -46,7 +46,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
         p={2}
         borderRadius="md"
         mb={1}
-        minWidth="100px"
+        minWidth="110px"
         boxShadow="md"
         position="relative"
         onClick={onOpen}

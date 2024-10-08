@@ -299,6 +299,7 @@ const Services = () => {
                     </Td>
                     <Td paddingY={"2.5"}>
                       <Text
+                      fontWeight={"bold"}
                         textAlign="center"
                         minWidth="70px"
                         p="1"

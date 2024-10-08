@@ -257,7 +257,7 @@ const UserPage: React.FC = () => {
 </Card>
 <Card borderRadius="lg" overflow="hidden">
                 <CardBody>
-                  <Heading size="md" mb="12" color="primary.250">Financeiro</Heading>
+                  <Heading size="md" mb="12" color="primary.250">Receita semanal</Heading>
                   <Flex mb="10" justify={"space-between"}>
                   <Box>
                       <Text fontSize="md" fontWeight="bold" color="primary.250">Cliente atendidos</Text>
