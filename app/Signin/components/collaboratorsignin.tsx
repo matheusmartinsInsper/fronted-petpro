@@ -1,4 +1,4 @@
-import { Box, Heading, FormControl, FormLabel, Input, VStack, Button, useToast } from '@chakra-ui/react';
+import { Box, Heading, FormControl, FormLabel, Input, VStack, Button, useToast,Checkbox,Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useRouter } from 'next/navigation';
@@ -44,14 +44,16 @@ const Signin = () => {
   };
 
   return (
-    <VStack spacing={8} align="stretch" width="full" maxW="md" mx="auto" mt={0}>
-      <Box p={8} borderWidth={0} borderRadius="lg" >
+    <VStack spacing={4} align="stretch" width="full" maxW="md" mx="auto" mt={0}>
+      <Box p={4} borderWidth={0} borderRadius="lg" >
         
         <FormControl mb={4}>
           <FormLabel>Email</FormLabel>
           <Input
+          size={"sm"}
+          borderRadius={"md"}
             type="email"
-            placeholder="exemplo@gmail.com"
+            placeholder="veterinario@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             focusBorderColor="primary.400"
@@ -60,6 +62,8 @@ const Signin = () => {
         <FormControl mb={4}>
           <FormLabel>Senha</FormLabel>
           <Input
+          borderRadius={"md"}
+          size={"sm"}
             type="password"
             placeholder="********"
             value={password}
@@ -67,14 +71,19 @@ const Signin = () => {
             focusBorderColor="primary.400"
           />
         </FormControl>
+        <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"}>
+        <Text size={"sm"} fontSize={"sm"} color={"gray.500"}><Checkbox mr="2" iconColor="primary.300" colorScheme="primary.100" _selected={{ color: "primary.300",outline:"none" }}/>Lembrar de mim</Text>
+        <Text fontSize={"sm"} color={"primary.300"} cursor={"pointer"}>Esqueci senha</Text>
+        </Box>
+        
         <Button
           color="white"
-          backgroundColor="primary.300"
+          backgroundColor="primary.200"
           _hover={{ backgroundColor: 'primary.300' }}
           _focus={{ backgroundColor: 'primary.300' }}
-          width="full"
           mt={4}
           onClick={handleSubmit}
+          size={"sm"}
         >
           Entrar
         </Button>

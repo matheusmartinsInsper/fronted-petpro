@@ -45,6 +45,7 @@ export interface Subcategory {
 }
 
 export interface Service {
+  priority: string;
   idos: string;
   title: string;
   date: Date;
@@ -66,6 +67,22 @@ export interface Service {
   subcategories: Subcategory[];
   attendancemodel:string
 }
+const getPriorityColor = (status: string) => {
+  switch (status) {
+    case 'Não urgente':
+      return 'primary.1100';
+    case 'Pouco urgente':
+      return 'primary.800';
+    case 'Urgente':
+      return 'primary.900';
+    case "Muito urgente":
+      return 'primary.1000';
+    case "Emergencia":
+      return "primary.600"
+    default:
+      return 'gray.500';
+  }
+};
 
 const Services = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,6 +111,7 @@ const Services = () => {
     try {
       const response = await axios.get(`/OrderService/${toggleStateapi}`);
       const data = response.data.data.map((service: any) => ({
+        priority: service.priority,
         title: service.title,
         date: new Date(service.dateappointed),
         datesolicitation: new Date(service.datesolicitation),
@@ -133,6 +151,7 @@ const Services = () => {
 
   const filtered = services.filter((service) => {
     return (
+      service.priority.toLowerCase().includes(query) ||
       service.title.toLowerCase().includes(query) ||
       service.clientName.toLowerCase().includes(query) ||
       service.status.toLowerCase().includes(query) ||
@@ -242,7 +261,7 @@ const Services = () => {
         <Box
           overflowX="auto"
           mb="14"
-          borderRadius={"8px"}
+          borderRadius={"md"}
           backgroundColor={"white"}
           boxShadow={"md"}
            mx="4"
@@ -250,11 +269,12 @@ const Services = () => {
           <Table variant="simple">
             <Thead backgroundColor={"primary.200"} color={"primary.100"}>
               <Tr>
+                
                 <Th color={"primary.100"}>Categoria</Th>
-                <Th color={"primary.100"}>Título</Th>
-                <Th color={"primary.100"}>Cliente</Th>
+                <Th color={"primary.100"}>Tutor</Th>
                 <Th color={"primary.100"}>Data-Agendamento</Th>
                 <Th color={"primary.100"}>Data-Solicitação</Th>
+                <Th color={"primary.100"}>Prioridade</Th>
                 <Th color={"primary.100"}>Preço</Th>
                 <Th color={"primary.100"}>Status</Th>
                 <Th color={"primary.100"}>Detalhes</Th>
@@ -269,7 +289,6 @@ const Services = () => {
                 return (
                   <Tr key={service.idos} paddingY={"2.5"}>
                     <Td paddingY={"2.5"}>{service.categoryname}</Td>
-                    <Td paddingY={"2.5"}>{service.title}</Td>
                     <Td paddingY={"2.5"}>{service.clientName}</Td>
                     <Td paddingY={"2.5"}>{format(service.date, "dd/MM/yy HH:mm")}</Td>
                     <Td paddingY={"2.5"}>
@@ -287,8 +306,24 @@ const Services = () => {
                       <Text
                         textAlign={"center"}
                         minWidth={"70px"}
-                        fontSize={"sm"}
-                        backgroundColor={"green.100"}
+                        fontSize={"xs"}
+                        borderLeftColor={getPriorityColor(service.priority)}
+                        borderLeftWidth={"7px"}
+                        p={"1"}
+                        borderRadius={"6px"}
+                        color={getPriorityColor(service.priority)}
+                        boxShadow={"md"}
+                        fontWeight={"bold"}
+                      >
+                        {service.priority}
+                      </Text>
+                    </Td>
+                    <Td paddingY={"2.5"}>
+                      <Text
+                        textAlign={"center"}
+                        minWidth={"50px"}
+                        fontSize={"xs"}
+                        backgroundColor={"#D5FFE4"}
                         p={"1"}
                         borderRadius={"5px"}
                         color={"#2EB086"}
@@ -303,6 +338,7 @@ const Services = () => {
                         textAlign="center"
                         minWidth="70px"
                         p="1"
+                        fontSize={"sm"}
                         borderRadius="5px"
                         color={
                           service.status === "Pendente"
@@ -358,6 +394,12 @@ const Services = () => {
             icon={<ChevronLeftIcon />}
             onClick={() => handlePageChange("prev")}
             isDisabled={currentPage === 1}
+            fontSize={"sm"}
+            size={"sm"}
+            bgColor={"primary.100"}
+            border={"2px"}
+            borderColor={"primary.300"}
+            color={"primary.300"}
             mr="2"
           />
           <Text>
@@ -370,6 +412,12 @@ const Services = () => {
             onClick={() => handlePageChange("next")}
             isDisabled={currentPage * itemsPerPage >= filteredServices.length}
             ml="2"
+            fontSize={"sm"}
+            size={"sm"}
+            bgColor={"primary.100"}
+            border={"2px"}
+            color={"primary.300"}
+            borderColor={"primary.300"}
           />
         </Flex>
 

@@ -28,20 +28,23 @@ const ClinicSignup = () => {
       case 1:
         return (
           <Box>
-            <Heading as="h3" size="md" mb={4}>
+            <Heading as="h3" size="sm" mb={2}>
               1: Dados da Conta
             </Heading>
-            <FormControl mb={4}>
-              <FormLabel>Nome da empresa</FormLabel>
-              <Input placeholder="Nome" />
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Nome da empresa</FormLabel>
+              <Input  focusBorderColor="primary.400" placeholder="Nome" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Email</FormLabel>
-              <Input type="email" placeholder="Email" />
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Email</FormLabel>
+              <Input  focusBorderColor="primary.400" type="email" placeholder="Email" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Senha</FormLabel>
-              <Input type="password" placeholder="Senha" />
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Senha</FormLabel>
+              <Input  focusBorderColor="primary.400" type="password" placeholder="Senha" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
             <Flex justifyContent="flex-end" >
               <IconButton
@@ -51,6 +54,7 @@ const ClinicSignup = () => {
                 backgroundColor={"#E8DDFD"}
                 color={"primary.300"}
                 colorScheme="primary"
+                size={"sm"}
                 _hover={{backgroundColor:"#E8DDFD"}}
               />
             </Flex>
@@ -59,20 +63,23 @@ const ClinicSignup = () => {
       case 2:
         return (
           <Box>
-            <Heading as="h3" size="md" mb={4}>
+            <Heading as="h3" size="sm" mb={2}>
               2: Dados Empresariais
             </Heading>
-            <FormControl mb={4}>
-              <FormLabel>CNPJ</FormLabel>
-              <Input placeholder="CNPJ" />
+            <FormControl mb={2} fontSize={"sm"}>
+              <FormLabel fontSize={"sm"}>CNPJ</FormLabel>
+              <Input  focusBorderColor="primary.400" placeholder="CNPJ" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Nome Fantasia</FormLabel>
-              <Input placeholder="Nome Fantasia" />
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Nome Fantasia</FormLabel>
+              <Input  focusBorderColor="primary.400" placeholder="Nome Fantasia" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
-            <FormControl mb={4}>
-            <FormLabel>Causa Social</FormLabel>
-            <Input placeholder="Causa Social" />
+            <FormControl mb={2}>
+            <FormLabel fontSize={"sm"}>Causa Social</FormLabel>
+            <Input  focusBorderColor="primary.400" placeholder="Causa Social" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
             <Flex justifyContent="space-between">
               <IconButton
@@ -83,8 +90,10 @@ const ClinicSignup = () => {
                 onClick={handlePreviousStep}
                 colorScheme="primary"
                 _hover={{backgroundColor:"#E8DDFD"}}
+                size="sm"
               />
               <IconButton
+              size="sm"
                 aria-label="Próximo"
                 icon={<ArrowForwardIcon />}
                 backgroundColor={"#E8DDFD"}
@@ -99,32 +108,37 @@ const ClinicSignup = () => {
       case 3:
         return (
           <Box>
-          <Heading as="h3" size="md" mb={4}>
+          <Heading as="h3" size="sm" mb={2}>
             3: Endereço
           </Heading>
           <Grid templateColumns="1fr 1fr" gap={4}>
-            <FormControl mb={4}>
-              <FormLabel>Estado</FormLabel>
-              <Input placeholder="Estado" />
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Estado</FormLabel>
+              <Input placeholder="Estado"  focusBorderColor="primary.400"  borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Cidade</FormLabel>
-              <Input placeholder="Cidade" />
-            </FormControl>
-          </Grid>
-          <Grid templateColumns="1fr 1fr" gap={4}>
-            <FormControl mb={4}>
-              <FormLabel>Rua</FormLabel>
-              <Input placeholder="Rua" />
-            </FormControl>
-            <FormControl mb={4}>
-              <FormLabel>Numero</FormLabel>
-              <Input placeholder="Numero" type="number"/>
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Cidade</FormLabel>
+              <Input  focusBorderColor="primary.400" placeholder="Cidade" borderRadius={"md"}
+          size={"sm"}/>
             </FormControl>
           </Grid>
-          <FormControl mb={4}>
-            <FormLabel>CEP</FormLabel>
-            <Input placeholder="CEP" />
+          <Grid templateColumns="1fr 1fr" gap={2}>
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}> Rua</FormLabel>
+              <Input  focusBorderColor="primary.400" placeholder="Rua" borderRadius={"md"}
+          size={"sm"}/>
+            </FormControl>
+            <FormControl mb={2}>
+              <FormLabel fontSize={"sm"}>Numero</FormLabel>
+              <Input  focusBorderColor="primary.400" placeholder="Numero" type="number" borderRadius={"md"}
+          size={"sm"}/>
+            </FormControl>
+          </Grid>
+          <FormControl mb={2}>
+            <FormLabel fontSize={"sm"}>CEP</FormLabel>
+            <Input  focusBorderColor="primary.400" placeholder="CEP" borderRadius={"md"}
+          size={"sm"}/>
           </FormControl>
           <Flex justifyContent="space-between">
             <IconButton
@@ -135,13 +149,15 @@ const ClinicSignup = () => {
               onClick={handlePreviousStep}
               colorScheme="primary"
               _hover={{backgroundColor:"#E8DDFD"}}
+              size={"sm"}
             />
             <Button
               color="primary.100"
               onClick={handleSubmit}
-              backgroundColor="primary.300"
+              backgroundColor="primary.200"
               _hover={{ backgroundColor: 'primary.300' }}
               _focus={{ backgroundColor: 'primary.300' }}
+              size={"sm"}
             >
               Registrar
             </Button>

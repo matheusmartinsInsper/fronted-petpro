@@ -7,6 +7,7 @@ import { Box, Button, Flex, Heading, Image, Text, VStack, IconButton,Link }  fro
 import { ArrowBackIcon } from '@chakra-ui/icons';
 import VetSignin from './components/collaboratorsignin';
 import ClinicSignin from './components/clinicsignin';
+import { relative } from 'path';
 //import Link from 'next/link';
 
 const SignupPage = () => {
@@ -20,9 +21,10 @@ const SignupPage = () => {
     <Flex minH="100vh">
       {/* Container da Esquerda */}
       <Flex flex="3.5" bg="primary.100" p={8} justifyContent="center" alignItems="center">
-        <Box bg="white"  p={4} shadow="md" borderWidth="1px" borderRadius="10px" textAlign="center" width="70%" height="80%" borderColor={"primary.100"}>
+        <Box bgColor={"primary.300"}  bgGradient="linear(to-tr, primary.200, primary.300)"  position={"absolute"} width={"35vw"} height={"38vh"} top={"12vh"} borderRadius={"lg"}></Box>
+        <Box bg="white" zIndex={"2"}  p={4} shadow="lg" borderWidth="2px" borderRadius="10px" textAlign="center" width="25%" height="55%" borderColor={"primary.100"}>
         <Flex alignItems="center" justifyContent="center">
-      <Heading as="h1" size="lg" mb={4} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} opacity={"90%"}>
+      <Heading as="h1" size="md" mb={10} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} opacity={"90%"}>
         Login
       </Heading>
     </Flex>
@@ -33,42 +35,51 @@ const SignupPage = () => {
                 icon={<ArrowBackIcon />}
                 onClick={handleBack}
                 alignSelf="flex-start"
-                mb={4}
+                mb={0}
                 backgroundColor={"white"}
+                size={"sm"}
+                _hover={{backgroundColor:"primary.100"}}
               />
               {userType === 'vet' && <VetSignin />}
               {userType === 'clinic' && <ClinicSignin />}
             </Box>
           ) : (
             <Flex justifyContent="center" alignItems="center" height="80%">
-      <VStack spacing={4} align="center" width="70%">
+      <VStack spacing={2} align="center" width="70%">
         
-        <Text color="primary.200" mb={"10px"}>Selecione o tipo de usuário abaixo</Text>
+        <Text color="gray.500" mb={"2"} mt="4">Selecione o tipo de usuário</Text>
         <Button
-          width="80%"
-          color="primary.100"
+          width="50%"
+          color="primary.300"
+          boxShadow={"md"}
+          fontWeight={"bold"}
           onClick={() => setUserType('vet')}
-          backgroundColor="primary.300"
-          _hover={{ backgroundColor: 'primary.300' }}
-          _focus={{ backgroundColor: 'primary.300' }}
+          backgroundColor="white"
+          _hover={{ backgroundColor: 'primary.300',color:"primary.100" }}
+          _focus={{ backgroundColor: 'primary.300',color:"primary.100"  }}
+          size={"sm"}
         >
           Veterinário
         </Button>
         <Button
-          width="80%"
-          color="primary.100"
+          width="50%"
+          color="primary.300"
+          boxShadow={"md"}
+          fontWeight={"bold"}
           onClick={() => setUserType('clinic')}
-          backgroundColor="primary.300"
-          _hover={{ backgroundColor: 'primary.300' }}
-          _focus={{ backgroundColor: 'primary.300' }}
+          backgroundColor="white"
+          _hover={{ backgroundColor: 'primary.300',color:"primary.100" }}
+          _focus={{ backgroundColor: 'primary.300',color:"primary.100"  }}
+          size={"sm"}
+          mb="2"
         >
            Clínica
         </Button>
-        <Text color="primary.200">Ou</Text>
-        <Text color="primary.200">
-        Sem cadastro? <Link href="/Signup" _hover={{textDecoration:"none"}} color={"primary.300"}>Registrar</Link>
+        <Text color="gray.500" fontSize={"sm"}>Ou</Text>
+        <Text color="gray.500">
+        Sem cadastro? <Link href="/Signup" _hover={{textDecoration:"none"}} color={"primary.300"} fontWeight={"bold"}>Registrar</Link>
         </Text>
-        <Heading as="h1" size="md" mb={4} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"}>
+        <Heading as="h1" size="xs" mb={1} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} bottom={"0"}>
         <span style={{ color: '#7839EE' }}>PET</span>pro
       </Heading>
       </VStack>
@@ -77,17 +88,7 @@ const SignupPage = () => {
         </Box>
       </Flex>
 
-      {/* Container da Direita */}
-      <Box flex="6" bg="primary.200" p={8} position="relative">
-  <Flex flex="1" justifyContent="flex-start" alignItems="flex-start" textAlign="left" position="absolute" top="0" left="0" p={8}>
-    <Box color="primary.100" width="100%" zIndex="100">
-      <Heading as="h2" size="md" mb={4} color="primary.100" lineHeight="taller" fontSize="3xl">
-        <span style={{ color: '#7839EE' }}>Centralize</span> e realize a <span style={{ color: '#7839EE' }}>gestão</span> de seus <br/> atendimentos, serviços, estoque e colaboradores <br/> em uma  <span style={{ color: '#7839EE' }}>única plataforma com integração a IA</span> <br/> registre e ganhe 7 dias de conta premium
-      </Heading>
-    </Box>
-  </Flex>
-  <Image src='teladonot.png' position="absolute" bottom="0" right="0" width={"80%"}/>
-</Box>
+      
     </Flex>
   );
 };

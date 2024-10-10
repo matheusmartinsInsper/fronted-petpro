@@ -17,7 +17,7 @@ import {
   ModalFooter,
   Image,
   Select,
-  useToast
+  useToast,Circle
 } from '@chakra-ui/react';
 import { Service } from "../page";
 import { CheckCircleIcon, WarningIcon, InfoOutlineIcon } from '@chakra-ui/icons';
@@ -80,6 +80,22 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         return 'primary.600';
       case 'Pendente':
         return '#FFC100';
+      default:
+        return 'gray.500';
+    }
+  };
+  const getPriorityColor = (status: string) => {
+    switch (status) {
+      case 'Não urgente':
+        return 'primary.1100';
+      case 'Pouco urgente':
+        return 'primary.800';
+      case 'Urgente':
+        return 'primary.900';
+      case "Muito urgente":
+        return 'primary.1000';
+      case "Emergencia":
+        return "primary.600"
       default:
         return 'gray.500';
     }
@@ -199,7 +215,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Image src="https://avatars.githubusercontent.com/u/96667690?s=400&u=4f8546bf37989b834e06c9f8537efde6fddc1312&v=4" alt="Tutor Image" />
               </Box>
               <Box>
-                <Text fontSize="md" fontWeight="bold">Cliente</Text>
+              <Text fontSize="md" fontWeight="bold" display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>Tutor <Circle size="10px" bg={getPriorityColor(service.priority)} ml={"2"}/><Text fontSize={"sm"} ml={2} color={getPriorityColor(service.priority)}>{service.priority}</Text></Text>
                 <Flex>
                   <Text mr={"4"} ><strong>Nome:</strong> {service.clientName}</Text>
                   <Text><strong>Telefone:</strong> {service.clientPhone}</Text>

@@ -1,7 +1,8 @@
 "use client"
-import { Box, Heading, Flex, Text, SimpleGrid, Card, CardBody, Icon, useTheme, Button,Link,IconButton } from '@chakra-ui/react';
+import { Box, Heading, Flex, Text, SimpleGrid, Card, CardBody, Icon, useTheme, Button,Link,IconButton,Spinner,Image } from '@chakra-ui/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell,BarChart,Bar,AreaChart, Area } from 'recharts';
 import { FaEnvelope } from 'react-icons/fa';
+import { useState, useEffect } from "react";
 import { MdEvent, MdPeople, MdStore,MdMoreHoriz } from 'react-icons/md';
 import Sidebar from './components/Sidebar';
 import Header from "./components/headers";
@@ -49,6 +50,58 @@ const faturamentoSemanal: BarData[] = [
 
 const UserPage: React.FC = () => {
   const theme = useTheme();
+  const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false); // Define o estado para falso após 2 segundos
+    }, 500);
+
+    // Cleanup do timeout ao desmontar o componente
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    // Retorna uma tela de carregamento ou nulo até que o tempo passe
+    return <>
+    <Header />
+    <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"} position={"relative"}>
+      <Sidebar />
+      <Box
+        marginLeft="250px"
+        py="2"
+        px={"4"}
+        width="calc(100% - 250px)"
+        flex="1"
+        borderRadius="md"
+        position="relative"
+        mt={"-10px"}
+      >
+        {/* Container centralizado com spinner e texto */}
+        <Flex
+          justify="center"
+          align="center"
+          height="calc(100vh - 60px)"// Preenche toda a altura da tela para centralizar
+          direction="column"
+        >
+          <Box bgColor={"white"} flexDirection={"column"} height={"25vh"} width={"33vw"} display={"flex"} justifyContent={"center"} alignItems={"center"} boxShadow={"md"} borderRadius={"md"}>
+          
+          <Text fontWeight={"bold"}  mb={4} fontSize="lg" color="gray.700" >
+            Estamos trazendo seus dados, aguarde...
+          </Text>
+          <Spinner
+            thickness="4px"
+            speed="0.65s"
+            emptyColor="gray.200"
+            color="primary.300"
+            size="xl"
+          />
+          </Box>
+        </Flex>
+      </Box>
+    </Flex>
+  </>
+  }
 
   const solicitacoes: number = 10;
   const agendamentos: number = 5;
@@ -76,6 +129,7 @@ const UserPage: React.FC = () => {
           position="relative"
           mt={"-10px"}
         >
+          
             <Box
             borderTop={"1px"}
             borderTopColor={"primary.100"}
@@ -86,18 +140,16 @@ const UserPage: React.FC = () => {
               left={0}
               right={0}// Coloca atrás dos cards
               px="4"
-              willChange="transform" 
+              zIndex={1} 
             >
               <Heading  as="h1" mb="1" mt = "6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>Best Clinica</Text></Heading>
               <Text color={"gray.500"} mb={"1"}>Acompanhe suas metricas semanais e mensais! </Text>
             </Box>
 
-            <Heading  as="h1" mb="1" mt = "6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>Best Clinica</Text></Heading>
-            <Text color={"gray.500"} mb={"1"}>Acompanhe suas metricas semanais e mensais! </Text>
 
-          <SimpleGrid   columns={{ base: 1, md: 2, lg: 4 }} spacing="2" >
+          <SimpleGrid zIndex={2}  mt="20" columns={{ base: 1, md: 2, lg: 4 }} spacing="2" position={"relative"}>
             <Link  href='Home/solicitations'  _hover={{ textDecoration: 'none', color: 'inherit' }}  >
-            <Card>
+            <Card zIndex={2}>
               <CardBody  color="primary.250"  _hover={{backgroundColor:"primary.300",color:"primary.100",borderRadius:"md",transition:"0.2"}} transition={"1"} cursor={"pointer"}>
              
                 <Flex align="center" >
@@ -122,7 +174,7 @@ const UserPage: React.FC = () => {
                 </Flex>
                 <Flex align={"end"} mt={2}>
                 <Text fontSize="xl" fontWeight="bold"   mr={2} mb={-1}>{agendamentos} </Text>
-                <Text fontSize="sm"  color="gray.500" >Marcados para hoje </Text>
+                <Text fontSize="sm"  color="gray.500" >Confirmados para hoje </Text>
                 </Flex>
               </CardBody>
             </Card>
@@ -156,8 +208,8 @@ const UserPage: React.FC = () => {
           <Box mt="2">
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing="2">
              
-              <Card borderRadius="lg" overflow="hidden">
-  <CardBody>
+              <Card borderRadius="lg" overflow="hidden" zIndex={3} >
+  <CardBody >
     <Flex justify={"space-between"}>
       <Heading size="md" mb="4" color={"primary.250"}>
         Meta do Mês
@@ -254,17 +306,20 @@ const UserPage: React.FC = () => {
     </ResponsiveContainer>
   </CardBody>
 </Card>
-<Card borderRadius="lg" overflow="hidden">
+<Card borderRadius="lg" overflow="hidden" zIndex={"3"}>
                 <CardBody>
-                  <Heading size="md" mb="12" color="primary.250">Receita semanal</Heading>
+                  <Heading size="md" mb="8" color="primary.250">Receita semanal</Heading>
+                  <Text color={"gray.500"} mt="-2" mb="2">
+                  <InfoOutlineIcon color={"gray.400"} boxSize={"3"} /> As perdas são calculadas sobre as solicitações canceladas.
+                  </Text>
                   <Flex mb="10" justify={"space-between"}>
                   <Box>
                       <Text fontSize="md" fontWeight="bold" color="primary.250">Cliente atendidos</Text>
                       <Box backgroundColor={"primary.500"} color={"primary.300"} textAlign={"center"} maxWidth={"60px"} borderRadius={"md"} borderColor={"primary.300"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">{totalAtendimentosSemana}</Text></Box>
                     </Box>
                     <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250">Total Faturado</Text>
-                      <Box backgroundColor={"green.100"} color={"green.600"} textAlign={"center"} maxWidth={"70px"}   borderRadius={"md"} borderColor={"green.600"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">{totalFaturadoSemana}R$</Text></Box>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250">Total faturado</Text>
+                      <Box backgroundColor={"#D5FFE4"} color={"green.600"} textAlign={"center"} maxWidth={"70px"}   borderRadius={"md"} borderColor={"green.600"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">{totalFaturadoSemana}R$</Text></Box>
                     </Box>
                     <Box>
                       <Text fontSize="md" fontWeight="bold" color="primary.250">Cancelados</Text>
@@ -282,8 +337,8 @@ const UserPage: React.FC = () => {
     <XAxis dataKey="day" />
     <YAxis />
     <Tooltip />
-    <Area type="monotone" dataKey="totalFaturado" strokeWidth={"2px"} stroke={"#2EB086"} fill={"#A6F0C6"} name="Total Faturado" />
-    <Area type="monotone" dataKey="totalPerdido" strokeWidth={"2px"} stroke={theme.colors.primary[600]} fill={"#FF407D"} fillOpacity={"90%"} name="Total Perdido" />
+    <Area type="monotone" dataKey="totalFaturado" strokeWidth={"2px"} stroke={"#2EB086"} fill={"#D5FFE4"} name="Total Faturado" />
+    <Area type="monotone" dataKey="totalPerdido" strokeWidth={"2px"} stroke={theme.colors.primary[600]} fill={theme.colors.primary[650]} fillOpacity={"90%"} name="Total Perdido" />
   </AreaChart>
 </ResponsiveContainer>
 

@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Input, VStack, Button, useToast } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Input, VStack, Button, useToast,Text,Checkbox } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useRouter } from 'next/navigation';
@@ -46,41 +46,56 @@ const ClinicSignin = () => {
   };
 
   return (
-    <VStack spacing={8} align="stretch" width="full" maxW="md" mx="auto" mt={0}>
-      <Box p={8} borderWidth={0} borderRadius="lg">
-        <FormControl mb={4}>
-          <FormLabel>Email</FormLabel>
-          <Input
-            type="email"
-            placeholder="exemplo@gmail.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            focusBorderColor="primary.400"
-          />
-        </FormControl>
-        <FormControl mb={4}>
-          <FormLabel>Senha</FormLabel>
-          <Input
-            type="password"
-            placeholder="********"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            focusBorderColor="primary.400"
-          />
-        </FormControl>
-        <Button
-          color="white"
-          backgroundColor="primary.300"
-          _hover={{ backgroundColor: 'primary.300' }}
-          _focus={{ backgroundColor: 'primary.300' }}
-          width="full"
-          mt={4}
-          onClick={handleSubmit}
-        >
-          Entrar
-        </Button>
-      </Box>
-    </VStack>
+    <VStack spacing={4} align="stretch" width="full" maxW="md" mx="auto" mt={0}>
+  <Box p={4} borderWidth={0} borderRadius="lg">
+    <FormControl mb={4}>
+      <FormLabel>Email</FormLabel>
+      <Input
+        type="email"
+        placeholder="clinica@gmail.com"
+        value={email}
+        size={"sm"}
+        onChange={(e) => setEmail(e.target.value)}
+        focusBorderColor="primary.400"
+        borderRadius={"md"}
+      />
+    </FormControl>
+    <FormControl mb={4}>
+      <FormLabel>Senha</FormLabel>
+      <Input
+        borderRadius={"md"}
+        size={"sm"}
+        type="password"
+        placeholder="********"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        focusBorderColor="primary.400"
+      />
+    </FormControl>
+    <Box display={"flex"} flexDirection={"row"} justifyContent={"space-between"}>
+      <Text size={"sm"} fontSize={"sm"} color={"gray.500"}>
+        <Checkbox mr="2" iconColor="primary.300" colorScheme="primary.100" _selected={{ color: "primary.300", outline: "none" }} />
+        Lembrar de mim
+      </Text>
+      <Text fontSize={"sm"} color={"primary.300"} cursor={"pointer"}>
+        Esqueci senha
+      </Text>
+    </Box>
+    <Box display="flex" justifyContent="flex-start" mt={4}>
+      <Button
+        color="white"
+        backgroundColor="primary.200"
+        _hover={{ backgroundColor: 'primary.300' }}
+        _focus={{ backgroundColor: 'primary.300' }}
+        size={"sm"}
+        onClick={handleSubmit}
+      >
+        Entrar
+      </Button>
+    </Box>
+  </Box>
+</VStack>
+
   );
 };
 

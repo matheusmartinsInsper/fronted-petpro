@@ -207,11 +207,11 @@ const Agenda: React.FC = () => {
     agendamentosPotStatus.Confirmado=data.filter((x,i)=>x.status=="Confirmado").length
   }
   const countByPriority = (data:Service[]) => {
-    agendamentosPotPrioridade["Não urgente"] = data.filter((x,i)=>x.priority=="Não urgente").length
-    agendamentosPotPrioridade["Pouco urgente"] = data.filter((x,i)=>x.priority=="Pouco urgente").length
-    agendamentosPotPrioridade["Urgente"] = data.filter((x,i)=>x.priority=="Urgente").length
-    agendamentosPotPrioridade["Muito urgente"] = data.filter((x,i)=>x.priority=="Muito urgente").length
-    agendamentosPotPrioridade["Emergencia"] = data.filter((x,i)=>x.priority=="Emergencia").length
+    agendamentosPotPrioridade["Não urgente"] = data.filter((x,i)=>x.priority=="Não urgente").filter((y,i)=>y.status=="Confirmado").length
+    agendamentosPotPrioridade["Pouco urgente"] = data.filter((x,i)=>x.priority=="Pouco urgente").filter((y,i)=>y.status=="Confirmado").length
+    agendamentosPotPrioridade["Urgente"] = data.filter((x,i)=>x.priority=="Urgente").filter((y,i)=>y.status=="Confirmado").length
+    agendamentosPotPrioridade["Muito urgente"] = data.filter((x,i)=>x.priority=="Muito urgente").filter((y,i)=>y.status=="Confirmado").length
+    agendamentosPotPrioridade["Emergencia"] = data.filter((x,i)=>x.priority=="Emergencia").filter((y,i)=>y.status=="Confirmado").length
   }
 
   const handleDateSelect = (date: Date) => {

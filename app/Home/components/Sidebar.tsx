@@ -91,7 +91,7 @@ const Sidebar = () => {
         </HStack>
         {isMainMenuExpanded && (
           <>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.200", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.200", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/solicitations'>
               <HStack>
@@ -99,7 +99,7 @@ const Sidebar = () => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Solicitações</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"}
               href='/Home/agenda'
@@ -109,7 +109,7 @@ const Sidebar = () => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Agenda</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.200", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.200", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/solicitations'>
               <HStack>
@@ -117,7 +117,7 @@ const Sidebar = () => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Clientes</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/metricas'>
               <HStack>
@@ -125,7 +125,7 @@ const Sidebar = () => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Dashboards</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/chat'>
               <HStack>
@@ -133,7 +133,7 @@ const Sidebar = () => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Chat</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/prontuarios' mb={2}>
               <HStack>
@@ -151,7 +151,7 @@ const Sidebar = () => {
         </HStack>
         {isSettingsExpanded && (
           <>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/services'>
               <HStack>
@@ -161,7 +161,7 @@ const Sidebar = () => {
             </Link>
             {!isCollaborator && (
               <>
-                <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+                <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/collaborators'>
                   <HStack>
@@ -172,7 +172,7 @@ const Sidebar = () => {
                
               </>
             )}
-             <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/estoque'>
                   <HStack>
@@ -180,7 +180,7 @@ const Sidebar = () => {
                     {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Estoque</Text>}
                   </HStack>
                 </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/integration'>
               <HStack>
@@ -188,7 +188,7 @@ const Sidebar = () => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Integrações</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'gray.200', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/form'>
               <HStack>
@@ -202,7 +202,7 @@ const Sidebar = () => {
 
       {/* Seção Inferior */}
       <Flex align="center" mt={4} backgroundColor={"transparent"} borderRadius={"8px"} width={"50%"}
-        _hover={{ color: "primary.200", backgroundColor: "gray.200", opacity: "100%" }}
+        _hover={{ color: "primary.200", backgroundColor: "primary.500", opacity: "100%" }}
         onClick={handleLogout}
         cursor={"pointer"}
         justifyContent={isCollapsed ? "center" : "start"}
@@ -214,7 +214,7 @@ const Sidebar = () => {
           mr={isCollapsed ? "0" : "2"}
           backgroundColor="transparent"
           color={"primary.100"}
-          _hover={{ color: "primary.100", backgroundColor: "gray.200", opacity: "100%" }}
+          _hover={{ color: "primary.100", backgroundColor: "primary.500", opacity: "100%" }}
         />
         {!isCollapsed && <Text fontWeight={"bold"} color={"primary.250"}>Sair</Text>}
       </Flex>
