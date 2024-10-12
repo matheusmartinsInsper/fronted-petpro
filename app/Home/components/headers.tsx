@@ -28,6 +28,7 @@ import { FaUserCircle } from "react-icons/fa";
 import axios from "../../../utils/axiosConfig";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import mylogo from "../../../public/mylogo.png"
 
 interface Invitation {
   idinvitation: string;
@@ -142,7 +143,7 @@ const Header = () => {
       as="header"
       width="100%"
       height="40px"
-      backgroundColor="primary.200"
+      backgroundColor="#F6F7F9"
       paddingX="4"
       display="flex"
       alignItems="center"
@@ -150,12 +151,13 @@ const Header = () => {
       zIndex={"200"}
       position={"relative"}
       borderBottom={"1px"}
-      borderBottomColor={"primary.250"}
+      borderBottomColor={"gray.200"}
     >
       <Flex width="100%" justifyContent="space-between" alignItems="center">
-      <Flex color={"primary.100"} position="relative"
-        ml={2} >
-          <Link href='/Home' _hover={{textDecoration:"none"}}><Text fontSize="xl" fontWeight="bold" mb={1}><span style={{ color: '#7839EE' }}>PET</span>pro</Text></Link>
+      <Flex color={"primary.200"} position="relative"
+        ml={"-2"} flexDirection={"row"} alignItems={"center"} textAlign={"center"}>
+          <Image src="../../../mylogo.png" boxSize={"8%"}  ></Image>
+          <Link ml={"-2"} href='/Home' _hover={{textDecoration:"none"}}><Text fontSize="xl" fontWeight="bold" ><span style={{ color: '#7839EE' }}>PET</span>pro</Text></Link>
         </Flex>
         <Spacer />
         

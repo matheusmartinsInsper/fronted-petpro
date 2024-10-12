@@ -107,7 +107,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         <ModalHeader >
           <Flex align="center" justify="start" width="100%">
             
-            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Responsavel - {service.nameuserowner}</Text>
+            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
             <Text ml={4} fontSize="lg" fontWeight="bold">
               Agendamento 
             </Text>

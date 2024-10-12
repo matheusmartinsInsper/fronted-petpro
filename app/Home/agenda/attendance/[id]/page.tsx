@@ -62,6 +62,7 @@ const Atendimento = () => {
   const [files, setFiles] = useState<any[]>([]);
   const [exames, setExames] = useState<any[]>([]);
   const [comprovantespagamento, setComprovantePagamentos] = useState<any[]>([]);
+  const [selectedButton, setSelectedButton] = useState<string>("Prioridade");
 
   const handleFilesUpdate = (updatedFiles: any[]) => {
     setFiles(updatedFiles);
@@ -130,6 +131,9 @@ const Atendimento = () => {
       fileInputRefs[type].current.click();
     }
   };
+  const handleButtonClick = (buttonName: string) => {
+    setSelectedButton(buttonName);
+  };
 
   return (
     <>
@@ -147,37 +151,23 @@ const Atendimento = () => {
               Agenda
             </Heading>
           </Box>
-          <Box>
-            <Button
-              display="flex"
-              right="0"
-              backgroundColor="primary.500"
-              maxWidth="110px"
-              leftIcon={<AddIcon fontSize="sm" />}
-              color="primary.300"
-              size="sm"
-              _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
-            >
-              Agendar
-            </Button>
-          </Box>
         </Flex>
         <Flex direction="row" height="calc(100vh - 120px)" mx="4">
         <Box width="22%" borderRadius="md" boxShadow="md" height="100%" zIndex={9} bg="white" px="2" mr="4">
   {/* Dados do Pet */}
-  <Box p="2" mb="2"  display={"flex"} flexDirection={"column"}>
+  <Box p="2" mb="2" display={"flex"} flexDirection={"column"}>
     
-    <Box boxShadow={"md"} boxSize="80px" borderRadius="xl" overflow="hidden"  mb="2" mr={"4"}>
+    <Box boxShadow={"md"} boxSize="80px" borderRadius="md" overflow="hidden"  mb="2" mt={"2"} >
     <Image  src="https://avatars.githubusercontent.com/u/32210610?v=4" alt={`Foto do pet ${service.petName}`} borderRadius={"sm"}/>
     </Box>
     <Box fontSize={"sm"}>
     <Text  display={"flex"} flexDirection={"column"} fontSize={"md"} fontWeight={"bold"} mb={"4"}>{service.petName}</Text>
-    <Text><strong>Raça:</strong> {service.petBreed}</Text>
-    <Text><strong>Idade:</strong> {service.petAge} anos</Text>
-    <Text><strong>Espécie:</strong> {service.petSpecies}</Text>
-    <Text><strong>Castrado:</strong> {service.petCastrado ? 'Sim' : 'Não'}</Text>
-    <Text><strong>Peso:</strong> {service.petWeight} kg</Text>
-    <Text><strong>Sexo:</strong> {service.petGender}</Text>
+    <Text my={'1'}><strong>Raça:</strong> {service.petBreed}</Text>
+    <Text my={'1'}><strong>Idade:</strong> {service.petAge} anos</Text>
+    <Text my={'1'}><strong>Espécie:</strong> {service.petSpecies}</Text>
+    <Text my={'1'}><strong>Castrado:</strong> {service.petCastrado ? 'Sim' : 'Não'}</Text>
+    <Text my={'1'}><strong>Peso:</strong> {service.petWeight} kg</Text>
+    <Text my={'1'}><strong>Sexo:</strong> {service.petGender}</Text>
     </Box>
    
   </Box>
@@ -186,26 +176,66 @@ const Atendimento = () => {
   <Box p="2" >
     <Text fontSize="md" fontWeight="bold" mb="2">Tutor</Text>
     <Box fontSize={"sm"}>
-    <Text><strong>Nome:</strong> {service.clientName}</Text>
-    <Text><strong>E-mail:</strong> {service.clientEmail}</Text>
-    <Text><strong>Telefone:</strong> {service.clientPhone}</Text>
+    <Text my={'1'}><strong>Nome:</strong> {service.clientName}</Text>
+    <Text my={'1'}><strong>E-mail:</strong> {service.clientEmail}</Text>
+    <Text my={'1'}><strong>Telefone:</strong> {service.clientPhone}</Text>
     </Box>
   </Box>
+  <Text fontSize="md" fontWeight="bold" mb = "2" px={2}>Contra indicações</Text>
   <Box p="2"   bgColor="white"   
-    overflowY="auto" maxHeight={"180px"}>
-    <Text fontSize="md" fontWeight="bold" mb="2" >Contra indicações</Text>
-    <Box mb={"4"} bgColor={"#E9F6FF"} fontSize={"sm"} border={"2px"} borderColor={"primary.1100"} borderRadius={"md"} p = "2" borderLeftColor={"primary.1100"} borderLeftWidth={"6px"}>
+    overflowY="auto" maxHeight={"140px"}>
+    
+    <Box height={"120px"} mb={"4"} bgColor={"#E9F6FF"} fontSize={"sm"} border={"2px"} borderColor={"primary.1100"} borderRadius={"md"} p = "2" borderLeftColor={"primary.1100"} borderLeftWidth={"6px"}>
     <Text fontSize={"xs"} mb="2">Contra Indicação</Text>
-    <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"sm"}> meu pet nao pode tomar banho com produto x</Text></Text>
+    <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"xs"}> meu pet nao pode tomar banho com produto x</Text></Text>
     </Box>
-    <Box bgColor={"primary.650"} fontSize={"sm"} border={"2px"} borderColor={"primary.600"} borderRadius={"md"} p = "2" borderLeftColor={"primary.600"} borderLeftWidth={"6px"}>
-    <Text fontSize={"xs"} mb="2">Contra Indicação<Text fontWeight={"bold"} fontSize={"sm"}> Alergico a shampo x</Text></Text>
-    <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"sm"}> meu pet nao pode tomar banho com produto x</Text></Text>
+    <Box height={"120px"}  bgColor={"primary.650"} fontSize={"sm"} border={"2px"} borderColor={"primary.600"} borderRadius={"md"} p = "2" borderLeftColor={"primary.600"} borderLeftWidth={"6px"}>
+    <Text fontSize={"xs"} mb="2">Contra Indicação<Text fontWeight={"bold"} fontSize={"xs"}> Alergico a shampo x</Text></Text>
+    <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"xs"}> meu pet nao pode tomar banho com produto x</Text></Text>
     </Box>
   </Box>
 </Box>
-
+          {/* Container do atendimento */}
         <Box width={"80%"} borderRadius="md" boxShadow="md" height="100%" zIndex={9} bg="white">
+        <Flex justify="space-between" align="center" mb="2" borderBottomColor="gray.200" borderBottomWidth="1px" px="4" fontFamily="Nunito, sans-serif">
+          <Box flexDirection="row" display="flex">
+            <Heading as="h1" size="sm" color="primary.200" display="flex" flexDirection="row">
+              <Button 
+              size="sm"
+              onClick={() => handleButtonClick('Atendimento')}
+              bg="white"
+              color="primary.200"
+              boxShadow={selectedButton === 'Atendimento' ? 'md' : 'none'}
+              _hover={{ bg: 'primary.100' }}
+              fontWeight="bold" mr={"4"}>Atendimento</Button>
+                <Button 
+              size="sm"
+              onClick={() => handleButtonClick('Anamnese')}
+              bg="white"
+              color="primary.200"
+              boxShadow={selectedButton === 'Anamnese' ? 'md' : 'none'}
+              _hover={{ bg: 'primary.100' }}
+              fontWeight="bold" mr={"4"}>Anamnese</Button>
+                <Button 
+              size="sm"
+              onClick={() => handleButtonClick('Prescrição')}
+              bg="white"
+              color="primary.200"
+              boxShadow={selectedButton === 'Prescrição' ? 'md' : 'none'}
+              _hover={{ bg: 'primary.100' }}
+              fontWeight="bold" mr={"4"}>Prescrição</Button>
+                <Button 
+              size="sm"
+              onClick={() => handleButtonClick('Retorno')}
+              bg="white"
+              color="primary.200"
+              boxShadow={selectedButton === 'Retorno' ? 'md' : 'none'}
+              _hover={{ bg: 'primary.100' }}
+              fontWeight="bold" mr={"4"}>Retorno</Button>
+            </Heading>
+          </Box>
+        </Flex>
+        
           </Box>
         </Flex>
       </Box>

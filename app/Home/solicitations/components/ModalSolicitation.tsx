@@ -179,6 +179,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
     } catch (error) {
       toast({
         title: 'Erro ao aceitar o serviço.',
+        description: "Selecione um usuario para o atendimento",
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -191,10 +192,12 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent minWidth={"600px"} >
-        <ModalHeader>
+      <ModalHeader >
           <Flex align="center" justify="start" width="100%">
-            <Text fontSize="lg" fontWeight="bold">
-              Detalhes da Solicitação
+            
+            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
+            <Text ml={4} fontSize="lg" fontWeight="bold">
+              Detalhes da Solicitação 
             </Text>
             <Flex align="center" ml={4}>
               <Text fontSize="md" fontWeight="bold" color={getStatusColor(service.status)}>
@@ -204,6 +207,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 {getStatusIcon(service.status)}
               </Box>
             </Flex>
+            
           </Flex>
         </ModalHeader>
 
