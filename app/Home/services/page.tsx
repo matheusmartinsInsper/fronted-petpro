@@ -84,6 +84,7 @@ const Services = () => {
   useEffect(() => {
     fetchServices();
   }, [toggleStateapi]);
+  
   const fetchServices = async () => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('Authorization');

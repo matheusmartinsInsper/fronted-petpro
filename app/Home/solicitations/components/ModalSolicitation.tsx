@@ -27,7 +27,7 @@ interface member {
   email:string
 }
 
-export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => void, service: Service,typefromrequest:string }> = ({ isOpen, onClose, service,typefromrequest }) => {
+export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => void, service: Service,typefromrequest:string,fetchservices: () => void }> = ({ isOpen, onClose, service,typefromrequest,fetchservices}) => {
   const toast = useToast();
   const [isCollaborator, setIsCollaborator] = useState(false);
   const [emailUserAttendance,setEmailUserAttendance] = useState("");
@@ -158,7 +158,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
       }
     }
     try {
-      if(isCollaborator==true&&typefromrequest=="User"){
+      if(emailUserAttendance==""&&typefromrequest=="User"){
         let emailuser = localStorage.getItem("emailuser")!.toString();
         setEmailUserAttendance(emailuser);
         console.log(emailUserAttendance)
@@ -187,7 +187,6 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
       console.error('Erro ao aceitar o serviço:', error);
     }
   };
-
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -196,9 +195,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
           <Flex align="center" justify="start" width="100%">
             
             <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
-            <Text ml={4} fontSize="lg" fontWeight="bold">
-              Detalhes da Solicitação 
-            </Text>
+            
             <Flex align="center" ml={4}>
               <Text fontSize="md" fontWeight="bold" color={getStatusColor(service.status)}>
                 {service.status}
@@ -243,6 +240,10 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Text>{service.petSpecies}</Text>
               </Box>
               <Box flex="1" pr={4}>
+                <Text><strong>Castrado:</strong></Text>
+                <Text>{service.castrated==true?"Sim":"Não"}</Text>
+              </Box>
+              <Box flex="1" pr={0}>
                 <Text><strong>Peso:</strong></Text>
                 <Text>{service.petWeight}</Text>
               </Box>
@@ -250,6 +251,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Text><strong>Idade:</strong></Text>
                 <Text>{service.petAge}</Text>
               </Box>
+             
             </Flex>
             <Text fontSize="md" fontWeight="bold">Comentário do Tutor</Text>
             <Box border="1px" borderColor="gray.200" borderRadius="md" p={4} mb={4}>

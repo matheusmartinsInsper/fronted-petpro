@@ -116,7 +116,7 @@ const UserPage: React.FC = () => {
     
     <>
     <Header />
-    <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"} position={"relative"}>
+    <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"} position={"relative"} >
       <Sidebar />
       <Flex>
         <Box
@@ -280,7 +280,7 @@ const UserPage: React.FC = () => {
       </PieChart>
     </ResponsiveContainer>
 
-    <Text color={"gray.500"} mt="-2" mb="2">
+    <Text color={"gray.500"} mt="-2" mb="2" >
     <InfoOutlineIcon color={"gray.400"} boxSize={"3"} /> Esse é o valor total recebido no mês
     </Text>
 

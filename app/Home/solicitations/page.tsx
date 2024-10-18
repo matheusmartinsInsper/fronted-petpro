@@ -67,6 +67,7 @@ export interface Service {
   clientName: string;
   clientPhone: string;
   clientEmail: string;
+  castrated: boolean;
   petName: string;
   petBreed: string;
   petSpecies: string;
@@ -163,6 +164,7 @@ const Services = () => {
         clientName: service.tutor.name,
         clientPhone: service.tutor.number,
         clientEmail: service.tutor.email,
+        castrated: service.pet.castrated,
         petName: service.pet.petname,
         petBreed: service.pet.race,
         petSpecies: service.pet.species,
@@ -568,8 +570,8 @@ const Services = () => {
                     <Td paddingY={"2.5"}>{format(service.date, "dd/MM/yy HH:mm")}</Td>
                     <Td paddingY={"2.5"}>
                       {format(service.datesolicitation, "dd/MM/yy HH:mm")}
-                      {hoursDifference > 6 && (
-                        <WarningIcon color={"primary.600"} boxSize={"4"} ml="2" mt="-1"/>
+                      {hoursDifference >= 6 && (
+                        <WarningIcon color={"primary.600"} boxSize={"3"} ml="2" mt="-1"/>
                       )}
                     </Td>
                     <Td paddingY={"2.5"}>
@@ -697,6 +699,7 @@ const Services = () => {
             onClose={onClose}
             service={selectedService}
             typefromrequest={toggleStateapi}
+            fetchservices={fetchServices}
           />
         )}
       </Box>

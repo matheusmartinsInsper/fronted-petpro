@@ -80,9 +80,7 @@ const Sidebar = () => {
           _hover={{ backgroundColor: "primary.100",boxShadow: "md" }}
         />
       </Flex>
-
-      <Divider borderColor="gray.200" />
-
+     <Divider borderColor="gray.200" />
       {/* Menu Principal */}
       <VStack align={isCollapsed ? "center" : "start"} spacing={0} justifyContent={"start"} flex="1" color={"primary.100"} mt={4}>
         <HStack justify="start" width="100%" onClick={toggleMainMenu} cursor="pointer">
@@ -111,7 +109,7 @@ const Sidebar = () => {
             </Link>
             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.200", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
-              borderRadius={"md"} href='/Home/solicitations'>
+              borderRadius={"md"} href='/Home/clients'>
               <HStack>
                 <AtSignIcon  color={"primary.200"}/>
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Clientes</Text>}

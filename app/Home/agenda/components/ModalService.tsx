@@ -89,9 +89,10 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         isClosable: true,
       });
       onClose(); // Fecha o modal após a ação
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: 'Erro ao aceitar o serviço.',
+        description: error.response.data.messageError,
         status: 'error',
         duration: 3000,
         isClosable: true,

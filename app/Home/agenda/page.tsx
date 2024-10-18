@@ -37,6 +37,7 @@ import Header from '../components/headers';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import { ServiceCard } from "./components/ServiceCard"
+import { ModalAgenda } from "./components/ModelAgenda"
 import { count } from 'console';
 
 const daysOfWeek = [
@@ -313,6 +314,7 @@ const Agenda: React.FC = () => {
               leftIcon={<AddIcon fontSize="sm" />}
               color="primary.300"
               size="sm"
+              onClick={onOpen}
               _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
             >
               Agendar
@@ -503,6 +505,7 @@ const Agenda: React.FC = () => {
         </Flex>
       </Box>
     </Flex>
+    <ModalAgenda isOpen={isOpen} onClose={onClose} toggleStateapi={toggleStateapi} />
   </>
   
 );
