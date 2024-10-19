@@ -17,7 +17,8 @@ import {
   useDisclosure,
   useToast,
   Image,
-  Link
+  Link,
+  Switch
 } from "@chakra-ui/react";
 import { FaUser, FaChartBar,FaDollarSign } from 'react-icons/fa';
 import {
@@ -35,6 +36,7 @@ import Sidebar from "../components/Sidebar";
 import Header from "../components/headers";
 import { useState, useEffect } from "react";
 import axios from "../../../utils/axiosConfig";
+import { ModalAgenda } from "./components/ModalAgenda"
 
 interface PetOutput {
   age: string;
@@ -48,7 +50,7 @@ interface PetOutput {
   castrated: boolean;
 }
 
-interface OutPutClientDTO {
+export interface OutPutClientDTO {
   name: string;
   email: string;
   dateadd: string;
@@ -62,7 +64,22 @@ const clients = ()=>{
   const [filteredclients, setfilteredclients] = useState<OutPutClientDTO[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
+  const [toggleState, setToggleState] = useState<"Pessoal" | "rede">("Pessoal");
+  const [toggleStateapi, setToggleStateapi] = useState<"User" | "NetWork">("User");
   const toast = useToast();
+  const [isOpen, setIsOpen] = useState(false);
+const [selectedClient, setSelectedClient] = useState<OutPutClientDTO>();
+
+const openModal = (client: OutPutClientDTO) => {
+  setSelectedClient(client); // Armazena o cliente selecionado
+};
+
+useEffect(() => {
+  if (selectedClient) {
+    setIsOpen(true); // Abre o modal quando selectedClient é atualizado
+  }
+  console.log(selectedClient)
+}, [selectedClient]);
   useEffect(()=>{
     fetchClients()
   },[])
@@ -85,7 +102,7 @@ const clients = ()=>{
           dateborn: client.dateborn,
           pets : client.pets.map((pet:any)=>({
             age: pet.age,
-            idpet: pet.age,
+            idpet: pet.idpet,
             datebor: pet.datebor,
             petname: pet.petname,
             weight: pet.weight,
@@ -117,6 +134,12 @@ const clients = ()=>{
     } else if (direction === "prev" && currentPage > 1) {
       setCurrentPage(currentPage - 1);
     }
+  };
+  const handleToggleChange = () => {
+    const newToggleState = toggleState === "Pessoal" ? "rede" : "Pessoal";
+    const newToggleStateapi = toggleStateapi === "User" ? "NetWork" : "User";
+    setToggleState(newToggleState);
+    setToggleStateapi(newToggleStateapi);
   };
 
   const paginatedClient = filteredclients.slice(
@@ -154,6 +177,32 @@ return (
           >
             Adicionar
           </Button>
+          <Button
+              backgroundColor="white"
+              borderRadius="md"
+              size="sm"
+              py="2"
+              mt="1"
+              boxShadow="md"
+              ml="4"
+              _hover={{ backgroundColor: "white" }}
+            >
+              <Box ml="0">
+                <Switch
+                  colorScheme="purple"
+                  isChecked={toggleState === "rede"}
+                  onChange={handleToggleChange}
+                  size="sm"
+                  tabIndex={-1}
+                  _focus={{ outline: "none", boxShadow: "none" }}
+                  _active={{ outline: "none", boxShadow: "none" }}
+                  onMouseDown={(e) => e.preventDefault()}
+                />
+              </Box>
+              <Text ml="2" color="primary.250" fontWeight="bold" fontSize="sm">
+                {toggleState === "Pessoal" ? "Pessoal" : "Rede"}
+              </Text>
+            </Button>
           <Box ml="auto">
             <Input
               placeholder="Pesquisar por nome"
@@ -212,6 +261,7 @@ return (
                         backgroundColor={"white"}
                         boxShadow={"md"}
                         _hover={{ backgroundColor: "primary.1100", color: "primary.100" }}
+                        onClick={() => openModal(client)}
                       />
                       <IconButton
                       mx="1"
@@ -297,6 +347,12 @@ return (
         </Flex>
       </Box>
     </Flex>
+    <ModalAgenda 
+      isOpen={isOpen} 
+      onClose={() => setIsOpen(false)} 
+      toggleStateapi={toggleStateapi} 
+      user={selectedClient!} 
+    />
     </>
 )
 }

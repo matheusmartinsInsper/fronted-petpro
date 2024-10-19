@@ -32,22 +32,9 @@ import { CheckCircleIcon, WarningIcon, InfoOutlineIcon,CheckIcon  } from '@chakr
 import axios from "../../../../utils/axiosConfig"
 import { color } from 'framer-motion';
 import {ServiceRow} from "./ServiceRow"
+import {OutPutClientDTO} from "../page"
 
-interface User {
-    email: string;
-    password: string;
-    name: string;
-  }
   
-  interface Pet {
-    dateborn: string; // Consider using Date type if you plan to handle it as a date
-    petname: string;
-    weight: number;
-    race: string;
-    species: string;
-    sex: string;
-    castrated: boolean;
-  }
   
   interface Order {
     idservice: string;
@@ -55,13 +42,13 @@ interface User {
     dateappointed: string; // Consider using Date type if you plan to handle it as a date
     attendancemodel: string;
     priority: string;
+    idpet: string;
     idsubcategories: string[]; // Assuming these are IDs, adjust type as needed
     idvaccines: string[]; // Assuming these are IDs, adjust type as needed
   }
   
   interface Payload {
-    user: User;
-    pet: Pet;
+    emailusertutor: string;
     order: Order;
   }
   
@@ -91,7 +78,7 @@ export  interface Service {
     atendimento: string[]
   }
 
-export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggleStateapi: string }> = ({ isOpen, onClose,toggleStateapi }) => {
+export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggleStateapi: string,user:OutPutClientDTO }> = ({ isOpen, onClose,toggleStateapi,user }) => {
 
   const toast = useToast();
   const [selectedVaccines, setSelectedVaccines] = useState<string[]>([]);
@@ -101,25 +88,13 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
   const [idvaccines,setidvaccines] = useState<string[]>([])
   const [idsubcategories,setidsubcategories] = useState<string[]>([])
   const [payload, setPayload] = useState<Payload>({
-    user: {
-      email: '',
-      password: '',
-      name: '',
-    },
-    pet: {
-      dateborn: '',
-      petname: '',
-      weight: 0,
-      race: '',
-      species: '',
-      sex: '',
-      castrated: false,
-    },
+    emailusertutor: '',
     order: {
       idservice: '',
       comments: '',
       dateappointed: '',
       attendancemodel: '',
+      idpet: '',
       priority: '',
       idsubcategories: [],
       idvaccines: [],
@@ -153,6 +128,7 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
           atendimento: service.atendimento
         }));
         setServices(formattedServices);
+       
       }
       console.log(response.data.data)
     } catch (error) {
@@ -176,7 +152,7 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
     }
       
     try {
-      const response = await axios.post(`/OrderService/Manually`,payload); 
+      await axios.post(`/OrderService/Manually/WithTutor`,payload); 
       toast({
         title: "Agendado",
         description: "Agendamento salvo com sucesso",
@@ -195,18 +171,6 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
       });
     }
   };
-  
-
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setPayload((prev) => ({
-      ...prev,
-      user: {
-        ...prev.user,
-        [name]: value,
-      },
-    }));
-  };
   const handleOrderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setPayload((prev) => ({
@@ -216,6 +180,20 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
         [name]: value,
       },
     }));
+  }
+  const handleOrderChangeIdPet = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setPayload((prev) => ({
+      ...prev,
+      order: {
+        ...prev.order,
+        [name]: value,
+      },
+    }));
+    setPayload((prev) => ({
+        ...prev,
+        emailusertutor: user?.email,
+      }))
   }
   // Função para adicionar ID de subcategoria
 const handleSubcategorySelect = (id: string) => {
@@ -266,29 +244,6 @@ const handleSubcategorySelect = (id: string) => {
         }
       });
   };
-  
-
-  const handlePetChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-
-    if (name === 'castrated') {
-      setPayload((prev) => ({
-        ...prev,
-        pet: {
-          ...prev.pet,
-          castrated: value === 'sim',
-        },
-      }));
-    } else {
-      setPayload((prev) => ({
-        ...prev,
-        pet: {
-          ...prev.pet,
-          [name]: value,
-        },
-      }));
-    }
-  };
 
   const [step, setStep] = useState(1); 
 
@@ -337,134 +292,22 @@ const handleSubcategorySelect = (id: string) => {
 
         <ModalCloseButton />
         <ModalBody>
-          {step === 1 ? (
-          <Box border="1px" borderColor="gray.200" borderRadius="md" p={4} width={"100%"} boxShadow={"md"}>
-          <Text borderTopRadius={"sm"} fontSize="sm" fontWeight="bold" p="2" mb={2} borderBottom={"2px"} borderBottomColor={"primary.300"} bgColor={"primary.500"} color={"primary.200"}>Dados do Tutor</Text>
-          <Flex wrap="wrap" justify="space-between" mb={4}>
-            <Box flex="1" pr={4}>
-              <Text fontSize={"sm"} fontWeight={"bold"}>Nome</Text>
-              <Input
-              name='name'
-              placeholder="Jose"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handleUserChange}
-            />
-            </Box>
-            <Box flex="1" pr={4}>
-              <Text fontSize={"sm"} fontWeight={"bold"}><strong>Email:</strong></Text>
-              <Input
-               name='email'
-              placeholder="Jose@gmail.com"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handleUserChange}
-            />
-            </Box>
-            <Box flex="1" pr={4}>
-              <Text fontSize={"sm"} fontWeight={"bold"}><strong>Senha:</strong></Text>
-              <Input
-               name='password'
-              placeholder="*******"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handleUserChange}
-            />
-            </Box>
-          </Flex>
-        
-          <Text borderTopRadius={"sm"} fontSize="sm" fontWeight="bold" p="2" mb={2} borderBottom={"2px"} borderBottomColor={"primary.300"} bgColor={"primary.500"} color={"primary.200"}>Dados do Pet</Text>
-          <Flex wrap="wrap" justify="space-between">
-  <Box flex="0 0 48%" pr={4} mb={4}> {/* 1ª linha, 1º campo */}
-    <Text fontSize={"sm"} fontWeight={"bold"}><strong>Pet:</strong></Text>
-    <Input
-     name='petname'
-              placeholder="Miau"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handlePetChange}
-            />
-  </Box>
-  <Box flex="0 0 48%" pr={4} mb={4}> {/* 1ª linha, 2º campo */}
-    <Text fontSize={"sm"} fontWeight={"bold"}><strong>Espécie:</strong></Text>
-    <Input
-     name='species'
-              placeholder="Cão"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handlePetChange}
-            />
-  </Box>
-  
-  <Box flex="0 0 48%" pr={4} mb={4}> {/* 2ª linha, 1º campo */}
-    <Text fontSize={"sm"} fontWeight={"bold"}><strong>Raça:</strong></Text>
-    <Input
-     name='race'
-              placeholder="Buldogue"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handlePetChange}
-            />
-  </Box>
-  <Box flex="0 0 48%" pr={4} mb={4}> {/* 2ª linha, 2º campo */}
-    <Text fontSize={"sm"} fontWeight={"bold"}><strong>Castrado:</strong></Text>
-    <Select  name='castrated' placeholder="Selecione" size="sm" borderRadius={"md"} focusBorderColor='primary.300' color={"primary.200"}>
-      <option value="sim">Sim</option>
-      <option value="nao">Não</option>
-    </Select>
-  </Box>
-  
-  <Box flex="0 0 48%" pr={4} mb={4}> {/* 3ª linha, 1º campo */}
-    <Text fontSize={"sm"} fontWeight={"bold"}><strong>Peso:</strong></Text>
-    <Input
-     name='weight'
-              placeholder="2kg"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              type='number'
-              onChange={handlePetChange}
-            />
-  </Box>
-  <Box flex="0 0 48%" mb={4} pr="4"> {/* 3ª linha, 2º campo */}
-  <Text fontSize={"sm"} fontWeight={"bold"}><strong>Sexo:</strong></Text>
-    <Select  name='sex' placeholder="Selecione" size="sm" borderRadius={"md"} focusBorderColor='primary.300' color={"primary.200"}  onChange={handlePetChange}>
-      <option value="sim">Macho</option>
-      <option value="nao">Femea</option>
-    </Select>
-  </Box>
-<Box flex="0 0 48%" mb={4} pr={4}> {/* 3ª linha, 2º campo */}
-  <Text fontSize={"sm"} fontWeight={"bold"}><strong>Data de nascimento:</strong></Text>
-  <Input   name='dateborn'  onChange={handlePetChange} focusBorderColor='primary.300' color={"primary.200"} type="date" placeholder="Selecione a data" fontSize={"sm"} size={"sm"} borderRadius={"md"}/>
-</Box>
-<Flex justify="flex-end" mt={4} pr={4}>
-            <Button _hover={{ backgroundColor: "primary.300", color: "primary.100" }} colorScheme="blue" onClick={handleNextStep} bgColor={"white"} size={"sm"} color={"primary.200"} boxShadow={"md"}>
-              Próximo
-            </Button>
-          </Flex>
-</Flex>  
-</Box>
-        
-          ) : (
             <Box width="100%" p={4}>
-
   <Flex mt={4}>
     {/* Coluna da esquerda com as seções */}
-    <Box width="30%" pr={4} maxHeight={"350"}>
+    
+    <Box width="30%" pr={4} maxHeight={"400"}>
       {/* Seção dos Botões de Rádio */}
+      <Box flex="1" pr={2} mb={2}>
+                <Text fontSize={"sm"} mb="1"><strong>Pet:</strong></Text>
+                <Select placeholder="pets" size="sm" name='idpet' isReadOnly focusBorderColor='primary.300' color={"primary.200"} onChange={handleOrderChangeIdPet}>
+                  {user?.pets?.map((pet) => (
+                    <option key={pet.idpet} value={pet.idpet} >
+                      {pet.petname}
+                    </option>
+                  ))}
+                </Select>
+              </Box>
       <Text fontWeight="bold" mb={2} fontSize={"sm"}>Prioridade:</Text>
       <RadioGroup onChange={(value) => setPayload((prev) => ({
     ...prev,
@@ -506,7 +349,7 @@ const handleSubcategorySelect = (id: string) => {
     </Box>
 
     {/* Coluna da direita com a box em branco */}
-    <Box width="70%" border="1px" borderColor="gray.200" borderRadius="md" p={2} overflowY={"auto"}  maxHeight="350px" >
+    <Box width="70%" border="1px" borderColor="gray.200" borderRadius="md" p={2} overflowY={"auto"}  maxHeight="390px" >
         <Text fontSize={"sm"} fontWeight={"bold"} mb="2" bgColor={"primary.250"} borderTopRadius={"md"} p={"2"} borderBottomWidth={"2px"} borderBottomColor={"primary.250"} color={"primary.100"}>Serviços</Text>
       {service != undefined ?(
         <Box>
@@ -543,13 +386,10 @@ const handleSubcategorySelect = (id: string) => {
     </Box>
   </Flex>
 </Box>
-
-          
-          )}
         </ModalBody>
-        <ModalFooter>
+        <ModalFooter mx={"4"}>
           <Flex width="100%" justify="space-between">
-            {step === 2 && (
+            
                 <>
                 <Button bgColor={"white"} size={"sm"} color={"primary.200"} boxShadow={"md"} _hover={{ backgroundColor: "primary.300", color: "primary.100" }} onClick={handleBack} >
                 Voltar
@@ -567,7 +407,7 @@ const handleSubcategorySelect = (id: string) => {
              </Link>
                 </>
               
-            )}
+            
            
           </Flex>
         </ModalFooter>

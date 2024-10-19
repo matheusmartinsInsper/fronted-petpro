@@ -46,7 +46,6 @@ const Sidebar = () => {
       as="nav"
       width={isCollapsed ? "60px" : "250px"}
       py="2"
-      px="4"
       borderRightWidth="1px"
       borderRightColor="gray.200"
       height="calc(100vh - 40px)"
@@ -59,7 +58,7 @@ const Sidebar = () => {
       transition="width 0.3s"
     >
       {/* Seção Superior */}
-      <Flex textAlign={"center"} height={"60px"} justifyContent={isCollapsed ? "center" : "start"} alignItems={"center"} mb={"2"}>
+      <Flex mx="4" textAlign={"center"} height={"60px"} justifyContent={isCollapsed ? "center" : "start"} alignItems={"center"} mb={"2"}>
         
         {!isCollapsed && <Box  display="flex" flexDirection="row" alignItems="center" textAlign="start" ml={2}>
         <Box boxSize="50px" borderRadius="full" overflow="hidden" mr={4}>
@@ -82,7 +81,7 @@ const Sidebar = () => {
       </Flex>
      <Divider borderColor="gray.200" />
       {/* Menu Principal */}
-      <VStack align={isCollapsed ? "center" : "start"} spacing={0} justifyContent={"start"} flex="1" color={"primary.100"} mt={4}>
+      <VStack mx={"4"} align={isCollapsed ? "center" : "start"} spacing={0} justifyContent={"start"} flex="1" color={"primary.100"} mt={4}>
         <HStack justify="start" width="100%" onClick={toggleMainMenu} cursor="pointer">
           <Text fontSize="md" fontWeight="bold" color="gray.500" display={isCollapsed ? "none" : "flex"} opacity={"sm"} ml={2}>Main Menu</Text>
           {!isCollapsed && <IconButton color={"primary.200"} _hover={{ color: "primary.200", backgroundColor: "whitesmoke", opacity: "80%" }} icon={isMainMenuExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />} aria-label="Expand Main Menu" variant="ghost" />}
@@ -204,6 +203,7 @@ const Sidebar = () => {
         onClick={handleLogout}
         cursor={"pointer"}
         justifyContent={isCollapsed ? "center" : "start"}
+        mx={"4"}
       >
         <IconButton
           aria-label="Logout"
