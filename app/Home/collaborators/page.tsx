@@ -51,6 +51,10 @@ const Collaborators = ({ params }: { params: { username: string } }) => {
   const { isOpen: isRemoveOpen, onOpen: onRemoveOpen, onClose: onRemoveClose } = useDisclosure(); // Hook para controlar o modal de remoção
   const [selectedCollaborator, setSelectedCollaborator] = useState<string | null>(null);
   const toast = useToast();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -145,12 +149,12 @@ const Collaborators = ({ params }: { params: { username: string } }) => {
     <>
     <Header />
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
-      <Sidebar />
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
       
       <Box
-        marginLeft="250px"
         py="2"
-        width="calc(100% - 250px)"
+        marginLeft={isCollapsed?"60px":"250px"}
+         width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         borderRadius="md"
         position="relative"
@@ -217,14 +221,15 @@ const Collaborators = ({ params }: { params: { username: string } }) => {
                   <Td>{collaborator.birthDate}</Td>
                   <Td>{collaborator.status}</Td>
                   <Td>{collaborator.email}</Td>
-                  <Td paddingY={"2.5"}>
+                  <Td paddingY={"3.5"}>
                     <IconButton
                       aria-label="Remover Colaborador"
                       icon={<DeleteIcon />}
                       onClick={() => handleRemoveClick(collaborator.email)}
-                      size="sm"
+                      size="xs"
+                      boxShadow={"md"}
                       color={"primary.600"}
-                      backgroundColor={"primary.650"}
+                      backgroundColor={"white"}
                       _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
                     />
                   </Td>

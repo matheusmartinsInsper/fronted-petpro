@@ -56,6 +56,10 @@ const Form: React.FC = () => {
   const [formColor, setFormColor] = useState('primary.300')
   const [showOptionColors,setshowOptionColors] = useState<boolean>(false);
   const router = useRouter();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   const handleAddField = (type: string) => {
     const newField: Field = { label: '', type };
@@ -139,11 +143,11 @@ const Form: React.FC = () => {
     <>
       <Header />
       <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
-        <Sidebar />
+      <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
         <Box 
-        marginLeft="250px"
         py="2"
-        width="calc(100% - 250px)"
+        marginLeft={isCollapsed?"60px":"250px"} 
+        width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         borderRadius="md"
         position="relative">
@@ -234,13 +238,12 @@ const Form: React.FC = () => {
                       <FormLabel>Rótulo: {fields[index].label} 
                         <IconButton
                         aria-label="Remover campo"
-                        backgroundColor={"primary.100"}
-                        border={"2px"}
-                        borderColor={"#FF407D"}
-                        color="#FF407D"
-                        _hover={{ backgroundColor: "#FF407D", color: "primary.100" }}
+                        backgroundColor={"white"}
+                        color="primary.600"
+                        _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
                         size={"sm"}
                         ml={"2"}
+                        boxShadow={"md"}
                         icon={<DeleteIcon />}
                         onClick={() => handleRemoveField(index)}/>
                         </FormLabel>
@@ -280,14 +283,16 @@ const Form: React.FC = () => {
                                 placeholder="Opção"
                                 onChange={(e) => handleOptionChange(index, optionIndex, e.target.value)}
                               />
-                              <Button
-                                backgroundColor={"primary.100"}
-                                border={"2px"}
-                                borderColor={"#FF407D"}
-                                color="#FF407D"
-                                _hover={{ backgroundColor: "#FF407D", color: "primary.100" }}
-                                size={"sm"}
-                                onClick={() => handleRemoveOption(index, optionIndex)}>Remover</Button>
+                               <IconButton
+                        aria-label="Remover campo"
+                        backgroundColor={"white"}
+                        color="primary.600"
+                        _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
+                        size={"sm"}
+                        ml={"2"}
+                        boxShadow={"md"}
+                        icon={<DeleteIcon />}
+                        onClick={() => handleRemoveOption(index, optionIndex)}/>
                             </HStack>
                           ))}
                           <Button
@@ -318,13 +323,16 @@ const Form: React.FC = () => {
                                   placeholder="Opção"
                                   onChange={(e) => handleOptionChange(index, optionIndex, e.target.value)}
                                 />
-                                <Button backgroundColor={"primary.100"}
-                                  border={"2px"}
-                                  borderColor={"#FF407D"}
-                                  color="#FF407D"
-                                  _hover={{ backgroundColor: "#FF407D", color: "primary.100" }}
-                                  size={"sm"}
-                                  onClick={() => handleRemoveOption(index, optionIndex)}>Remover</Button>
+                                 <IconButton
+                        aria-label="Remover campo"
+                        backgroundColor={"white"}
+                        color="primary.600"
+                        _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
+                        size={"sm"}
+                        ml={"2"}
+                        boxShadow={"md"}
+                        icon={<DeleteIcon />}
+                        onClick={() => handleRemoveOption(index, optionIndex)}/>
                               </HStack>
                             ))}
                           </VStack>

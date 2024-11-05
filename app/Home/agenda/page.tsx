@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from 'next/router';
 import React, { useState, useMemo,useEffect,useRef,useCallback } from 'react';
 import axios from "../../../utils/axiosConfig"
 import {
@@ -82,12 +82,13 @@ export interface Service {
   petAge: string;
   servicePrice: string;
   clientComment: string;
-  status: 'Confirmado' | 'Concluído' | 'Cancelado'|'Pendente';
+  status: 'Confirmado' | 'Concluido' | 'Cancelado'|'Pendente'|'Andamento';
   categoryname: string;
   vaccines: Vaccine[];
   subcategories: Subcategory[];
   idos:string;
   attendancemodel:string;
+  idattendance: string;
 }
  interface AgendamentosPotPrioridade {
   "Não urgente": number;
@@ -110,7 +111,8 @@ const generateWeekDates = (startDate: Date): Date[] => {
 const agendamentosPotStatus={
   "Confirmado":0,
   "Concluido":0,
-  "Cancelado":0
+  "Cancelado":0,
+  "Andamento":0
 }
 
 const formatDate = (date: Date) => {
@@ -136,6 +138,10 @@ const Agenda: React.FC = () => {
   const [toggleState, setToggleState] = useState<"Pessoal" | "rede">("Pessoal");
   const [toggleStateapi, setToggleStateapi] = useState<"User" | "NetWork">("User");
   const [selectedButton, setSelectedButton] = useState<string>("Prioridade");
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   useEffect(() => { 
     fetchCollaborators();
@@ -181,7 +187,8 @@ const Agenda: React.FC = () => {
           vaccines: service.vaccines || [],
           subcategories: service.subcategories || [],
           idos: service.idorderservice,
-          attendancemodel:service.attendancemodel
+          attendancemodel:service.attendancemodel,
+          idattendance: service.idattendance
         }));
         setServices(data);
         countByStatus(data);
@@ -204,8 +211,9 @@ const Agenda: React.FC = () => {
   };
   const countByStatus = (data:Service[])=>{
     agendamentosPotStatus.Cancelado=data.filter((x,i)=>x.status=="Cancelado").length
-    agendamentosPotStatus.Concluido=data.filter((x,i)=>x.status=="Concluído").length
+    agendamentosPotStatus.Concluido=data.filter((x,i)=>x.status=="Concluido").length
     agendamentosPotStatus.Confirmado=data.filter((x,i)=>x.status=="Confirmado").length
+    agendamentosPotStatus.Andamento=data.filter((x,i)=>x.status=="Andamento").length
   }
   const countByPriority = (data:Service[]) => {
     agendamentosPotPrioridade["Não urgente"] = data.filter((x,i)=>x.priority=="Não urgente").filter((y,i)=>y.status=="Confirmado").length
@@ -267,8 +275,8 @@ const Agenda: React.FC = () => {
     <>
     <Header />
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor="primary.100">
-      <Sidebar />
-      <Box marginLeft="250px" py="2" width="calc(100% - 250px)" flex="1" borderRadius="md" position="relative">
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
+      <Box  py="2" marginLeft={isCollapsed?"60px":"250px"} width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"} flex="1" borderRadius="md" position="relative">
         <Flex justify="space-between" align="center" mb="2" borderBottomColor="gray.200" borderBottomWidth="1px" pb="1" px="4" fontFamily="Nunito, sans-serif">
           <Box flexDirection="row" display="flex">
             <Heading as="h1" size="sm" color="primary.200" display="flex" flexDirection="row">
@@ -411,6 +419,10 @@ const Agenda: React.FC = () => {
             <Progress bgColor="#F6F7F9" size="sm" value={agendamentosPotStatus.Confirmado} sx={{ "& > div": { backgroundColor: "primary.300" } }} borderRadius="md" />
           </Box>
           <Box mb={2}>
+            <Text fontSize="xs" mb={1}>Andamento: {agendamentosPotStatus.Andamento}</Text>
+            <Progress bgColor="#F6F7F9" size="sm" value={agendamentosPotStatus.Andamento} sx={{ "& > div": { backgroundColor: "primary.1100" } }} borderRadius="md" />
+          </Box>
+          <Box mb={2}>
             <Text fontSize="xs" mb={1}>Concluído: {agendamentosPotStatus.Concluido}</Text>
             <Progress bgColor="#F6F7F9" size="sm" value={agendamentosPotStatus.Concluido} sx={{ "& > div": { backgroundColor: "primary.800" } }} borderRadius="md" />
           </Box>
@@ -418,6 +430,7 @@ const Agenda: React.FC = () => {
             <Text fontSize="xs" mb={1}>Cancelado: {agendamentosPotStatus.Cancelado}</Text>
             <Progress bgColor="#F6F7F9" size="sm" value={agendamentosPotStatus.Cancelado} sx={{ "& > div": { backgroundColor: "primary.600" } }} borderRadius="md" />
           </Box>
+          
         </>
       )}
     </Box>

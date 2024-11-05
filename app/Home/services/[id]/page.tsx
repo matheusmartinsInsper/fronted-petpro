@@ -44,6 +44,10 @@ const ServiceDetail = () => {
   const [service, setService] = useState<Service | null>(null);
   const [newSubcategory, setNewSubcategory] = useState<{ title: string; price: number }>({ title: '', price: 0 });
   const [newVaccine, setNewVaccine] = useState<{ name: string; price: number }>({ name: '', price: 0 });
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   useEffect(() => {
     // Configuração do token de autenticação
@@ -160,10 +164,10 @@ const ServiceDetail = () => {
     <>
     <Header/>
     <Flex direction="row" minHeight="calc(100vh - 40px)" backgroundColor={"primary.200"}>
-      <Sidebar />
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
       <Box
-        marginLeft="250px"
-        width="calc(100% - 250px)"
+      marginLeft={isCollapsed?"60px":"250px"}
+       width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         position="relative"
         backgroundColor={"primary.100"}

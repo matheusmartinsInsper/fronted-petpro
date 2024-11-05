@@ -51,7 +51,10 @@ const faturamentoSemanal: BarData[] = [
 const UserPage: React.FC = () => {
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento
-
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false); // Define o estado para falso após 2 segundos
@@ -60,18 +63,19 @@ const UserPage: React.FC = () => {
     // Cleanup do timeout ao desmontar o componente
     return () => clearTimeout(timer);
   }, []);
+  
 
   if (isLoading) {
     // Retorna uma tela de carregamento ou nulo até que o tempo passe
     return <>
     <Header />
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"} position={"relative"}>
-      <Sidebar />
+      <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
       <Box
-        marginLeft="250px"
+        marginLeft={isCollapsed?"60px":"250px"}
         py="2"
         px={"4"}
-        width="calc(100% - 250px)"
+        width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         borderRadius="md"
         position="relative"
@@ -117,13 +121,13 @@ const UserPage: React.FC = () => {
     <>
     <Header />
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"} position={"relative"} >
-      <Sidebar />
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
       <Flex>
         <Box
-          marginLeft="250px"
+          marginLeft={isCollapsed?"60px":"250px"}
           py="2"
           px={"4"}
-          width="calc(100% - 250px)"
+          width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
           flex="1"
           borderRadius="md"
           position="relative"
@@ -193,17 +197,20 @@ const UserPage: React.FC = () => {
               </CardBody>
             </Card>
             </Link>
+            <Link href='Home/clients'  _hover={{ textDecoration: 'none', color: 'inherit' }}>
             <Card>
               <CardBody color="primary.250" _hover={{backgroundColor:"primary.300",color:"primary.100",borderRadius:"md",transition:"0.2"}} transition={"1"} cursor={"pointer"}>
                 <Flex align="center">
                   <Icon as={EditIcon} boxSize={4} mr={2} />
-                  <Heading size="sm" >Itens em Estoque</Heading>
+                  <Heading size="sm" >Clientes</Heading>
                 </Flex>
                 <Flex align={"end"} mt={2}>
                 <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>{estoque} </Text>
                 </Flex>
               </CardBody>
             </Card>
+            </Link>
+            
           </SimpleGrid>
           <Box mt="2">
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing="2">
@@ -215,9 +222,13 @@ const UserPage: React.FC = () => {
         Meta do Mês
       </Heading>
       <Button
-        backgroundColor={"primary.500"}
+        backgroundColor={"white"}
         color={"primary.300"}
         borderRadius={"md"}
+        border={'1px'}
+        boxShadow={"md"}
+        fontWeight={"bold"}
+        borderColor={"gray.200"}
         size={"sm"}
         _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
       >
@@ -308,26 +319,26 @@ const UserPage: React.FC = () => {
 </Card>
 <Card borderRadius="lg" overflow="hidden" zIndex={"3"}>
                 <CardBody>
-                  <Heading size="md" mb="8" color="primary.250">Receita semanal</Heading>
-                  <Text color={"gray.500"} mt="-2" mb="2">
+                  <Heading size="md" mb="12" color="primary.250">Receita semanal</Heading>
+                  {/* <Text color={"gray.500"} mt="-2" mb="2">
                   <InfoOutlineIcon color={"gray.400"} boxSize={"3"} /> As perdas são calculadas sobre as solicitações canceladas.
-                  </Text>
+                  </Text> */}
                   <Flex mb="10" justify={"space-between"}>
                   <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250">Cliente atendidos</Text>
-                      <Box backgroundColor={"primary.500"} color={"primary.300"} textAlign={"center"} maxWidth={"60px"} borderRadius={"md"} borderColor={"primary.300"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">{totalAtendimentosSemana}</Text></Box>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Cliente atendidos</Text>
+                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.300"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalAtendimentosSemana}</Text></Box>
                     </Box>
                     <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250">Total faturado</Text>
-                      <Box backgroundColor={"#D5FFE4"} color={"green.600"} textAlign={"center"} maxWidth={"70px"}   borderRadius={"md"} borderColor={"green.600"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">{totalFaturadoSemana}R$</Text></Box>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Total faturado</Text>
+                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"#2EB086"} textAlign={"center"} maxWidth={"70px"}  border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalFaturadoSemana}R$</Text></Box>
                     </Box>
                     <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250">Cancelados</Text>
-                      <Box backgroundColor={"white"} color={"#FF407D"} textAlign={"center"} maxWidth={"60px"} borderRadius={"md"} borderColor={"#FF407D"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">49</Text></Box>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Cancelados</Text>
+                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"#FF407D"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">49</Text></Box>
                     </Box>
                     <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250">Perdas</Text>
-                      <Box backgroundColor={"primary.650"} color={"primary.600"} textAlign={"center"} maxWidth={"60px"} borderRadius={"md"} borderColor={"primary.600"} border={"2px"} fontWeight={"bold"}><Text fontSize="sm">{totalPerdido}R$</Text></Box>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Perdas</Text>
+                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.600"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalPerdido}R$</Text></Box>
                     </Box>
                    
                   </Flex>
@@ -337,8 +348,8 @@ const UserPage: React.FC = () => {
     <XAxis dataKey="day" />
     <YAxis />
     <Tooltip />
-    <Area type="monotone" dataKey="totalFaturado" strokeWidth={"2px"} stroke={"#2EB086"} fill={"#D5FFE4"} name="Total Faturado" />
-    <Area type="monotone" dataKey="totalPerdido" strokeWidth={"2px"} stroke={theme.colors.primary[600]} fill={theme.colors.primary[650]} fillOpacity={"90%"} name="Total Perdido" />
+    <Area type="monotone" dataKey="totalFaturado" strokeWidth={"2px"} stroke={theme.colors.primary[300]} fill={theme.colors.primary[100]} name="Total Faturado" />
+    <Area type="monotone" dataKey="totalPerdido" strokeWidth={"2px"} stroke={theme.colors.primary[600]} fill={theme.colors.primary[100]} fillOpacity={"90%"} name="Total Perdido" />
   </AreaChart>
 </ResponsiveContainer>
 

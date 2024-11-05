@@ -24,7 +24,7 @@ const AnexoUploader: React.FC<AnexoUploaderProps> = ({ onFilesUpdate }) => {
   };
 
   return (
-    <Box backgroundColor="white" p={4} borderRadius="md" justifyContent={"center"} alignContent={"center"} boxShadow={"md"} border={"1px"} borderColor={"primary.100"}>
+    <Box  backgroundColor="white" p={4} borderRadius="md" justifyContent={"center"} alignContent={"center"} boxShadow={"md"} border={"1px"} borderColor={"primary.100"}>
       <FilePond
         files={files}
         allowMultiple={true}
@@ -34,9 +34,9 @@ const AnexoUploader: React.FC<AnexoUploaderProps> = ({ onFilesUpdate }) => {
       />
       <Box mt={4}>
         {files.map((fileItem) => (
-          <Box key={fileItem.id} mb={2}>
+          <Box key={fileItem.id} mb={2} width={"20%"}>
             <Text color="primary.200" mb={"2"}>{fileItem.file.name}</Text>
-            <Link href={URL.createObjectURL(fileItem.file)} target="_blank" color="primary.300" backgroundColor={"primary.500"} p={2} borderRadius={"md"} mt={"10px"} textDecor={"none"}>
+            <Link fontWeight={"bold"} fontSize={"sm"} href={URL.createObjectURL(fileItem.file)} target="_blank" color="primary.300" backgroundColor={"primary.500"} p={2} borderRadius={"md"} mt={"10px"} textDecor={"none"}>
               Visualizar
             </Link>
           </Box>

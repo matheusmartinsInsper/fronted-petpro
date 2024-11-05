@@ -34,9 +34,11 @@ import {
 import { format } from 'date-fns';
 import Sidebar from "../components/Sidebar";
 import Header from "../components/headers";
+import ModalADDClient from "./components/ModalADDClient"
 import { useState, useEffect } from "react";
 import axios from "../../../utils/axiosConfig";
 import { ModalAgenda } from "./components/ModalAgenda"
+import  RemoveClient  from "./components/RemoveClient"
 
 interface PetOutput {
   age: string;
@@ -67,13 +69,25 @@ const clients = ()=>{
   const [toggleState, setToggleState] = useState<"Pessoal" | "rede">("Pessoal");
   const [toggleStateapi, setToggleStateapi] = useState<"User" | "NetWork">("User");
   const toast = useToast();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAgenda, setIsOpen] = useState(false);
 const [selectedClient, setSelectedClient] = useState<OutPutClientDTO>();
-
+const [selectedEmailClient, setselectedEmailClient] = useState<string | null>(null);
+const { isOpen: isRemoveOpen, onOpen: onRemoveOpen, onClose: onRemoveClose } = useDisclosure();
+const { isOpen, onOpen, onClose } = useDisclosure();
 const openModal = (client: OutPutClientDTO) => {
   setSelectedClient(client); // Armazena o cliente selecionado
 };
-
+const [isCollapsed, setIsCollapsed] = useState(false);
+const toggleSidebar = () => {
+  setIsCollapsed(!isCollapsed);
+};
+const handleInvite = () => {
+  onOpen();
+};
+const handleRemoveClick = (email: string) => {
+  setselectedEmailClient(email);
+  onRemoveOpen();
+};
 useEffect(() => {
   if (selectedClient) {
     setIsOpen(true); // Abre o modal quando selectedClient é atualizado
@@ -146,15 +160,27 @@ useEffect(() => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  const handleRemoveSuccess = (name: string) => {
+    setClients(clients.filter(client => client.name !== name));
+    setfilteredclients(filteredclients.filter(client => client.name !== name));
+    toast({
+      title: "Cliente removido",
+      description: `${name} foi removido com sucesso.`,
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
 return (
     <>
     <Header/>
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
-    <Sidebar />
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
     <Box
-        marginLeft="250px"
+        
         py="2"
-        width="calc(100% - 250px)"
+        marginLeft={isCollapsed?"60px":"250px"} 
+        width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         borderRadius="md"
         position="relative"
@@ -174,6 +200,7 @@ return (
             _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
             zIndex="1000"
             size={"sm"}
+            onClick={handleInvite}
           >
             Adicionar
           </Button>
@@ -293,6 +320,7 @@ return (
                         color={"primary.600"}
                         backgroundColor={"white"}
                         boxShadow={"md"}
+                        onClick={() => handleRemoveClick(client.email)}
                         _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
                       />
                      
@@ -348,11 +376,19 @@ return (
       </Box>
     </Flex>
     <ModalAgenda 
-      isOpen={isOpen} 
+      isOpen={isOpenAgenda} 
       onClose={() => setIsOpen(false)} 
       toggleStateapi={toggleStateapi} 
       user={selectedClient!} 
     />
+     <ModalADDClient isOpen={isOpen} onClose={onClose} />
+     {selectedEmailClient && (
+        <RemoveClient
+          isOpen={isRemoveOpen}
+          onClose={onRemoveClose}
+          collaboratorEmail={selectedEmailClient}
+        />
+      )}
     </>
 )
 }

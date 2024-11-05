@@ -395,15 +395,10 @@ const handleSubcategorySelect = (id: string) => {
   </Box>
   <Box flex="0 0 48%" pr={4} mb={4}> {/* 1ª linha, 2º campo */}
     <Text fontSize={"sm"} fontWeight={"bold"}><strong>Espécie:</strong></Text>
-    <Input
-     name='species'
-              placeholder="Cão"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-              onChange={handlePetChange}
-            />
+    <Select  name='species' placeholder="Selecione" size="sm" borderRadius={"md"} focusBorderColor='primary.300' color={"primary.200"}  onChange={handlePetChange}>
+      <option value="Felina">Felina</option>
+      <option value="Canina">Canina</option>
+    </Select>
   </Box>
   
   <Box flex="0 0 48%" pr={4} mb={4}> {/* 2ª linha, 1º campo */}
@@ -442,8 +437,8 @@ const handleSubcategorySelect = (id: string) => {
   <Box flex="0 0 48%" mb={4} pr="4"> {/* 3ª linha, 2º campo */}
   <Text fontSize={"sm"} fontWeight={"bold"}><strong>Sexo:</strong></Text>
     <Select  name='sex' placeholder="Selecione" size="sm" borderRadius={"md"} focusBorderColor='primary.300' color={"primary.200"}  onChange={handlePetChange}>
-      <option value="sim">Macho</option>
-      <option value="nao">Femea</option>
+      <option value="Macho">Macho</option>
+      <option value="Femea">Femea</option>
     </Select>
   </Box>
 <Box flex="0 0 48%" mb={4} pr={4}> {/* 3ª linha, 2º campo */}

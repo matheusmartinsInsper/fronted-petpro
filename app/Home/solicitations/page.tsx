@@ -129,6 +129,10 @@ const Services = () => {
   const [data, setData] = useState<{ day: string; solicitacoes: number }[]>([]);
   const [countStatus,setCountStatus] = useState<{ Cancelado: number; Pendente: number }>({Cancelado:0,Pendente:0})
   const [totalprice,settotalprice] = useState<number>(0);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   const [priorityData, setPriorityData] = useState([
     { prioridade: 'Não urgente', quantidade: 0 },
@@ -349,14 +353,15 @@ const Services = () => {
     <>
     <Header />
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
-      <Sidebar />
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
       <Box
-        marginLeft="250px"
         py="2"
-        width="calc(100% - 250px)"
+        marginLeft={isCollapsed?"60px":"250px"}
+         width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         borderRadius="md"
         position="relative"
+        height={"53.4px"}
       >
         <Flex justify="space-between" align="center" mb="2"  borderBottomColor={"gray.200"} borderBottomWidth={"1px"} pb={"1"} px = "4">
           <Flex align="center">

@@ -194,7 +194,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
       <ModalHeader >
           <Flex align="center" justify="start" width="100%">
             
-            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
+            <Text ml={0} bgColor={"white"} fontSize="sm" fontWeight="bold"   color={"primary.200"} border={"1px"} borderColor={"gray.200"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
             
             <Flex align="center" ml={4}>
               <Text fontSize="md" fontWeight="bold" color={getStatusColor(service.status)}>
@@ -216,7 +216,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Image src="https://avatars.githubusercontent.com/u/96667690?s=400&u=4f8546bf37989b834e06c9f8537efde6fddc1312&v=4" alt="Tutor Image" />
               </Box>
               <Box>
-              <Text fontSize="md" fontWeight="bold" display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>Tutor <Circle size="10px" bg={getPriorityColor(service.priority)} ml={"2"}/><Text fontSize={"sm"} ml={2} color={getPriorityColor(service.priority)}>{service.priority}</Text></Text>
+              <Text fontSize="md" fontWeight="bold" display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>Tutor <Text bgColor={"white"} p={1} borderLeftWidth={"7px"} borderRadius={"md"} borderLeftColor={getPriorityColor(service.priority)} boxShadow={"md"} fontSize={"xs"} ml={2} color={getPriorityColor(service.priority)}>{service.priority}</Text></Text>
                 <Flex>
                   <Text mr={"4"} ><strong>Nome:</strong> {service.clientName}</Text>
                   <Text><strong>Telefone:</strong> {service.clientPhone}</Text>

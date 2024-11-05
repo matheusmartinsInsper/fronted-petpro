@@ -80,6 +80,10 @@ const Services = () => {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const toast = useToast();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   useEffect(() => {
     fetchServices();
@@ -189,11 +193,11 @@ const Services = () => {
     <>
     <Header/>
     <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"} >
-      <Sidebar />
+    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
       <Box
-        marginLeft="250px"
         py="2"
-        width="calc(100% - 250px)"
+        marginLeft={isCollapsed?"60px":"250px"}
+         width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
         flex="1"
         borderRadius="md"
         position="relative"
@@ -307,15 +311,16 @@ const Services = () => {
                   <Td paddingY={"2"}>{service.descrição}</Td>
                   <Td paddingY={"2"} textAlign="center">{service.subcategorias.length} subcategoria{service.subcategorias.length > 1 ? 's' : ''}</Td>
                   <Td paddingY={"2"}>{service.vacinas.length} vacina{service.vacinas.length > 1 ? 's' : ''}</Td>
-                  <Td paddingY={"2.5"}>
+                  <Td paddingY={"3.5"}>
                   <Flex>
                       <Link href={`/Home/services/${service.idDoServiço}`}>
                         <IconButton
                           aria-label="Editar Serviço"
                           icon={<EditIcon />}
-                          size="sm"
+                          size="xs"
+                          boxShadow={"md"}
                           color="gray.600"
-                          backgroundColor="primary.100"
+                          backgroundColor="white"
                           _hover={{ backgroundColor: "gray.100" }}
                           mr="2"
                         />
@@ -323,9 +328,10 @@ const Services = () => {
                       <IconButton
                         aria-label="Excluir Serviço"
                         icon={<DeleteIcon />}
-                        size="sm"
+                        size="xs"
                         color={"primary.600"}
-                        backgroundColor={"primary.650"}
+                        backgroundColor={"white"}
+                        boxShadow={"md"}
                         _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
                         onClick={() => handleRemoveClick(service.idDoServiço)}
                       />

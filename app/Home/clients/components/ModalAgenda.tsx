@@ -160,6 +160,7 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
         duration: 5000,
         isClosable: true,
       });
+      onClose();
     } catch (error) {
       console.error('Erro ao buscar serviços:', error);
       toast({
@@ -245,14 +246,9 @@ const handleSubcategorySelect = (id: string) => {
       });
   };
 
-  const [step, setStep] = useState(1); 
-
-  const handleNextStep = () => {
-    setStep(2);
-  };
 
   const handleBack = () => {
-    setStep(1);
+    isOpen=false
   };
   const selectservice = (service: Service): void => {
     setService(service)
@@ -406,9 +402,6 @@ const handleSubcategorySelect = (id: string) => {
                </Button>
              </Link>
                 </>
-              
-            
-           
           </Flex>
         </ModalFooter>
       </ModalContent>

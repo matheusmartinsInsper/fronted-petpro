@@ -61,6 +61,10 @@ import {
     const itemsPerPage = 10;
     const [selectedForm, setSelectedForm] = useState<Form | null>(null); 
     const { isOpen, onOpen, onClose } = useDisclosure(); 
+    const [isCollapsed, setIsCollapsed] = useState(false);
+    const toggleSidebar = () => {
+      setIsCollapsed(!isCollapsed);
+    };
   
     const handleEditClick = (form: Form) => {
       setSelectedForm(form);
@@ -138,11 +142,11 @@ import {
       <>
         <Header />
         <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
-          <Sidebar />
+        <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
           <Box
-            marginLeft="250px"
             py="2"
-            width="calc(100% - 250px)"
+            marginLeft={isCollapsed?"60px":"250px"}
+             width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
             flex="1"
             borderRadius="md"
             position="relative"
@@ -225,9 +229,10 @@ import {
                             <IconButton
                               aria-label="Editar Serviço"
                               icon={<EditIcon />}
-                              size="sm"
-                              color="gray.600"
-                              backgroundColor="primary.100"
+                              size="xs"
+                              color="primary.200"
+                              boxShadow={"md"}
+                              backgroundColor="white"
                               _hover={{ backgroundColor: "gray.100" }}
                               mr="2"
                               onClick={() => handleEditClick(form)}
@@ -237,9 +242,10 @@ import {
                             aria-label="Remover Formulário"
                             icon={<DeleteIcon />}
                             onClick={() => console.log("Remover formulário:", form.nameform)}
-                            size="sm"
+                            size="xs"
                             color={"primary.600"}
-                            backgroundColor={"primary.650"}
+                            backgroundColor={"white"}
+                            boxShadow={"md"}
                             _hover={{ backgroundColor: "primary.600", color: "primary.100" }}
                           />
                         </Flex>

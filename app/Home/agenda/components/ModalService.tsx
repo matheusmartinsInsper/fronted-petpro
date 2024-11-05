@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import React,{useState,useEffect} from 'react';
 import {
   Box,
@@ -25,15 +25,24 @@ import { CheckCircleIcon, WarningIcon, InfoOutlineIcon } from '@chakra-ui/icons'
 import axios from "../../../../utils/axiosConfig"
 
 export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => void, service: Service }> = ({ isOpen, onClose, service }) => {
+  const [isClient, setIsClient] = useState(false);
   const toast = useToast();
+  const router = useRouter();
+  useEffect(() => {
+    // Confirma que o componente está sendo executado no cliente
+    setIsClient(true);
+  }, []);
+ 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'Confirmado':
         return 'primary.300';
-      case 'Concluído':
+      case 'Concluido':
         return '#2EB086';
       case 'Cancelado':
         return 'primary.600';
+      case 'Andamento':
+        return 'primary.900';
         case "Pendente":
           return '#FFC100';
       default:
@@ -61,7 +70,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
     switch (status) {
       case 'Confirmado':
         return <InfoOutlineIcon color={getStatusColor(status)} boxSize={"4"} />;
-      case 'Concluído':
+      case 'Concluido':
         return <CheckCircleIcon color={getStatusColor(status)} boxSize={"4"} />;
       case 'Cancelado':
         return <WarningIcon color={getStatusColor(status)} boxSize={"4"} />;
@@ -83,7 +92,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         },
       });
       toast({
-        title: 'Serviço aceito com sucesso.',
+        title: 'Serviço cancelado com sucesso.',
         status: 'success',
         duration: 3000,
         isClosable: true,
@@ -91,7 +100,39 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
       onClose(); // Fecha o modal após a ação
     } catch (error: any) {
       toast({
-        title: 'Erro ao aceitar o serviço.',
+        title: 'Erro ao cancelar o serviço.',
+        description: error.response.data.messageError,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    }
+  }
+  const createAttendance = async ()=>{
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("Authorization");
+      if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
+    }
+    try {
+      const response = await axios.post(`/Attendance`, null, {
+        params: {
+          idos: service.idos,
+        },
+      });
+      toast({
+        title: 'Atendimento iniciado',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+        router.push(`/Home/agenda/attendance/${response.data.data.idattendance}`);
+     
+      onClose(); // Fecha o modal após a ação
+    } catch (error: any) {
+      toast({
+        title: 'Erro ao aceitar atendimento',
         description: error.response.data.messageError,
         status: 'error',
         duration: 3000,
@@ -100,7 +141,9 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
       console.error('Erro ao aceitar o serviço:', error);
     }
   }
-
+  const goToAttendace = ()=>{
+    router.push(`/Home/agenda/attendance/${service.idattendance}`);
+  }
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -108,11 +151,11 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         <ModalHeader >
           <Flex align="center" justify="start" width="100%">
             
-            <Text ml={0} bgColor={"primary.700"} fontSize="sm" fontWeight="bold"   color={"primary.100"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
+          <Text display={"flex"} flexDirection={"row"} alignItems={"center"} ml={0} bgColor={"white"} fontSize="sm" fontWeight="bold" border={"1px"} borderColor={"gray.200"}   color={"primary.200"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Rede - {service.nameuserowner}</Text>
             <Text ml={4} fontSize="lg" fontWeight="bold">
               Agendamento 
             </Text>
-            <Flex align="center" ml={4}>
+            <Flex align="center" ml={2}>
               <Text fontSize="md" fontWeight="bold" color={getStatusColor(service.status)}>
                 {service.status}
               </Text>
@@ -132,7 +175,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Image src="https://avatars.githubusercontent.com/u/96667690?s=400&u=4f8546bf37989b834e06c9f8537efde6fddc1312&v=4" alt="Tutor Image" />
               </Box>
               <Box>
-                <Text fontSize="md" fontWeight="bold" display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>Tutor <Circle size="10px" bg={getPriorityColor(service.priority)} ml={"2"}/><Text fontSize={"sm"} ml={2} color={getPriorityColor(service.priority)}>{service.priority}</Text></Text>
+                <Text fontSize="md" fontWeight="bold" display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>Tutor<Text bgColor={"white"} p={1} borderLeftWidth={"7px"} borderRadius={"md"} borderLeftColor={getPriorityColor(service.priority)} boxShadow={"md"} fontSize={"xs"} ml={2} color={getPriorityColor(service.priority)}>{service.priority}</Text></Text>
                 <Flex>
                   <Text mr={"4"} ><strong>Nome:</strong> {service.clientName}</Text>
                   <Text><strong>Telefone:</strong> {service.clientPhone}</Text>
@@ -181,7 +224,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
            
               </Text>
             
-            <Text fontSize="sm" fontWeight="bold" mb={2} border={"2px"} borderColor={"primary.700"} color={"primary.700"} boxShadow={"md"} borderRadius={"md"} p={"2"}>Profissional - {service.nameprofissional}</Text>
+            <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize="sm" fontWeight="bold" mb={2} bgColor={"white"} boxShadow={"md"} border={"1px"} borderColor={"gray.200"} color={"primary.250"} borderRadius={"md"} p={"2"}>Profissional - {service.nameprofissional}</Text>
             </Flex>
             
             <Flex wrap="wrap" width="100%">
@@ -223,18 +266,40 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         <ModalFooter>
           <Flex width="100%" justify="space-between">
             <Button colorScheme="red" backgroundColor={"primary.600"} onClick={() => cancelOrderService()}
-                _hover={{ backgroundColor: "primary.600", color: "primary.100" }}>
+                _hover={{ backgroundColor: "primary.600", color: "primary.100" }} size={"sm"}>
               Cancelar
             </Button>
-            <Link href={`/Home/agenda/attendance/${service.idos}`}>
+            <Link>
+            {service.status=="Confirmado"?
               <Button 
                 backgroundColor={"primary.500"}
                 color="primary.300"
                 _hover={{ backgroundColor: "primary.300", color: "primary.100" }} 
                 isDisabled={service.status !== 'Confirmado'}
+                onClick={() => createAttendance()}
+                size={"sm"}
               >
                 Iniciar
               </Button>
+              :service.status=="Andamento"?
+              <Button 
+              backgroundColor={"primary.500"}
+              color="primary.300"
+              size={"sm"}
+              _hover={{ backgroundColor: "primary.300", color: "primary.100" }}
+              onClick={() => goToAttendace()}
+            >
+              Abrir
+            </Button>
+            :<Button 
+            backgroundColor={"primary.500"}
+            color="primary.300"
+            size={"sm"}
+            _hover={{ backgroundColor: "primary.300", color: "primary.100" }} 
+            isDisabled={service.status == 'Concluido'||service.status == "Cancelado"}
+          >
+            Abrir
+          </Button>}
             </Link>
           </Flex>
         </ModalFooter>

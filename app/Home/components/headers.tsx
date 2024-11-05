@@ -155,9 +155,8 @@ const Header = () => {
     >
       <Flex width="100%" justifyContent="space-between" alignItems="center">
       <Flex color={"primary.200"} position="relative"
-        ml={"-2"} flexDirection={"row"} alignItems={"center"} textAlign={"center"}>
-          <Image src="../../../mylogo.png" boxSize={"8%"}  ></Image>
-          <Link ml={"-2"} href='/Home' _hover={{textDecoration:"none"}}><Text fontSize="xl" fontWeight="bold" ><span style={{ color: '#7839EE' }}>PET</span>pro</Text></Link>
+        ml={"2"} flexDirection={"row"} alignItems={"center"} textAlign={"center"}>
+          <Link ml={"0"} href='/Home' _hover={{textDecoration:"none"}}><Text fontSize="xl" fontWeight="bold" ><span style={{ color: '#7839EE' }}>PET</span>pro</Text></Link>
         </Flex>
         <Spacer />
         
@@ -168,7 +167,7 @@ const Header = () => {
               aria-label="Notificações"
               variant="ghost"
               size="lg"
-              color="gray.500"
+              color="primary.250"
               marginRight="0"
               zIndex={"100"}
               backgroundColor={"transparent"}
@@ -260,7 +259,7 @@ const Header = () => {
             aria-label="Perfil de Usuário"
             variant="ghost"
             size="lg"
-            color="gray.500"
+            color="primary.250"
             opacity={"90%"}
             zIndex={"100"}
             _hover={{ backgroundColor: "transparent" }}

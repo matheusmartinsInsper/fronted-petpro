@@ -100,6 +100,10 @@ const AddService = () => {
   const [newVaccine, setNewVaccine] = useState<{ name: string; price: number }>({ name: '', price: 0 });
   const [toggleState, setToggleState] = useState<"Pessoal" | "rede">("Pessoal");
   const [toggleStateapi, setToggleStateapi] = useState<"User" | "NetWork">("User");
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
 
   const handleSave = async () => {
     try {
@@ -188,15 +192,16 @@ const AddService = () => {
   return (
     <>
       <Header />
-      <Flex direction="row" minHeight="calc(100vh - 40px)" backgroundColor={"primary.200"}>
-        <Sidebar />
+      <Flex direction="row" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
+      <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
 
         <Box
-          marginLeft="250px"
-          width="calc(100% - 250px)"
+        marginLeft={isCollapsed?"60px":"250px"}
+         width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
           flex="1"
           position="relative"
           backgroundColor={"primary.100"}
+          height={"53.4px"}
         >
           <Flex justify="flex-start" align="center" textAlign={"center"} mb="2" borderBottomColor={"gray.200"} borderBottomWidth={"1px"} py={"2"} px="4" fontFamily="Nunito, sans-serif">
             <Heading as="h1" size="sm" color={"primary.200"} display={"flex"} flexDirection={"row"} fontFamily="Nunito, sans-serif">
