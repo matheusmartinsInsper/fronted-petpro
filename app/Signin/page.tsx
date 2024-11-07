@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { Box, Button, Flex, Heading, Image, Text, VStack, IconButton,Link }  from '@chakra-ui/react';
 import { ArrowBackIcon } from '@chakra-ui/icons';
+import { useRouter } from 'next/navigation';
 import VetSignin from './components/collaboratorsignin';
 import ClinicSignin from './components/clinicsignin';
 import { relative } from 'path';
@@ -12,10 +13,15 @@ import { relative } from 'path';
 
 const SignupPage = () => {
   const [userType, setUserType] = useState<'vet' | 'clinic' | null>(null);
+  const router = useRouter();
 
   const handleBack = () => {
     setUserType(null); // Limpa o userType para permitir escolha novamente
   };
+  const redirectlp = () => {
+    router.push('/');
+  };
+
 
   return (
     <Flex minH="100vh">
@@ -79,7 +85,7 @@ const SignupPage = () => {
         <Text color="gray.500">
         Sem cadastro? <Link href="/Signup" _hover={{textDecoration:"none"}} color={"primary.300"} fontWeight={"bold"}>Registrar</Link>
         </Text>
-        <Heading as="h1" size="xs" mb={1} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} bottom={"0"}>
+        <Heading cursor={"pointer"} onClick={()=>redirectlp()} as="h1" size="xs" mb={1} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} bottom={"0"}>
         <span style={{ color: '#7839EE' }}>PET</span>pro
       </Heading>
       </VStack>

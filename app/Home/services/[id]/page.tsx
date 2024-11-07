@@ -172,7 +172,7 @@ const ServiceDetail = () => {
         position="relative"
         backgroundColor={"primary.100"}
       >
-        <Flex justify="flex-start" align="center" textAlign={"center"} mb="2"  borderBottomColor={"gray.200"} borderBottomWidth={"1px"} py={"2"} px = "4" fontFamily="Nunito, sans-serif">
+        <Flex height={"53.4"} justify="flex-start" align="center" textAlign={"center"} mb="2"  borderBottomColor={"gray.200"} borderBottomWidth={"1px"} py={"2"} px = "4" fontFamily="Nunito, sans-serif">
           <Heading  as="h1" size="sm" color={"primary.200"} display={"flex"} flexDirection={"row"} fontFamily="Nunito, sans-serif"><Text color="gray.500" fontFamily="Nunito, sans-serif">Settings 
       <ChevronRightIcon /> 
           

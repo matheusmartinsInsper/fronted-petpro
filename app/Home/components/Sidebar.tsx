@@ -82,7 +82,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
           backgroundColor="transparent"
           borderRadius={"full"}
           color={"primary.200"}
-          _hover={{ backgroundColor: "primary.100",boxShadow: "md" }}
+          _hover={{ backgroundColor: "transparent"}}
         />
       </Flex>
       {/* Menu Principal */}
