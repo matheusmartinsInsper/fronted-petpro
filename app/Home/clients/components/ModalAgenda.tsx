@@ -360,14 +360,14 @@ const handleSubcategorySelect = (id: string) => {
             </Flex>
            
             
-            {service.vacinas.map((vacina,index)=><Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontWeight={"bold"} bgColor={selectedVaccines.includes(vacina.idvaccine) ? "primary.500" : "transparent"} ml={selectedVaccines.includes(vacina.idvaccine) ? "4" : "0"}  fontSize={"xs"} maxWidth={"75%"} _hover={{ml:"4"}} my="2" cursor={"pointer"} border={"2px"} borderColor={selectedVaccines.includes(vacina.idvaccine) ? "primary.300" : "primary.100"}  boxShadow={"md"} p={2} borderRadius={"md"} onClick={() => handleVaccineSelect(vacina.idvaccine)}>
+            {service.vacinas.map((vacina,index)=><Text key={vacina.idvaccine} display={"flex"} flexDirection={"row"} alignItems={"center"} fontWeight={"bold"} bgColor={selectedVaccines.includes(vacina.idvaccine) ? "primary.500" : "transparent"} ml={selectedVaccines.includes(vacina.idvaccine) ? "4" : "0"}  fontSize={"xs"} maxWidth={"75%"} _hover={{ml:"4"}} my="2" cursor={"pointer"} border={"2px"} borderColor={selectedVaccines.includes(vacina.idvaccine) ? "primary.300" : "primary.100"}  boxShadow={"md"} p={2} borderRadius={"md"} onClick={() => handleVaccineSelect(vacina.idvaccine)}>
                 {vacina.nameofvaccine} - <Text ml={"1"} textAlign={"center"} minWidth={"50px"} fontWeight={"bold"}  fontSize={"xs"}
                     backgroundColor={"#D5FFE4"} 
                      p={"1"} 
                      borderRadius={"5px"} 
                      color={"#2EB086"}>{vacina.price}R$</Text>
                 </Text>)}
-            {service.subcategorias.map((subcategoria,index)=><Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontWeight={"bold"}  bgColor={selectedSubcategories.includes(subcategoria.idsubcategory) ? "primary.500" : "transparent"} ml={selectedSubcategories.includes(subcategoria.idsubcategory) ? "4" : "0"} fontSize={"xs"} maxWidth={"75%"} _hover={{ml:"4"}} my="2" cursor={"pointer"} border={"2px"} borderColor={selectedSubcategories.includes(subcategoria.idsubcategory) ? "primary.300" : "primary.100"} boxShadow={"md"} p={2} borderRadius={"md"} onClick={() => handleSubcategorySelect(subcategoria.idsubcategory)}>
+            {service.subcategorias.map((subcategoria,index)=><Text key={subcategoria.idsubcategory} display={"flex"} flexDirection={"row"} alignItems={"center"} fontWeight={"bold"}  bgColor={selectedSubcategories.includes(subcategoria.idsubcategory) ? "primary.500" : "transparent"} ml={selectedSubcategories.includes(subcategoria.idsubcategory) ? "4" : "0"} fontSize={"xs"} maxWidth={"75%"} _hover={{ml:"4"}} my="2" cursor={"pointer"} border={"2px"} borderColor={selectedSubcategories.includes(subcategoria.idsubcategory) ? "primary.300" : "primary.100"} boxShadow={"md"} p={2} borderRadius={"md"} onClick={() => handleSubcategorySelect(subcategoria.idsubcategory)}>
                 {subcategoria.title} - <Text ml={"1"} textAlign={"center"} minWidth={"50px"} fontWeight={"bold"}  fontSize={"xs"}
                     backgroundColor={"#D5FFE4"} 
                      p={"1"} 
@@ -378,7 +378,7 @@ const handleSubcategorySelect = (id: string) => {
             <Box><Text fontSize={"sm"} mt={"2"} fontWeight={"bold"}>Descrição</Text><Text>{service.descrição}</Text></Box>
             <Button mt={4} bgColor={"white"} size={"sm"} color={"primary.200"} boxShadow={"md"} _hover={{ backgroundColor: "primary.600", color: "primary.100" }} onClick={unselectservice}>Cancelar</Button>
         </Box>
-      ):  services.map((service,index)=><ServiceRow service={service} selectservice={selectservice}/>)}
+      ):  services.map((service,index)=><ServiceRow idservice={service.idDoServiço} service={service} selectservice={selectservice}/>)}
     </Box>
   </Flex>
 </Box>
