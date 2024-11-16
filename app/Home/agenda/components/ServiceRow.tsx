@@ -22,7 +22,7 @@ import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon, WarningIcon,InfoOutlin
 import { Service } from "./ModelAgenda";
 import {ServiceDetailsModal} from "./ModalService"
 
-export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Service)=>void }> = ({ service,selectservice }) => {
+export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Service)=>void,idservice: string }> = ({ service,selectservice,idservice }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -67,7 +67,7 @@ export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Se
         position="relative"
         onClick={()=>{selectservice(service)}}
         cursor="pointer"
-        
+        key={idservice}
         zIndex={isExpanded?"20":"0"}
         display={"flex"}
         flexDirection={"row"}
