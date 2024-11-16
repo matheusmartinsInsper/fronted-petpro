@@ -61,7 +61,7 @@ export interface OutPutClientDTO {
 }
 
 
-const clients = ()=>{
+const Clients = ()=>{
   const [clients, setClients] = useState<OutPutClientDTO[]>([]);
   const [filteredclients, setfilteredclients] = useState<OutPutClientDTO[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -393,4 +393,4 @@ return (
 )
 }
 
-export default clients;
+export default Clients;
