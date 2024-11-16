@@ -505,7 +505,7 @@ const Agenda: React.FC = () => {
                           cursor={servicesCount ? 'pointer' : 'default'}
                         >
                           {getServicesForTimeSlot(date, hour).map((service, index) => (
-                            <ServiceCard key={index} service={service} />
+                            <ServiceCard key={service.idos} service={service} />
                           ))}
                         </Box>
                       );
