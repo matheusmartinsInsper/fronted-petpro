@@ -1,15 +1,18 @@
 "use client";
-import { Box, Button, Flex, Heading, Text, Link, HStack, Image, VStack, Input, FormControl, FormLabel, Select,Circle } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Link, HStack, Image, VStack, Input, FormControl, FormLabel, Select, Circle } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
   ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon, CheckIcon, AtSignIcon, Icon
 } from '@chakra-ui/icons';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import { motion, useAnimation,useInView } from 'framer-motion';
-import { useEffect, useState,useRef } from "react";
+import { motion, useAnimation, useInView, isValidMotionProp } from 'framer-motion';
+import { useEffect, useState, useRef } from "react";
+import { chakra } from "@chakra-ui/react";
 
-const MotionDiv = motion.div;
+const MotionBox = chakra(motion.div, {
+  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
+});
 
 const HomePage = () => {
   const router = useRouter();
@@ -43,7 +46,7 @@ const HomePage = () => {
             </Text>
           </Link>
         </Heading>
-        <HStack>
+        <HStack display={["none", "flex"]}>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Recursos</Text>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Propósito</Text>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Quem somos</Text>
@@ -59,148 +62,192 @@ const HomePage = () => {
 
       {/* Conteúdo da página */}
       <Box width="100%" >
-        <Box display="flex" flexDirection="column" alignItems="center" pt={"40px"} bgColor={"primary.100"}>
-          <Box width="100%" display="flex" flexDirection="row">
-            <MotionDiv
+        <Box display="flex" flexDirection="column" alignItems="center" pt={["120px", "40px"]} bgColor="primary.100">
+          <Box
+            width="100%"
+            display="flex"
+            flexDirection={["column", "row"]}
+            alignItems={["center", "start"]}
+            gap={[8, 0]}
+          >
+            {/* Texto e Botão */}
+            <MotionBox
               initial={{ y: -100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
-              style={{ width: "50%", display: "flex", flexDirection: "column", justifyContent: "center", paddingLeft: "24px", gap: "24px", height: "70vh" }}
+              width="100%"
+              maxWidth={["100%", "50%"]}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              padding={["16px", "24px"]}
+              gap="24px"
+              textAlign={["center", "left"]}
+              height={["auto", "70vh"]}
+              transition={"all 1s ease-in-out"}
             >
-              <Text fontSize={"4xl"} fontWeight={"bold"}>Gerencie seus clientes <br /> agenda e recursos empresariais</Text>
-              <Text fontSize={"lg"}>Tenha o total controle do que acontece no seu negocio <br /> otimize seu tempo e recursos financeiros</Text>
-              <Link href="#recursos" >
+              <Text fontSize={["2xl", "4xl"]} fontWeight="bold">
+                Gerencie seus clientes <br /> agenda e recursos empresariais
+              </Text>
+              <Text fontSize={["md", "lg"]}>
+                Tenha o total controle do que acontece no seu negócio <br /> otimize seu tempo e recursos
+                financeiros
+              </Text>
+              <Link href="#recursos">
                 <Button
-                  width="33%"
+                  width={["100%", "33%"]}
                   bgColor="primary.300"
                   size="md"
                   color="primary.100"
                   borderRadius="50px"
                   _hover={{
                     bgGradient: "linear(to-r, primary.300, primary.500)",
-                    color: "primary.100"
+                    color: "primary.100",
                   }}
-                  transition=" background-color 2s ease"
+                  transition="background-color 2s ease"
                 >
                   Conheça nossa solução
-                </Button></Link>
+                </Button>
+              </Link>
+            </MotionBox>
 
-
-            </MotionDiv>
-            <MotionDiv
+            {/* Imagem */}
+            <MotionBox
               initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1 }}
-              style={{ width: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}
+              width="100%"
+              maxWidth={["100%", "50%"]}
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              height={["auto", "70vh"]} // Garante altura consistente no layout
+              transition={"all 1s ease-in-out"}
             >
-              <Image src="/home.png" width={"80%"} />
-            </MotionDiv>
+              <Image src="/home.png" width={["100%", "80%"]} objectFit="contain" />
+            </MotionBox>
           </Box>
-          <MotionDiv
+
+          {/* Ícones e Seções */}
+          <MotionBox
             initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1 }}
-            style={{
-              width: "60%"
-            }}>
+            width={["90%", "60%"]}
+            transition={"all 1s ease-in-out"}
+          >
             <Box
               p="6"
               width="100%"
               bgColor="white"
-              height="120px"
+              height="auto"
               mb="-60px"
               borderRadius="xl"
               boxShadow="md"
               display="flex"
-              flexDirection="row"
+              flexDirection={["row", "row"]}
               justifyContent="space-between"
-              alignItems="center" // Alinha as seções no centro verticalmente
+              alignItems="center"
+              gap={[6, 0]}
+              overflowX={["auto", "visible"]}  // Ativa o scroll horizontal no mobile
+              whiteSpace={["nowrap", "normal"]}
             >
-              <Box display="flex" flexDirection="row" alignItems="start">
-                <Box mr={2}>
-                  <Image src='/baixados.jpeg' width={"40px"} />
+              {[
+                { title: "Clínica", text: "Gerencie sua rede e funcionários", icon: "/baixados.jpeg" },
+                { title: "PetShop", text: "Registro de serviços e produtos", icon: "/secador.jpeg" },
+                { title: "Veterinário", text: "Acesse recursos de rede e pessoais", icon: "/estetoscopio.jpeg", iconSize: "70px" },
+                { title: "Hotéis", text: "Realize check-in e check-out dos pets", icon: "/hotelpet.jpeg" },
+              ].map((item, idx) => (
+                <Box key={idx} display="flex" flexDirection="row" alignItems="start">
+                  <Box mr={2}>
+                    <Image src={item.icon} width={["20px","40px"]} />
+                  </Box>
+                  <Box>
+                    <Text fontWeight="bold" fontSize="lg">
+                      {item.title}
+                    </Text>
+                    <Text fontSize="sm" color="gray.600">
+                      {item.text}
+                    </Text>
+                  </Box>
                 </Box>
-                <Box>
-                  <Text fontWeight="bold" fontSize={"lg"}>Clinica</Text>
-                  <Text fontSize="sm" color="gray.600">
-                    Gerencie sua rede <br /> e funcionarios
-                  </Text>
-                </Box>
-              </Box>
-
-              <Box display="flex" flexDirection="row" alignItems="start">
-                <Box mr={2}>
-                  <Image src='/secador.jpeg' width={"40px"} />
-                </Box>
-                <Box>
-                  <Text fontWeight="bold" fontSize={"lg"}>PetShop</Text>
-                  <Text fontSize="sm" color="gray.600">
-                    Registro de serviços <br /> e produtos
-                  </Text>
-                </Box>
-              </Box>
-
-              <Box display="flex" flexDirection="row" alignItems="start">
-                <Box mr={"-10px"}>
-                  <Image src='/estetoscopio.jpeg' width={"70px"} />
-                </Box>
-                <Box>
-                  <Text fontWeight="bold" fontSize={"lg"}> Veterinario</Text>
-                  <Text fontSize="sm" color="gray.600">
-                    Acesse recuros de rede <br /> e pessoais
-                  </Text>
-                </Box>
-              </Box>
-              <Box display="flex" flexDirection="row" alignItems="start">
-                <Box mr={2}>
-                  <Image src='/hotelpet.jpeg' width={"40px"} />
-                </Box>
-                <Box>
-                  <Text fontWeight="bold" fontSize={"lg"}>Hoteis</Text>
-                  <Text fontSize="sm" color="gray.600">
-                    Realize check-in e<br />check-ou  dos pets
-                  </Text>
-                </Box>
-              </Box>
+              ))}
             </Box>
-          </MotionDiv>
-
-
+          </MotionBox>
         </Box>
+
       </Box>
       <Box display="flex" flexDirection="column" alignItems="center" pt={"120px"} bgColor={"primary.500"} id='recursos'>
-        <Box height="100vh" display="flex" px={"6"} >
-          {/* Left side: Images */}
-          <Box width="50%" display="flex" flexDirection="column" alignItems="center" >
-            <Image
-              src="/agenda1.png" width={"75%"} borderRadius={"md"}
-            />
-            <Image
-              src="/agenda3.png" width={"75%"} borderRadius={"md"} mr={"-160px"} mt={"-160px"}
-            />
-            <Image
-              src="/agenda2.png" width={"75%"} borderRadius={"md"} mt={"-80px"} mr={"-320px"}
-            />
-          </Box>
+        <Box display="flex" flexDirection="column" alignItems="center" pt={["0px","120px"]} bgColor={"primary.500"} id='recursos'>
+          <Box height={["100%","100vh"]} display="flex" px={"6"} flexDirection={["column", "row"]}>
+            {/* Left side: Images */}
+            <Box
+              width={["100%", "50%"]}
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              position="relative"
+            >
+              <Box display="flex"  flexDirection={["row","column"]} overflowX={["auto","unset"]} width="100%" alignItems="center">
+                <Image
+                  src="/agenda1.png"
+                  width={["90%", "75%"]}
+                  borderRadius={"md"}
+                  mb={["0px", "0"]}
+                />
+                <Image
+                  src="/agenda3.png"
+                  width={["90%", "75%"]}
+                  borderRadius={"md"}
+                  mr={["0", "-160px"]}
+                  mt={["0px", "-160px"]}
+                />
+                <Image
+                  src="/agenda2.png"
+                  width={["90%", "75%"]}
+                  borderRadius={"md"}
+                  mt={["0px", "-80px"]}
+                  mr={["0", "-320px"]}
+                />
+              </Box>
+            </Box>
 
-          {/* Right side: Platform Resources */}
-          <Box width="50%" display="flex" alignItems="center" justifyContent="start" flexDirection={"column"}>
-            <Text fontWeight={"bold"} fontSize={"2xl"} mb={"4"}>Agenda</Text>
-            <VStack spacing={4} align="start">
-              <Text fontSize="xl" fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Status</Text>
-              <Text color={"gray.500"}>Acompanhe o status dos seus atendimentos</Text>
-              <Text fontSize="xl" fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Prioridade</Text>
-              <Text color={"gray.500"}>Controle de agenda por prioridade</Text>
-              <Text fontSize="xl" fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Atribuir atendimentos</Text>
-              <Text color={"gray.500"}>Atribua atendimentos a seus colaboradores</Text>
-              <Text fontSize="xl" fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Rede e pessoal</Text>
-              <Text color={"gray.500"}>Para veterinarios, gestão de agenda pessoal e da rede que atua</Text>
-              <Text fontSize="xl" fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Agendamento</Text>
-              <Text color={"gray.500"}>Angende manualmente para tutores não registrados no app</Text>
+            {/* Right side: Platform Resources */}
+            <Box
+              width={["100%", "50%"]}
+              display="flex"
+              alignItems="center"
+              justifyContent="start"
+              flexDirection="column"
+            >
+              <Text fontWeight={"bold"} fontSize={["xl", "2xl"]} mb={"4"}>Agenda</Text>
+              <VStack spacing={4} align="start">
+                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                  <CheckIcon color={"primary.300"} mr={"2"} />Status
+                </Text>
+                <Text color={"gray.500"}>Acompanhe o status dos seus atendimentos</Text>
 
-            </VStack>
+                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                  <CheckIcon color={"primary.300"} mr={"2"} />Prioridade
+                </Text>
+                <Text color={"gray.500"}>Controle de agenda por prioridade</Text>
+
+                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                  <CheckIcon color={"primary.300"} mr={"2"} />Atribuir atendimentos
+                </Text>
+                <Text color={"gray.500"}>Atribua atendimentos a seus colaboradores</Text>
+
+                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                  <CheckIcon color={"primary.300"} mr={"2"} />Rede e pessoal
+                </Text>
+                <Text color={"gray.500"}>Para veterinarios, gestão de agenda pessoal e da rede que atua</Text>
+
+                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                  <CheckIcon color={"primary.300"} mr={"2"} />Agendamento
+                </Text>
+                <Text color={"gray.500"}>Agende manualmente para tutores não registrados no app</Text>
+              </VStack>
+            </Box>
           </Box>
         </Box>
+
         <Box height="100vh" display="flex" px={"6"} bgColor={"primary.100"} pt={"120px"}>
           <Box width="50%" display="flex" alignItems="center" justifyContent="start" flexDirection={"column"}>
             <Text fontWeight={"bold"} fontSize={"2xl"} mb={"4"}>Solicitações</Text>
@@ -319,7 +366,7 @@ const HomePage = () => {
         backgroundPosition="center" >
         {/* Left side: Images */}
         <Box width="100%" display="flex" alignItems="center" justifyContent="start" flexDirection={"column"}>
-        
+
           <Text fontWeight="bold" fontSize="4xl" mb="6">
             Propósito
           </Text>
@@ -328,39 +375,39 @@ const HomePage = () => {
             fornecer segurança, praticidade e ótima gestão <br /> tanto do negocio quanto da vida do seu pet</Text>
           <Text borderWidth={"2px"} borderColor={"primary.300"} textAlign={"center"} width={"40%"} bgColor={"white"} boxShadow={"md"} color={"primary.250"} p="6" borderRadius={"md"} fontWeight={"bold"} fontSize={"md"} mb={"4"}>Entregar mais do que um ERP do nicho pet <br /> queremos ser uma ferramenta de automação de rotina, <br />
             fornecer um ambiente para teleatendimentos,<br /> gerar pagamentos e prescrições online</Text>
-            <Box mt={"6"} display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>
-            <Text  fontSize={"sm"} color="gray.500" >
-              Conectar,cuidar e atender é oque nos faz 
-              </Text>
+          <Box mt={"6"} display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>
+            <Text fontSize={"sm"} color="gray.500" >
+              Conectar,cuidar e atender é oque nos faz
+            </Text>
             <Text ml={"1"} fontSize="sm" fontWeight="bold">
               <span style={{ color: '#7839EE' }}>PET</span>pro
             </Text>
-            </Box>
-           
+          </Box>
+
         </Box>
       </Box>
       <Box height="100vh" display="flex" px={"6"} pt={"120px"} bgColor={"primary.100"}>
-      <Box width="50%" display="flex" alignItems="center" justifyContent="start" flexDirection={"column"}>
+        <Box width="50%" display="flex" alignItems="center" justifyContent="start" flexDirection={"column"}>
           <Text fontWeight={"bold"} fontSize={"2xl"} mb={"4"}>Ao enviar</Text>
           <VStack spacing={4} align="start">
             <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
-            <Circle size="12px" bgColor="primary.300" mr="2" />
-            <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Contato</Text>
+              <Circle size="12px" bgColor="primary.300" mr="2" />
+              <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Contato</Text>
             </Box>
             <Text color={"gray.500"}>1 - Iremos salvar seus dados em nossa base <br />e em breve entraremos em contato via Whatsapp e E-mail</Text>
             <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
-            <Circle size="12px" bgColor="primary.300" mr="2" />
-            <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Validação</Text>
+              <Circle size="12px" bgColor="primary.300" mr="2" />
+              <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Validação</Text>
             </Box>
-            <Text color={"gray.500"}>2 - No nosso primeiro contato iremos apenas nos conhecer<br />após isso iremos validar algumas questões, solicitar mais dados <br/> e retornaremos via E-mail</Text>
+            <Text color={"gray.500"}>2 - No nosso primeiro contato iremos apenas nos conhecer<br />após isso iremos validar algumas questões, solicitar mais dados <br /> e retornaremos via E-mail</Text>
             <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
-            <Circle size="12px" bgColor="primary.300" mr="2" />
-            <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Acesso</Text>
+              <Circle size="12px" bgColor="primary.300" mr="2" />
+              <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Acesso</Text>
             </Box>
             <Text color={"gray.500"}>3 - Atendido os critérios, iremos liberar um acesso da plataforma valido por 30 dias<br />você podera alterar sua senha e fazer uso normal da ferramenta</Text>
             <Box display={"flex"} flexDirection={"row"} alignItems={"center"}>
-            <Circle size="12px" bgColor="primary.300" mr="2" />
-            <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Conclusao</Text>
+              <Circle size="12px" bgColor="primary.300" mr="2" />
+              <Text fontSize="xl" fontWeight="bold" color={"primary.300"} textAlign={"center"}>Conclusao</Text>
             </Box>
             <Text color={"gray.500"}>4 - Após esse período de teste o usuario pode ou não assinar nossa ferramenta</Text>
           </VStack>
@@ -368,33 +415,33 @@ const HomePage = () => {
         <Box width="50%" display="flex" justifyContent={"center"}>
           <Box width="75%" display="flex" height={"75vh"} flexDirection="column" alignItems="center" p={6} bgColor={"primary.200"} color="primary.100" borderRadius="md" boxShadow="lg">
             <Text fontSize={"2xl"} mb="6">Preencha seus dados</Text>
-          <FormControl id="name" mb={4}>
-            <FormLabel>Nome</FormLabel>
-            <Input  focusBorderColor="primary.400" type="text" placeholder="Digite seu nome" borderWidth={"1px"} borderColor={"primary.250"}/>
-          </FormControl>
+            <FormControl id="name" mb={4}>
+              <FormLabel>Nome</FormLabel>
+              <Input focusBorderColor="primary.400" type="text" placeholder="Digite seu nome" borderWidth={"1px"} borderColor={"primary.250"} />
+            </FormControl>
 
-          <FormControl id="email" mb={4}>
-            <FormLabel>E-mail</FormLabel>
-            <Input  focusBorderColor="primary.400" type="email" placeholder="Digite seu e-mail" borderWidth={"1px"} borderColor={"primary.250"}/>
-          </FormControl>
+            <FormControl id="email" mb={4}>
+              <FormLabel>E-mail</FormLabel>
+              <Input focusBorderColor="primary.400" type="email" placeholder="Digite seu e-mail" borderWidth={"1px"} borderColor={"primary.250"} />
+            </FormControl>
 
-          <FormControl id="phone" mb={4}>
-            <FormLabel>Telefone</FormLabel>
-            <Input  focusBorderColor="primary.400" type="tel" placeholder="Digite seu telefone" borderWidth={"1px"} borderColor={"primary.250"}/>
-          </FormControl>
+            <FormControl id="phone" mb={4}>
+              <FormLabel>Telefone</FormLabel>
+              <Input focusBorderColor="primary.400" type="tel" placeholder="Digite seu telefone" borderWidth={"1px"} borderColor={"primary.250"} />
+            </FormControl>
 
-          <FormControl id="userType" mb={6} >
-            <FormLabel>Tipo de Usuário</FormLabel>
-            <Select  focusBorderColor="primary.400" placeholder="Selecione uma opção" borderWidth={"1px"} borderColor={"primary.250"}>
-              <option color='primary.300' value="petshop">Petshop/Clínica</option>
-              <option value="hotel">Hotel</option>
-              <option value="veterinario">Veterinário</option>
-            </Select>
-          </FormControl>
+            <FormControl id="userType" mb={6} >
+              <FormLabel>Tipo de Usuário</FormLabel>
+              <Select focusBorderColor="primary.400" placeholder="Selecione uma opção" borderWidth={"1px"} borderColor={"primary.250"}>
+                <option color='primary.300' value="petshop">Petshop/Clínica</option>
+                <option value="hotel">Hotel</option>
+                <option value="veterinario">Veterinário</option>
+              </Select>
+            </FormControl>
 
-          <Button bgColor={"primary.300"} color="primary.100" width="100%" _hover={{backgroundColor:"primary.400"}}>
-            Enviar
-          </Button>
+            <Button bgColor={"primary.300"} color="primary.100" width="100%" _hover={{ backgroundColor: "primary.400" }}>
+              Enviar
+            </Button>
           </Box>
         </Box>
       </Box>
