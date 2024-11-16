@@ -35,11 +35,13 @@ interface Option {
     value: string;
     idoption: string;
     idattribute: string;
+    isselected: boolean;
 }
 
 interface Attribute {
     label: string;
     idattribute: string;
+    value: string|number| string[];
     idform: string;
     typeattribute: 'checkbox' | 'select' | 'number' | 'textarea' | 'text';
     options: Option[];

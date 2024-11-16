@@ -69,7 +69,7 @@ const HomePage = () => {
             >
               <Text fontSize={"4xl"} fontWeight={"bold"}>Gerencie seus clientes <br /> agenda e recursos empresariais</Text>
               <Text fontSize={"lg"}>Tenha o total controle do que acontece no seu negocio <br /> otimize seu tempo e recursos financeiros</Text>
-              <Link href="#recursos">
+              <Link href="#recursos" >
                 <Button
                   width="33%"
                   bgColor="primary.300"

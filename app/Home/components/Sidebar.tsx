@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Box, VStack, Link, Text, IconButton, Flex, HStack, Divider,Image} from '@chakra-ui/react';
-import { FaUser, FaChartBar } from 'react-icons/fa';
+import { FaUser, FaChartBar,FaBoxes,FaSignOutAlt} from 'react-icons/fa';
 import { MdDashboard } from 'react-icons/md';
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
@@ -119,7 +119,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Clientes</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+            {/* <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/metricas'>
               <HStack>
@@ -134,7 +134,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                 <ChatIcon color={"primary.200"}/>
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Chat</Text>}
               </HStack>
-            </Link>
+            </Link> */}
             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/prontuarios' mb={2}>
@@ -178,23 +178,23 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/estoque'>
                   <HStack>
-                    <EditIcon color={"primary.200"}/>
+                    <FaBoxes color={"#1D2939"}/>
                     {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Estoque</Text>}
                   </HStack>
                 </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+            {/* <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/integration'>
               <HStack>
                 <ExternalLinkIcon color={"primary.200"}/>
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Integrações</Text>}
               </HStack>
-            </Link>
+            </Link> */}
             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/form'>
               <HStack>
-                <CheckIcon color={"primary.200"}/>
+                <EditIcon color={"primary.200"}/>
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Anamnese</Text>}
               </HStack>
             </Link>
@@ -211,8 +211,9 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
         mx={"4"}
       >
         <IconButton
+         transform="rotate(180deg)"
           aria-label="Logout"
-          icon={<ArrowBackIcon color={"primary.200"}/>}
+          icon={<FaSignOutAlt color={"#1D2939"}/>}
           isRound
           mr={isCollapsed ? "0" : "2"}
           backgroundColor="transparent"

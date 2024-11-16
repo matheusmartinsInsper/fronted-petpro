@@ -296,7 +296,8 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
             color="primary.300"
             size={"sm"}
             _hover={{ backgroundColor: "primary.300", color: "primary.100" }} 
-            isDisabled={service.status == 'Concluido'||service.status == "Cancelado"}
+            isDisabled={service.status == "Cancelado"}
+            onClick={() => goToAttendace()}
           >
             Abrir
           </Button>}

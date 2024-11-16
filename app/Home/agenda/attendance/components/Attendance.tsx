@@ -49,7 +49,7 @@ const getPriorityColor = (status: string) => {
     }
   };
   
-export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: any[]) => void}> = ({ att,onFilesUpdate }) => {
+export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: any[]) => void,conclude: ()=>void, handlefield: (field: string, value: any)=>void}> = ({ att,onFilesUpdate,conclude,handlefield }) => {
   const toast = useToast();
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
       
       {/* Informações do Serviço */}
       <VStack align="start" spacing={2} mt={4} fontSize={"sm"}>
-      <Text bgColor={"white"} p={1} borderLeftWidth={"7px"} borderRadius={"md"} borderLeftColor={getPriorityColor(att.service.priority)} boxShadow={"md"} fontSize={"xs"}  color={getPriorityColor(att.service.priority)}>{att.service.priority}</Text>
+      <Text fontWeight={"bold"} bgColor={"white"} p={1} borderLeftWidth={"7px"} borderRadius={"md"} borderLeftColor={getPriorityColor(att.service.priority)} boxShadow={"md"} fontSize={"xs"}  color={getPriorityColor(att.service.priority)}>{att.service.priority}</Text>
       <Text fontSize="sm" fontWeight="bold">
         Status:{' '}
         <Text as="span"  color={statusColors[att.status]}>
@@ -120,7 +120,7 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
           <Text fontWeight="bold" mb={2}>
             Vacinas
           </Text>
-          <Table variant="striped" size="sm" width={"50%"}>
+          <Table variant="striped" size="sm" width={"75%"}>
             <Thead fontSize={"xs"} backgroundColor={"primary.200"} color={"primary.100"}>
               <Tr>
                 <Th fontSize={"xs"} color={"primary.100"}>Vacina</Th>
@@ -133,7 +133,11 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
                 <Tr key={index}>
                   <Td>{vaccine.nameofvaccine || '-'}</Td>
                   <Td>{vaccine.codevaccine || '-'}</Td>
-                  <Td fontSize={"sm"} color={"primary.800"} fontWeight={"bold"}>{vaccine.price ? `${vaccine.price.toFixed(2)} R$` : '-'}</Td>
+                  <Td fontSize={"xs"} color={"primary.800"} fontWeight={"bold"} >
+                  <Text as="span" fontSize={"xs"}  color={"primary.800"} bgColor={"#D5FFE4"} borderRadius={"md"} py={1} px={2}>
+          {vaccine.price} R$
+        </Text>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
@@ -147,7 +151,7 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
           <Text   fontWeight="bold" mb={2}>
             Subcategorias:
           </Text>
-          <Table fontSize={"xs"} variant="striped" size="sm" width={"50%"} borderTopRadius={"md"}>
+          <Table fontSize={"xs"} variant="striped" size="sm" width={"75%"} borderTopRadius={"md"}>
             <Thead fontSize={"xs"} backgroundColor={"primary.200"} color={"primary.100"} borderTopRadius={"md"}>
               <Tr>
                 <Th fontSize={"xs"} color={"primary.100"}>Título</Th>
@@ -197,6 +201,8 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
             size="sm"
             focusBorderColor="primary.400"
             borderRadius="md"
+            name='hipotese'
+            onChange={(e) => handlefield('hipotese', e.target.value)}
           />
         </FormControl>
         
@@ -208,6 +214,8 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
             size="sm"
             focusBorderColor="primary.400"
             borderRadius="md"
+            name='conclusao'
+            onChange={(e) => handlefield('conclusao', e.target.value)}
           />
         </FormControl>
         </HStack>
@@ -227,7 +235,8 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
         bgColor={"primary.500"}
         color={"primary.300"}
         _hover={{bgColor:"primary.300",color:"primary.100"}}
-        onClick={() => toast({ title: "Atendimento concluído!", status: "success", duration: 3000, isClosable: true })}
+        onClick={() => conclude()}
+        isDisabled={att.status==="Concluido"}
       >
         Concluir
       </Button>
