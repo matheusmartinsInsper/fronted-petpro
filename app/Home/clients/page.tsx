@@ -262,7 +262,7 @@ return (
             </Thead>
             <Tbody>
               {paginatedClient.map((client, index) => (
-                <Tr key={index} paddingY={"3"}>
+                <Tr key={client.email} paddingY={"3"}>
                   <Td paddingY={"2.5"}>{client.name}</Td>
                   <Td paddingY={"2.5"}>{client.email}</Td>
                   <Td paddingY={"2.5"}>{format(new Date(client.dateborn), 'yyyy-MM-dd')}</Td>
