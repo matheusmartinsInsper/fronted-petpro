@@ -21,7 +21,7 @@ import {
 import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon, WarningIcon,InfoOutlineIcon,CheckIcon } from '@chakra-ui/icons';
 import { Service } from "./ModalAgenda";
 
-export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Service)=>void,idservice: string }> = ({ service,selectservice,idservice }) => {
+export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Service)=>void,key: string }> = ({ service,selectservice,key }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -66,7 +66,7 @@ export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Se
         position="relative"
         onClick={()=>{selectservice(service)}}
         cursor="pointer"
-        key={idservice}
+        key={key}
         zIndex={isExpanded?"20":"0"}
         display={"flex"}
         flexDirection={"row"}

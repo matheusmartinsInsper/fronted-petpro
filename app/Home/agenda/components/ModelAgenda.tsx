@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from 'next/router';
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,useCallback} from 'react';
 import {
   Box,
   Flex,
@@ -127,12 +127,7 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
   });
 
  
-
-  useEffect(() => {
-    fetchServices();
-  }, [toggleStateapi]);
-
-  const fetchServices = async () => {
+  const fetchServices = useCallback(async () => {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('Authorization');
       if (token) {
@@ -140,7 +135,7 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
       }
     }
     try {
-      const response = await axios.get(`/Service/${toggleStateapi}`); // Substitua pela URL da sua API
+      const response = await axios.get(`/Service/${toggleStateapi}`);
       if (response.data.status === 'confirmed') {
         const formattedServices = response.data.data.map((service: any) => ({
           idDoServiço: service.idDoServiço,
@@ -150,11 +145,11 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
           preço: service.preço,
           vacinas: service.vacinas,
           subcategorias: service.subcategorias,
-          atendimento: service.atendimento
+          atendimento: service.atendimento,
         }));
         setServices(formattedServices);
       }
-      console.log(response.data.data)
+      console.log(response.data.data);
     } catch (error) {
       console.error('Erro ao buscar serviços:', error);
       toast({
@@ -165,7 +160,11 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
         isClosable: true,
       });
     }
-  };
+  }, [toast, toggleStateapi]);
+
+  useEffect(() => {
+    fetchServices();
+  }, [fetchServices]);
  
   const saveorder = async () => {
     if (typeof window !== 'undefined') {
@@ -512,7 +511,7 @@ const handleSubcategorySelect = (id: string) => {
             </Flex>
             <Text fontSize={"sm"} fontWeight={"bold"}>Atendimento</Text>
             <Flex direction={"row"} >
-            {service.atendimento.map((modelo,index)=>(<Box key={index} display={"flex"} flexDirection={"row"} alignItems={"center"}><CheckIcon mr={"2"} boxSize={"10px"} color={"primary.300"}/><Text fontSize={"sm"} mr="4">{modelo}</Text></Box>))}
+            {service.atendimento.map((modelo,index)=>(<Box key={modelo} display={"flex"} flexDirection={"row"} alignItems={"center"}><CheckIcon mr={"2"} boxSize={"10px"} color={"primary.300"}/><Text fontSize={"sm"} mr="4">{modelo}</Text></Box>))}
             </Flex>
            
             
@@ -534,7 +533,7 @@ const handleSubcategorySelect = (id: string) => {
             <Box><Text fontSize={"sm"} mt={"2"} fontWeight={"bold"}>Descrição</Text><Text>{service.descrição}</Text></Box>
             <Button mt={4} bgColor={"white"} size={"sm"} color={"primary.200"} boxShadow={"md"} _hover={{ backgroundColor: "primary.600", color: "primary.100" }} onClick={unselectservice}>Cancelar</Button>
         </Box>
-      ):  services.map((service,index)=><ServiceRow idservice={service.idDoServiço} service={service} selectservice={selectservice}/>)}
+      ):  services.map((service,index)=><ServiceRow key={service.idDoServiço} service={service} selectservice={selectservice}/>)}
     </Box>
   </Flex>
 </Box>
