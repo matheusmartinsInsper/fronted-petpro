@@ -122,7 +122,7 @@ const HomePage = () => {
               height={["auto", "70vh"]} // Garante altura consistente no layout
               transition={"all 1s ease-in-out"}
             >
-              <Image src="/home.png" width={["100%", "80%"]} objectFit="contain" />
+              <Image src="/home.png" width={["100%", "80%"]} objectFit="contain" mb={["6","0"]}/>
             </MotionBox>
           </Box>
 
@@ -146,18 +146,18 @@ const HomePage = () => {
               justifyContent="space-between"
               alignItems="center"
               gap={[6, 0]}
-              overflowX={["auto", "visible"]}  // Ativa o scroll horizontal no mobile
+              overflowX={["auto", "visible"]} // Ativa o scroll horizontal no mobile
               whiteSpace={["nowrap", "normal"]}
             >
               {[
-                { title: "Clínica", text: "Gerencie sua rede e funcionários", icon: "/baixados.jpeg" },
-                { title: "PetShop", text: "Registro de serviços e produtos", icon: "/secador.jpeg" },
+                { title: "Clínica", text: "Gerencie sua rede e funcionários", icon: "/baixados.jpeg" ,iconSize: "40px"},
+                { title: "PetShop", text: "Registro de serviços e produtos", icon: "/secador.jpeg",iconSize: "40px" },
                 { title: "Veterinário", text: "Acesse recursos de rede e pessoais", icon: "/estetoscopio.jpeg", iconSize: "70px" },
-                { title: "Hotéis", text: "Realize check-in e check-out dos pets", icon: "/hotelpet.jpeg" },
+                { title: "Hotéis", text: "Realize check-in e check-out dos pets", icon: "/hotelpet.jpeg",iconSize: "40px" },
               ].map((item, idx) => (
-                <Box key={idx} display="flex" flexDirection="row" alignItems="start">
+                <Box key={idx} display="flex" flexDirection="row" alignItems="start" minWidth="150px" flexShrink={[0, 1]}>
                   <Box mr={2}>
-                    <Image src={item.icon} width={["20px", "40px"]} />
+                    <Image src={item.icon} width={["30px", item.iconSize]} />
                   </Box>
                   <Box>
                     <Text fontWeight="bold" fontSize="lg">
@@ -216,7 +216,8 @@ const HomePage = () => {
               alignItems="center"
               justifyContent="start"
               flexDirection="column"
-              mt={["30px", "0px"]}
+              my={["30px", "0px"]}
+
             >
               <Text fontWeight={"bold"} fontSize={["xl", "2xl"]} mb={"4"}>Agenda</Text>
               <VStack spacing={4} align="start">
