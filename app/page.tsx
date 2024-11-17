@@ -221,27 +221,27 @@ const HomePage = () => {
             >
               <Text fontWeight={"bold"} fontSize={["xl", "2xl"]} mb={"4"}>Agenda</Text>
               <VStack spacing={4} align="start">
-                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
                   <CheckIcon color={"primary.300"} mr={"2"} />Status
                 </Text>
                 <Text color={"gray.500"}>Acompanhe o status dos seus atendimentos</Text>
 
-                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
                   <CheckIcon color={"primary.300"} mr={"2"} />Prioridade
                 </Text>
                 <Text color={"gray.500"}>Controle de agenda por prioridade</Text>
 
-                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
                   <CheckIcon color={"primary.300"} mr={"2"} />Atribuir atendimentos
                 </Text>
                 <Text color={"gray.500"}>Atribua atendimentos a seus colaboradores</Text>
 
-                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
                   <CheckIcon color={"primary.300"} mr={"2"} />Rede e pessoal
                 </Text>
                 <Text color={"gray.500"}>Para veterinarios, gestão de agenda pessoal e da rede que atua</Text>
 
-                <Text fontSize="xl" fontWeight="bold" color={"primary.300"}>
+                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
                   <CheckIcon color={"primary.300"} mr={"2"} />Agendamento
                 </Text>
                 <Text color={"gray.500"}>Agende manualmente para tutores não registrados no app</Text>
@@ -579,14 +579,14 @@ const HomePage = () => {
               <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Contato</Text>
             </Box>
             <Text color="gray.500" >
-              1 - Iremos salvar seus dados em nossa base <br />e em breve entraremos em contato via Whatsapp e E-mail
+             Iremos salvar seus dados em nossa base <br />e em breve entraremos em contato via Whatsapp e E-mail
             </Text>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Circle size="12px" bgColor="primary.300" mr="2" />
               <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Validação</Text>
             </Box>
             <Text color="gray.500">
-              2 - No nosso primeiro contato iremos apenas nos conhecer<br />
+              No nosso primeiro contato iremos apenas nos conhecer<br />
               após isso iremos validar algumas questões, solicitar mais dados <br />
               e retornaremos via E-mail
             </Text>
@@ -595,7 +595,7 @@ const HomePage = () => {
               <Text fontSize={["lg", "xl"]}fontWeight="bold" color="primary.300" textAlign="center">Acesso</Text>
             </Box>
             <Text color="gray.500">
-              3 - Atendido os critérios, iremos liberar um acesso da plataforma valido por 30 dias<br />
+              Atendido os critérios, iremos liberar um acesso da plataforma valido por 30 dias<br />
               você poderá alterar sua senha e fazer uso normal da ferramenta
             </Text>
             <Box display="flex" flexDirection="row" alignItems="center">
@@ -603,7 +603,7 @@ const HomePage = () => {
               <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Conclusão</Text>
             </Box>
             <Text color="gray.500">
-              4 - Após esse período de teste o usuário pode ou não assinar nossa ferramenta
+              Após esse período de teste o usuário pode ou não assinar nossa ferramenta
             </Text>
           </VStack>
         </Box>
