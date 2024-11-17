@@ -27,8 +27,8 @@ const SignupPage = () => {
     <Flex minH="100vh">
       {/* Container da Esquerda */}
       <Flex flex="3.5" bg="primary.100" p={8} justifyContent="center" alignItems="center">
-        <Box bgColor={"primary.300"}  bgGradient="linear(to-tr, primary.200, primary.300)"  position={"absolute"} width={"35vw"} height={"38vh"} top={"12vh"} borderRadius={"lg"}></Box>
-        <Box bg="white" zIndex={"2"}  p={4} shadow="lg" borderWidth="2px" borderRadius="10px" textAlign="center" width="25%" height="55%" borderColor={"primary.100"}>
+        <Box bgColor={"primary.300"}  bgGradient="linear(to-tr, primary.200, primary.300)"  position={"absolute"} width={["90vw","35vw"]} height={["30vh","38vh"]} top={["12vh","12vh"]} borderRadius={"lg"}></Box>
+        <Box bg="white" zIndex={"2"}  p={4} shadow="lg" borderWidth="2px" borderRadius="10px" textAlign="center" width={["80%","25%"]} height={["55%","55%"]} borderColor={"primary.100"}>
         <Flex alignItems="center" justifyContent="center">
       <Heading as="h1" size="md" mb={10} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} opacity={"90%"}>
         Login
@@ -53,7 +53,7 @@ const SignupPage = () => {
             <Flex justifyContent="center" alignItems="center" height="80%">
       <VStack spacing={2} align="center" width="70%">
         
-        <Text color="gray.500" mb={"2"} mt="4">Selecione o tipo de usuário</Text>
+        <Text color="gray.500" mb={"2"} mt="4" fontSize={["xs","md"]}>Selecione o tipo de usuário</Text>
         <Button
           width="50%"
           color="primary.300"
@@ -64,6 +64,7 @@ const SignupPage = () => {
           _hover={{ backgroundColor: 'primary.300',color:"primary.100" }}
           _focus={{ backgroundColor: 'primary.300',color:"primary.100"  }}
           size={"sm"}
+          fontSize={["xs","sm"]}
         >
           Veterinário
         </Button>
@@ -78,12 +79,13 @@ const SignupPage = () => {
           _focus={{ backgroundColor: 'primary.300',color:"primary.100"  }}
           size={"sm"}
           mb="2"
+          fontSize={["xs","sm"]}
         >
            Clínica
         </Button>
         <Text color="gray.500" fontSize={"sm"}>Ou</Text>
-        <Text color="gray.500">
-        Sem cadastro? <Link href="/Signup" _hover={{textDecoration:"none"}} color={"primary.300"} fontWeight={"bold"}>Registrar</Link>
+        <Text color="gray.500" fontSize={["xs","sm"]}>
+        Sem cadastro? <Link fontSize={["xs","sm"]} href="/Signup" _hover={{textDecoration:"none"}} color={"primary.300"} fontWeight={"bold"}>Registrar</Link>
         </Text>
         <Heading cursor={"pointer"} onClick={()=>redirectlp()} as="h1" size="xs" mb={1} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} bottom={"0"}>
         <span style={{ color: '#7839EE' }}>PET</span>pro

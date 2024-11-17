@@ -329,13 +329,13 @@ const HomePage = () => {
             <Box display="flex" flexDirection={["row", "column"]} overflowX={["auto", "unset"]} width="100%" alignItems="center">
               <Image
                 src="/anamnese2.png"
-                width={"70%"}
+                width={["90%","70%"]}
                 borderRadius={"md"}
                 boxShadow={"md"}
               />
               <Image
                 src="/medialeadingpage.png"
-                width={"70%"}
+                width={["90%","70%"]}
                 borderRadius={"md"}// Para sobrepor as imagens
                 mr={["0", "-160px"]}
                 mt={["0px", "-160px"]}// Ajusta no mobile e desktop
@@ -343,7 +343,7 @@ const HomePage = () => {
               />
               <Image
                 src="/anamnese1.png"
-                width={"70%"}
+                width={["90%","70%"]}
                 borderRadius={"md"}
                 mt={["0px", "-80px"]}
                 mr={["0", "-320px"]}// Ajusta no mobile e desktop
@@ -423,7 +423,7 @@ const HomePage = () => {
             src="/colaborador.jpeg" width={["50px","200px"]} borderRadius={"md"} mt={"0"} zIndex={"2"} mr={"75%"} boxShadow={"md"}
           />
           <Image
-            src="/colaborator2.png" width={["100%","75%"]} borderRadius={"md"} boxShadow={"md"} mt={"-50px"}
+            src="/colaborator2.png" width={["100%","80%"]} borderRadius={"md"} boxShadow={"md"} mt={"-50px"}
           />
         </Box>
       </Box>
@@ -557,7 +557,7 @@ const HomePage = () => {
       <Box
         height={["100%", "100vh"]}
         display="flex"
-        px={["4", "6"]} // Menor padding em telas pequenas
+        px={["6", "6"]} // Menor padding em telas pequenas
         pt={["80px", "120px"]} // Ajuste do padding superior para telas pequenas
         bgColor="primary.100"
         flexDirection={["column-reverse", "row"]} // Coluna em telas pequenas, linha em desktop
@@ -571,18 +571,18 @@ const HomePage = () => {
           mb={["6", "0"]} // Espaçamento inferior em telas pequenas
           mt={["30px", "0px"]}
         >
-          <Text fontWeight="bold" fontSize="2xl" mb="4">Ao enviar</Text>
+          <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Ao enviar</Text>
           <VStack spacing={4} align="start">
             <Box display="flex" flexDirection="row" alignItems="center">
               <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize="xl" fontWeight="bold" color="primary.300" textAlign="center">Contato</Text>
+              <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Contato</Text>
             </Box>
             <Text color="gray.500" >
               1 - Iremos salvar seus dados em nossa base <br />e em breve entraremos em contato via Whatsapp e E-mail
             </Text>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize="xl" fontWeight="bold" color="primary.300" textAlign="center">Validação</Text>
+              <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Validação</Text>
             </Box>
             <Text color="gray.500">
               2 - No nosso primeiro contato iremos apenas nos conhecer<br />
@@ -591,7 +591,7 @@ const HomePage = () => {
             </Text>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize="xl" fontWeight="bold" color="primary.300" textAlign="center">Acesso</Text>
+              <Text fontSize={["lg", "xl"]}fontWeight="bold" color="primary.300" textAlign="center">Acesso</Text>
             </Box>
             <Text color="gray.500">
               3 - Atendido os critérios, iremos liberar um acesso da plataforma valido por 30 dias<br />
@@ -599,7 +599,7 @@ const HomePage = () => {
             </Text>
             <Box display="flex" flexDirection="row" alignItems="center">
               <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize="xl" fontWeight="bold" color="primary.300" textAlign="center">Conclusão</Text>
+              <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Conclusão</Text>
             </Box>
             <Text color="gray.500">
               4 - Após esse período de teste o usuário pode ou não assinar nossa ferramenta
@@ -624,7 +624,7 @@ const HomePage = () => {
             borderRadius="md"
             boxShadow="lg"
           >
-            <Text fontSize="2xl" mb="6">Preencha seus dados</Text>
+            <Text fontSize={["xl", "2xl"]} mb="6">Preencha seus dados</Text>
             <FormControl id="name" mb={4}>
               <FormLabel>Nome</FormLabel>
               <Input
