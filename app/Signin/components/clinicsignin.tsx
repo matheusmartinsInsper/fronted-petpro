@@ -1,9 +1,17 @@
 import { Box, FormControl, FormLabel, Input, VStack, Button, useToast,Text,Checkbox } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState,createContext, useContext } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useRouter } from 'next/navigation';
 
+interface UserContextProps {
+  name: string;
+  setName: (name: string) => void;
+}
+
+const UserContext = createContext<UserContextProps | undefined>(undefined);
+
 const ClinicSignin = () => {
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const toast = useToast();
@@ -24,6 +32,7 @@ const ClinicSignin = () => {
       localStorage.setItem('typeuser', response.data.typeuser);
       localStorage.setItem('emailuser', response.data.email);
       // Redireciona o usuário para a tela Home
+      setName(response.data.nameuser);
       router.push('/Home');
 
       toast({
@@ -97,6 +106,14 @@ const ClinicSignin = () => {
 </VStack>
 
   );
+};
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser must be used within a UserProvider");
+  }
+  return context;
 };
 
 export default ClinicSignin;

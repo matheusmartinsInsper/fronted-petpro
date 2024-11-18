@@ -146,7 +146,7 @@ const UserPage: React.FC = () => {
               px="4"
               zIndex={1} 
             >
-              <Heading  as="h1" mb="1" mt = "6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>Best Clinica</Text></Heading>
+              <Heading  as="h1" mb="1" mt = "6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>Best Clinic</Text></Heading>
               <Text color={"gray.500"} mb={"1"}>Acompanhe suas metricas semanais e mensais! </Text>
             </Box>
 
