@@ -440,7 +440,7 @@ const HomePage = () => {
             src="/services2.png" width={["100%","70%"]} borderRadius={"md"} boxShadow={"md"}
           />
           <Image
-            src="/service1.png" width={["100%","70%"]} borderRadius={"md"} mt="6" boxShadow={"md"}
+            src="/service3.png" width={["100%","70%"]} borderRadius={"md"} mt="6" boxShadow={"md"}
           />
         </Box>
 
@@ -696,7 +696,7 @@ const HomePage = () => {
         >
           {/* Coluna Redes Sociais */}
           <VStack align="start" spacing={4}>
-            <Text fontWeight="bold" fontSize="lg">Redes Sociais</Text>
+            <Text fontWeight="bold" fontSize="lg" color={"primary.400"}>Redes Sociais</Text>
             <Box display="flex" gap={4}>
               <Link href="https://facebook.com" isExternal>
                 <Icon as={FaFacebook} boxSize="6" />
@@ -712,7 +712,7 @@ const HomePage = () => {
 
           {/* Coluna Sou Tutor */}
           <VStack align="start" spacing={4}>
-            <Text fontWeight="bold" fontSize="lg">Sou Tutor</Text>
+            <Text fontWeight="bold" fontSize="lg" color={"primary.400"}>Sou Tutor</Text>
             <Link href="/servicos" _hover={{ textDecoration: "none", color: "primary.300" }}>Serviços</Link>
             <Link href="/medicos" _hover={{ textDecoration: "none", color: "primary.300" }}>Veterinarios</Link>
             <Link href="/hospitais" _hover={{ textDecoration: "none", color: "primary.300" }}>Estabelecimentos</Link>
@@ -723,7 +723,7 @@ const HomePage = () => {
 
           {/* Coluna Suporte */}
           <VStack align="start" spacing={4}>
-            <Text fontWeight="bold" fontSize="lg">Suporte</Text>
+            <Text fontWeight="bold" fontSize="lg" color={"primary.400"}>Suporte</Text>
             <Link href="/carreiras" _hover={{ textDecoration: "none", color: "primary.300" }}>Carreiras</Link>
             <Link href="/politica" _hover={{ textDecoration: "none", color: "primary.300" }}>Política de Privacidade e Termos de Serviço</Link>
             <Link href="/contato" _hover={{ textDecoration: "none", color: "primary.300" }}>Contato</Link>
@@ -732,7 +732,7 @@ const HomePage = () => {
         </Box>
       </Box>
 
-      <Box bgColor={"primary.200"} color={"primary.100"} height={"80px"} justifyContent={"center"} alignItems={"center"} display={"flex"}>
+      <Box bgColor={"primary.200"} color={"gray.500"} height={"80px"} justifyContent={"center"} alignItems={"center"} display={"flex"}>
         ©Copyright 2025. PETpro
       </Box>
     </Box>

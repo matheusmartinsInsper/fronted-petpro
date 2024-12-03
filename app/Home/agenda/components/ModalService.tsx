@@ -147,7 +147,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent minWidth={"620px"} >
+      <ModalContent minWidth={"640px"} >
         <ModalHeader >
           <Flex align="center" justify="start" width="100%">
             
@@ -190,25 +190,25 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
                 <Text><strong>Pet:</strong></Text>
                 <Text>{service.petName}</Text>
               </Box>
-              <Box flex="1" pr={4}>
+              <Box flex="1" pr={4} ml="-12">
                 <Text><strong>Espécie:</strong></Text>
                 <Text>{service.petSpecies}</Text>
               </Box>
-              <Box flex="1" pr={4}>
+              <Box flex="1" mr={0} ml="-12">
                 <Text><strong>Raça:</strong></Text>
                 <Text>{service.petBreed}</Text>
               </Box>
-              <Box flex="1" pr={4}>
+              <Box flex="1" pr={4} ml="-12">
                 <Text><strong>Castrado:</strong></Text>
                 <Text>{service.castrated==true?"Sim":"Não"}</Text>
               </Box>
-              <Box flex="1" pr={0}>
+              <Box flex="1" pr={0} ml="-12">
                 <Text><strong>Peso:</strong></Text>
                 <Text>{service.petWeight}</Text>
               </Box>
-              <Box flex="1">
+              <Box flex="1" ml="-12">
                 <Text><strong>Idade:</strong></Text>
-                <Text>{service.petAge}</Text>
+                <Text whiteSpace="nowrap"  flexDirection={"row"}>{service.petAge}</Text>
               </Box>
               
             </Flex>
@@ -265,13 +265,14 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         </ModalBody>
         <ModalFooter>
           <Flex width="100%" justify="space-between">
-            <Button colorScheme="red" backgroundColor={"primary.600"} onClick={() => cancelOrderService()}
+            <Button fontWeight={"bold"} color={"primary.600"} backgroundColor={"primary.650"} onClick={() => cancelOrderService()}
                 _hover={{ backgroundColor: "primary.600", color: "primary.100" }} size={"sm"}>
               Cancelar
             </Button>
             <Link>
             {service.status=="Confirmado"?
               <Button 
+              fontWeight={"bold"}
                 backgroundColor={"primary.500"}
                 color="primary.300"
                 _hover={{ backgroundColor: "primary.300", color: "primary.100" }} 
@@ -283,6 +284,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
               </Button>
               :service.status=="Andamento"?
               <Button 
+              fontWeight={"bold"}
               backgroundColor={"primary.500"}
               color="primary.300"
               size={"sm"}
@@ -295,6 +297,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
             backgroundColor={"primary.500"}
             color="primary.300"
             size={"sm"}
+            fontWeight={"bold"}
             _hover={{ backgroundColor: "primary.300", color: "primary.100" }} 
             isDisabled={service.status == "Cancelado"}
             onClick={() => goToAttendace()}

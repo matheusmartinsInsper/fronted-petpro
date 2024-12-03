@@ -168,7 +168,7 @@ const Header = () => {
               variant="ghost"
               size="lg"
               color="primary.250"
-              marginRight="0"
+              marginRight="-6"
               zIndex={"100"}
               backgroundColor={"transparent"}
               _hover={{ backgroundColor: "transparent" }}
@@ -203,12 +203,7 @@ const Header = () => {
                     alignItems="flex-start">
                     <Text>
                       <strong>{invitation.nameusersender}</strong> deseja adicionar você à rede 
-                      <Circle
-                        size="10px"
-                        bg="primary.300"
-                        display="inline-block"
-                        ml="2"
-                      />
+                     
                     </Text>
                     <Text fontSize="sm" color="primary.200">
                       Aceitar convite?
@@ -262,6 +257,7 @@ const Header = () => {
             color="primary.250"
             opacity={"90%"}
             zIndex={"100"}
+            mr={"-4"}
             _hover={{ backgroundColor: "transparent" }}
             onClick={onOpen}
           >

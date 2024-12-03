@@ -8,6 +8,7 @@ import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
   ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon,CheckIcon,AtSignIcon 
 } from '@chakra-ui/icons';
+import { FiClipboard } from "react-icons/fi";
 import { useRouter } from 'next/navigation';
 
 interface sidebarprops {
@@ -62,7 +63,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
       transition="width 0.3s"
     >
       {/* Seção Superior */}
-      <Flex px="4" textAlign={"center"} height={"53.4px"} justifyContent={isCollapsed ? "center" : "space-between"} alignItems={"center"} py={2} mb={"0"} 
+      <Flex px="4" mt={"0.5px"} textAlign={"center"} height={"53.4px"} justifyContent={isCollapsed ? "center" : "space-between"} alignItems={"center"} py={2} mb={"0"} 
           borderBottom={"1px"}
           borderBottomColor={"gray.200"}>
         
@@ -88,7 +89,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
       {/* Menu Principal */}
       <VStack mx={"4"} align={isCollapsed ? "center" : "start"} spacing={0} justifyContent={"start"} flex="1" color={"primary.100"} mt={2}>
         <HStack justify="space-between" width="100%" onClick={toggleMainMenu} cursor="pointer">
-          <Text fontSize="md" fontWeight="bold" color="gray.500" display={isCollapsed ? "none" : "flex"} opacity={"sm"} ml={2}>Main Menu</Text>
+          <Text fontSize="md" color="gray.500" display={isCollapsed ? "none" : "flex"} opacity={"sm"} ml={2}>Main Menu</Text>
           {!isCollapsed && <IconButton color={"primary.200"} _hover={{ color: "primary.200", backgroundColor: "whitesmoke", opacity: "80%" }} icon={isMainMenuExpanded ? <ChevronUpIcon /> : <ChevronDownIcon />} aria-label="Expand Main Menu" variant="ghost" />}
         </HStack>
         {isMainMenuExpanded && (
@@ -97,8 +98,8 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/solicitations'>
               <HStack>
-                <BellIcon color={"primary.200"}/>
-                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Solicitações</Text>}
+                <FiClipboard color={"#1D2939"}/>
+                {!isCollapsed && <Text ml={"2px"} color={"primary.200"} >Solicitações</Text>}
               </HStack>
             </Link>
             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
@@ -108,7 +109,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
             >
               <HStack>
                 <CalendarIcon color={"primary.200"}/>
-                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Agenda</Text>}
+                {!isCollapsed && <Text ml={"2px"} color={"primary.200"}>Agenda</Text>}
               </HStack>
             </Link>
             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.200", opacity: "100%" }}
@@ -116,7 +117,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
               borderRadius={"md"} href='/Home/clients'>
               <HStack>
                 <AtSignIcon  color={"primary.200"}/>
-                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Clientes</Text>}
+                {!isCollapsed && <Text ml={"2px"} color={"primary.200"} >Clientes</Text>}
               </HStack>
             </Link>
             {/* <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
@@ -137,16 +138,16 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
             </Link> */}
             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
-              borderRadius={"md"} href='/Home/prontuarios' mb={2}>
+              borderRadius={"md"} href='/Home/prontuarios' mb={0}>
               <HStack>
                 <AttachmentIcon color={"primary.200"}/>
-                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Prontuários</Text>}
+                {!isCollapsed && <Text ml={"2px"} color={"primary.200"} >Prontuários</Text>}
               </HStack>
             </Link>
           </>
         )}
         <HStack justify="space-between" width="100%" onClick={toggleSettingsMenu} cursor="pointer">
-          <Text fontSize="md" fontWeight="bold" color="gray.500" display={isCollapsed ? "none" : "flex"} opacity={"sm"} ml={2}>Settings</Text>
+          <Text fontSize="md"  color="gray.500" display={isCollapsed ? "none" : "flex"} opacity={"sm"} ml={2}>Settings</Text>
           {!isCollapsed && <IconButton color={"primary.200"} 
           _hover={{ color: "primary.200", backgroundColor: "whitesmoke", opacity: "100%" }} icon={isSettingsExpanded ? 
           <ChevronUpIcon /> : <ChevronDownIcon />} aria-label="Expand Settings" variant="ghost" />}
@@ -158,7 +159,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
               borderRadius={"md"} href='/Home/services'>
               <HStack>
                 <SettingsIcon color={"primary.200"}/>
-                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Serviços</Text>}
+                {!isCollapsed && <Text ml={"2px"} color={"primary.200"} >Serviços</Text>}
               </HStack>
             </Link>
             {!isCollaborator && (
@@ -168,7 +169,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                   borderRadius={"md"} href='/Home/collaborators'>
                   <HStack>
                     <FaUser color={"#1D2939"}/>
-                    {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Colaboradores</Text>}
+                    {!isCollapsed && <Text ml={"2px"} color={"primary.200"} >Colaboradores</Text>}
                   </HStack>
                 </Link>
                
@@ -179,7 +180,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                   borderRadius={"md"} href='/Home/estoque'>
                   <HStack>
                     <FaBoxes color={"#1D2939"}/>
-                    {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Estoque</Text>}
+                    {!isCollapsed && <Text ml={"2px"} color={"primary.200"} >Estoque</Text>}
                   </HStack>
                 </Link>
             {/* <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
@@ -195,7 +196,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
               borderRadius={"md"} href='/Home/form'>
               <HStack>
                 <EditIcon color={"primary.200"}/>
-                {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Anamnese</Text>}
+                {!isCollapsed && <Text ml={"2px"} color={"primary.200"}>Anamnese</Text>}
               </HStack>
             </Link>
           </>
@@ -220,7 +221,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
           color={"primary.100"}
           _hover={{ color: "primary.100", backgroundColor: "primary.500", opacity: "100%" }}
         />
-        {!isCollapsed && <Text fontWeight={"bold"} color={"primary.250"}>Sair</Text>}
+        {!isCollapsed && <Text fontWeight={"bold"} color={"primary.200"}>Sair</Text>}
       </Flex>
     </Box>
   );

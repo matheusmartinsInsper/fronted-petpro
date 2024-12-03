@@ -94,10 +94,10 @@ export const Attendance: React.FC<{ att: AttendanceData, onFilesUpdate: (files: 
           <strong>Descrição:</strong> {att.service.description}
         </Text>
         <Text>
-          <strong>Data agendamento:</strong> {format(att.service.dateapontted, "dd/MM/yy HH:mm")}
+          <strong>Data solicitação:</strong> {format(att.service.datesolicitation, "dd/MM/yy HH:mm")}
         </Text>
         <Text>
-          <strong>Data solicitação:</strong> {format(att.service.datesolicitation, "dd/MM/yy HH:mm")}
+          <strong>Data agendamento:</strong> {format(att.service.dateapontted, "dd/MM/yy HH:mm")}
         </Text>
         <Text fontSize="sm" fontWeight="bold">
         Valor total:{' '}

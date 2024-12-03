@@ -598,11 +598,11 @@ const Atendimento = () => {
               <Box p="2" bgColor="white"
                 overflowY="auto" maxHeight={"140px"}>
 
-                <Box height={"120px"} mb={"4"} bgColor={"white"} fontSize={"sm"} border={"2px"} borderColor={"gray.200"} borderRadius={"md"} p="2" >
+                <Box height={"120px"} mb={"4"} bgColor={"white"} fontSize={"sm"} border={"1px"} borderColor={"gray.200"} borderRadius={"md"} p="2" >
                   <Text fontSize={"xs"} mb="2">Contra Indicação</Text>
                   <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"xs"}> meu pet nao pode tomar banho com produto x</Text></Text>
                 </Box>
-                <Box height={"120px"} bgColor={"white"} fontSize={"sm"} border={"2px"} borderColor={"gray.200"} borderRadius={"md"} p="2" >
+                <Box height={"120px"} bgColor={"white"} fontSize={"sm"} border={"1px"} borderColor={"gray.200"} borderRadius={"md"} p="2" >
                   <Text fontSize={"xs"} mb="2">Contra Indicação<Text fontWeight={"bold"} fontSize={"xs"}> Alergico a shampo x</Text></Text>
                   <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"xs"}> meu pet nao pode tomar banho com produto x</Text></Text>
                 </Box>
@@ -798,7 +798,7 @@ const Atendimento = () => {
                           _hover={{ backgroundColor: "primary.500", color: "primary.300" }}
                           size={"lg"}
                         />
-                        Adicionar anamnese
+                        Adicionar Anamnese
                       </Box>}
                     <FormAnamnese isOpen={isOpen} onClose={onClose} selectform={selectForm} />
                   </>

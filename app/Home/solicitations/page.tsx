@@ -1,6 +1,6 @@
 "use client";
 
-import { format, differenceInHours ,subDays,isSameDay} from "date-fns";
+import { format, differenceInHours, subDays, isSameDay } from "date-fns";
 import {
   Box,
   Flex,
@@ -24,10 +24,11 @@ import {
   Link,
   SimpleGrid,
   Icon,
-  useTheme
+  useTheme,
+  Tooltip as Tooltip2
 } from "@chakra-ui/react";
-import { MdEvent, MdPeople, MdStore,MdMoreHoriz } from 'react-icons/md';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,Cell,LineChart,Line } from 'recharts';
+import { MdEvent, MdPeople, MdStore, MdMoreHoriz } from 'react-icons/md';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, LineChart, Line } from 'recharts';
 import {
   SearchIcon,
   BellIcon,
@@ -35,7 +36,7 @@ import {
   EditIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  ChevronRightIcon as ExpandIcon,WarningIcon
+  ChevronRightIcon as ExpandIcon, WarningIcon
 } from "@chakra-ui/icons";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/headers";
@@ -57,8 +58,8 @@ export interface Subcategory {
 }
 
 export interface Service {
-  nameuserowner:string;
-  priority: "Não urgente" | "Pouco urgente" | "Urgente" | "Muito urgente"|"Emergencia";
+  nameuserowner: string;
+  priority: "Não urgente" | "Pouco urgente" | "Urgente" | "Muito urgente" | "Emergencia";
   idos: string;
   title: string;
   date: Date;
@@ -79,7 +80,7 @@ export interface Service {
   categoryname: string;
   vaccines: Vaccine[];
   subcategories: Subcategory[];
-  attendancemodel:string
+  attendancemodel: string
 }
 const getPriorityColor2 = (status: string, theme: any) => {
   switch (status) {
@@ -127,8 +128,8 @@ const Services = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const [data, setData] = useState<{ day: string; solicitacoes: number }[]>([]);
-  const [countStatus,setCountStatus] = useState<{ Cancelado: number; Pendente: number }>({Cancelado:0,Pendente:0})
-  const [totalprice,settotalprice] = useState<number>(0);
+  const [countStatus, setCountStatus] = useState<{ Cancelado: number; Pendente: number }>({ Cancelado: 0, Pendente: 0 })
+  const [totalprice, settotalprice] = useState<number>(0);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
@@ -181,7 +182,7 @@ const Services = () => {
         vaccines: service.vaccines || [],
         subcategories: service.subcategories || [],
         idos: service.idorderservice,
-        attendancemodel:service.attendancemodel
+        attendancemodel: service.attendancemodel
       }));
       const dataall = responseall.data.data.map((service: any) => ({
         priority: service.priority,
@@ -205,10 +206,10 @@ const Services = () => {
         vaccines: service.vaccines || [],
         subcategories: service.subcategories || [],
         idos: service.idorderservice,
-        attendancemodel:service.attendancemodel
+        attendancemodel: service.attendancemodel
       }));
-      setServices(data);
-      setFilteredServices(data);
+      setServices(data.slice().reverse());
+      setFilteredServices(data.slice().reverse());
       setData(countRequestsInLast7Days(dataall));
       setCountStatus(countServicesByStatus(data));
       settotalprice(getTotalPriceOfPendingServices(data));
@@ -220,13 +221,13 @@ const Services = () => {
         'Muito urgente': 0,
         'Emergencia': 0,
       };
-  
-      data.forEach((service:Service) => {
+
+      data.forEach((service: Service) => {
         if (counts[service.priority] !== undefined) {
           counts[service.priority]++;
         }
       });
-  
+
       // Atualiza os dados do gráfico
       setPriorityData([
         { prioridade: 'Não urgente', quantidade: counts['Não urgente'] },
@@ -246,13 +247,13 @@ const Services = () => {
       });
     }
   };
-  const countServicesByStatus = (services:Service[]) => {
+  const countServicesByStatus = (services: Service[]) => {
 
     const statusCount = {
       Cancelado: 0,
       Pendente: 0,
     };
-  
+
     services.forEach((service) => {
       if (service.status === "Cancelado") {
         statusCount.Cancelado += 1;
@@ -260,38 +261,38 @@ const Services = () => {
         statusCount.Pendente += 1;
       }
     });
-  
+
     return statusCount;
   };
 
   const countRequestsInLast7Days = (services: Service[]) => {
     const today = new Date();
-    
+
     // Gerar os últimos 7 dias
     const last7Days = Array.from({ length: 7 }, (_, i) => {
       const currentDate = subDays(today, i); // Calcula a data do dia
       const dayNumber = format(currentDate, 'd'); // Formata apenas o número do dia
       const dayName = format(currentDate, 'EEEE', { locale: ptBR }); // Formata o dia da semana
-  
+
       return {
         date: currentDate, // Armazena a data completa
         day: dayNumber, // Número do dia
         dayWithNumber: `${dayName} (${dayNumber})`, // Dia da semana com o número do dia
         solicitacoes: 0, // Inicializa a contagem de solicitações
       };
-    }).reverse(); 
+    }).reverse();
 
     const solicitationCount = last7Days.map((day) => {
       const count = services.filter(service =>
         isSameDay(new Date(service.datesolicitation), day.date)
       ).length;
-  
+
       return {
         ...day,
         solicitacoes: count,
       };
     });
-  
+
     return solicitationCount; // Retorna os dados com a contagem
   };
 
@@ -301,24 +302,24 @@ const Services = () => {
       .reduce((total, service) => {
         const priceNumber = parseFloat(service.servicePrice); // Converte o preço para número
         return total + (isNaN(priceNumber) ? 0 : priceNumber);  // Soma os preços, ignorando valores inválidos
-      }, 0);  
+      }, 0);
   };
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.target.value.toLowerCase();
-  setSearchTerm(query);
+    setSearchTerm(query);
 
-  const filtered = services.filter((service) => {
-    return (
-      service.priority.toLowerCase().includes(query) ||
-      service.title.toLowerCase().includes(query) ||
-      service.clientName.toLowerCase().includes(query) ||
-      service.status.toLowerCase().includes(query) ||
-      service.categoryname.toLowerCase().includes(query) 
-    );
-  });
+    const filtered = services.filter((service) => {
+      return (
+        service.priority.toLowerCase().includes(query) ||
+        service.title.toLowerCase().includes(query) ||
+        service.clientName.toLowerCase().includes(query) ||
+        service.status.toLowerCase().includes(query) ||
+        service.categoryname.toLowerCase().includes(query)
+      );
+    });
 
-  setFilteredServices(query ? filtered : services);
+    setFilteredServices(query ? filtered : services);
   };
 
   const handlePageChange = (direction: "next" | "prev") => {
@@ -351,141 +352,141 @@ const Services = () => {
 
   return (
     <>
-    <Header />
-    <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
-    <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar}/>
-      <Box
-        py="2"
-        marginLeft={isCollapsed?"60px":"250px"}
-         width={isCollapsed?"calc(100% - 60px)":"calc(100% - 250px)"}
-        flex="1"
-        borderRadius="md"
-        position="relative"
-        height={"53.4px"}
-      >
-        <Flex justify="space-between" align="center" mb="2"  borderBottomColor={"gray.200"} borderBottomWidth={"1px"} pb={"1"} px = "4">
-          <Flex align="center">
-          <Heading as="h1" size="sm" color={"primary.200"} display={"flex"} flexDirection={"row"}><Text color="gray.500">Main Menu 
-      <ChevronRightIcon /> 
-          
-        </Text> Solicitações</Heading>
-            <Button 
-             backgroundColor={"white"}
-             borderRadius={"md"}
-             size="sm"
-             p={"2"}
-             boxShadow={"md"}
-             ml={"4"}
-             _hover={{ backgroundColor: "white" }}
-             _focus={{ outline: "none" }}>
-            <Box ml="1">
-              <Switch
-                colorScheme="purple"
-                isChecked={toggleState === "rede"}
-                onChange={handleToggleChange}
+      <Header />
+      <Flex direction="column" minHeight="calc(100vh - 40px)" backgroundColor={"primary.100"}>
+        <Sidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
+        <Box
+          py="2"
+          marginLeft={isCollapsed ? "60px" : "250px"}
+          width={isCollapsed ? "calc(100% - 60px)" : "calc(100% - 250px)"}
+          flex="1"
+          borderRadius="md"
+          position="relative"
+          height={"53.4px"}
+        >
+          <Flex justify="space-between" align="center" mb="2" borderBottomColor={"gray.200"} borderBottomWidth={"1px"} pb={"1"} px="4">
+            <Flex align="center">
+              <Heading as="h1" size="sm" color={"primary.200"} display={"flex"} flexDirection={"row"}><Text color="gray.500">Main Menu
+                <ChevronRightIcon />
+
+              </Text> Solicitações</Heading>
+              <Button
+                backgroundColor={"white"}
+                borderRadius={"md"}
                 size="sm"
-                fontWeight={"bold"}
-                tabIndex={-1}
-                _focus={{ outline: "none", boxShadow: "none" }} // Remove a borda de foco
-                _active={{ outline: "none", boxShadow: "none" }} // Remove o estilo de foco do Switch
-                onMouseDown={(e) => e.preventDefault()}
+                p={"2"}
+                boxShadow={"md"}
+                ml={"4"}
+                _hover={{ backgroundColor: "white" }}
+                _focus={{ outline: "none" }}>
+                <Box ml="1">
+                  <Switch
+                    colorScheme="purple"
+                    isChecked={toggleState === "rede"}
+                    onChange={handleToggleChange}
+                    size="sm"
+                    fontWeight={"bold"}
+                    tabIndex={-1}
+                    _focus={{ outline: "none", boxShadow: "none" }} // Remove a borda de foco
+                    _active={{ outline: "none", boxShadow: "none" }} // Remove o estilo de foco do Switch
+                    onMouseDown={(e) => e.preventDefault()}
+                  />
+                </Box>
+                <Text ml="2" color="primary.200" fontWeight={"bold"} fontSize={"sm"}>
+                  {toggleState === "Pessoal" ? "Pessoal" : "Rede"}
+                </Text>
+              </Button>
+
+            </Flex>
+
+            <Box ml="auto">
+              <Input
+                placeholder="Pesquisar por palavra chave"
+                value={searchTerm}
+                onChange={handleSearch}
+                width="300px"
+                size="sm"
+                mr="4"
+                focusBorderColor="primary.400"
+                borderRadius={"md"}
+              />
+              <IconButton
+                aria-label="Pesquisar"
+                icon={<SearchIcon />}
+                onClick={() => { }}
+                size="sm"
+                variant="outline"
               />
             </Box>
-            <Text ml="2" color="primary.200" fontWeight={"bold"} fontSize={"sm"}>
-              {toggleState === "Pessoal" ? "Pessoal" : "Rede"}
-            </Text>
-            </Button>
-            
           </Flex>
+          <SimpleGrid px={"4"} zIndex={2} mb="2" mt="2" columns={{ base: 1, md: 2, lg: 4 }} spacing="2" position={"relative"}>
+            <Card zIndex={2} pl="4" py="4" height={100}>
+              <Text fontSize={"sm"} fontWeight={"bold"}>Solicitações por prioridade</Text>
+              <CardBody
+                color="primary.250"
+                transition={"1"}
+                m="0"
+                mt="-6"
+              >
 
-          <Box ml="auto">
-            <Input
-              placeholder="Pesquisar por palavra chave"
-              value={searchTerm}
-              onChange={handleSearch}
-              width="300px"
-              size="sm"
-              mr="4"
-              focusBorderColor="primary.400"
-              borderRadius={"md"}
-            />
-            <IconButton
-              aria-label="Pesquisar"
-              icon={<SearchIcon />}
-              onClick={() => {}}
-              size="sm"
-              variant="outline"
-            />
-          </Box>
-        </Flex>
-        <SimpleGrid px={"4"} zIndex={2} mb="2"  mt="2" columns={{ base: 1, md: 2, lg: 4 }} spacing="2" position={"relative"}>
-        <Card zIndex={2} pl ="4" py="4" height={100}>
-        <Text fontSize={"sm"} fontWeight={"bold"}>Solicitações por prioridade</Text>
-      <CardBody
-        color="primary.250"
-        transition={"1"}
-        m="0"
-        mt="-6"
-      >
-        
-        {/* Gráfico de Barras */}
-        <ResponsiveContainer width="75%" height={90}>
-  <BarChart 
-    data={priorityData} 
-    barCategoryGap={0}  // Reduzindo o espaçamento entre as categorias
-    barGap={0}  // Sem espaçamento entre as barras
-  >
-    <XAxis dataKey="prioridade" tick={false} axisLine={false} /> {/* Escondendo ticks e linha do eixo X */}
-    <YAxis hide={true} /> {/* Escondendo o eixo Y */}
-    <Tooltip />
-    <Bar
-      dataKey="quantidade"
-      name="Solicitações"
-      radius={[10, 10, 10, 10]}
-      barSize={10}  // Ajustando o tamanho das barras
-      fontSize={"sm"}
-      
-    >
-      {priorityData.map((entry, index) => (
-        <Cell key={`cell-${index}`} fill={getPriorityColor2(entry.prioridade, theme)} />
-      ))}
-    </Bar>
-  </BarChart>
-</ResponsiveContainer>
+                {/* Gráfico de Barras */}
+                <ResponsiveContainer width="75%" height={90}>
+                  <BarChart
+                    data={priorityData}
+                    barCategoryGap={0}  // Reduzindo o espaçamento entre as categorias
+                    barGap={0}  // Sem espaçamento entre as barras
+                  >
+                    <XAxis dataKey="prioridade" tick={false} axisLine={true} /> {/* Escondendo ticks e linha do eixo X */}
+                    <YAxis  /> {/* Escondendo o eixo Y */}
+                    <Tooltip />
+                    <Bar
+                      dataKey="quantidade"
+                      name="Solicitações"
+                      radius={[2.5, 2.5, 2.5, 2.5]}
+                      barSize={5}  // Ajustando o tamanho das barras
+                      fontSize={"xs"}
+           
+                    >
+                      {priorityData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={getPriorityColor2(entry.prioridade, theme)} strokeWidth={"2px"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
 
-      </CardBody>
-    </Card>
-      <Card height={100}  py="4">
-      <CardBody
-         color="primary.250"
-         transition={"1"}
-         m="0"
-         mt="-4"
-      >
-        <Flex align="center">
-          <Heading size="xs" fontWeight="bold">
-            Solicitações nos últimos 7 dias
-          </Heading>
-        </Flex>
+              </CardBody>
+            </Card>
+            <Card height={100} py="4">
+              <CardBody
+                color="primary.250"
+                transition={"1"}
+                m="0"
+                mt="-4"
+              >
+                <Flex align="center">
+                  <Heading size="xs" fontWeight="bold">
+                    Solicitações nos últimos 7 dias
+                  </Heading>
+                </Flex>
 
-        {/* Gráfico de linha */}
-        <ResponsiveContainer width="75%" height={55}>
-  <LineChart data={data}>
-    {/* O eixo X agora está oculto, mas os pontos ainda serão plotados */}
-    <XAxis dataKey="dayWithNumber" hide />
-    <YAxis />
-    <Tooltip />
-    <Line
-      type="monotone"
-      dataKey="solicitacoes"
-      stroke={theme.colors.primary[300]}
-      strokeWidth={2}
-    />
-  </LineChart>
-</ResponsiveContainer>
+                {/* Gráfico de linha */}
+                <ResponsiveContainer width="75%" height={55}>
+                  <LineChart data={data}>
+                    {/* O eixo X agora está oculto, mas os pontos ainda serão plotados */}
+                    <XAxis dataKey="dayWithNumber" hide />
+                    <YAxis />
+                    <Tooltip />
+                    <Line
+                      type="monotone"
+                      dataKey="solicitacoes"
+                      stroke={theme.colors.primary[300]}
+                      strokeWidth={2}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
 
-      </CardBody>
-    </Card>
+              </CardBody>
+            </Card>
             <Card height={100}>
               <CardBody color="primary.250" >
                 <Flex align="center">
@@ -493,23 +494,23 @@ const Services = () => {
                 </Flex>
                 <Flex align={"end"} mt={2}>
                   <Box display={"flex"} flexDirection={"row"} alignItems={"center"} textAlign={"center"} mr={"4"}>
-                  <Circle
-                          size="10px"
-                          bg="primary.900"
-                          display="inline-block"
-                          mr="2"
-                        />
-                     <Text fontSize="sm" fontWeight="bold"  mr={2} >Pendentes: {countStatus.Pendente} </Text>
+                    <Circle
+                      size="10px"
+                      bg="primary.900"
+                      display="inline-block"
+                      mr="2"
+                    />
+                    <Text fontSize="sm" fontWeight="bold" mr={2} >Pendentes: {countStatus.Pendente} </Text>
                   </Box>
-                
+
                   <Box display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"center"}>
-                  <Circle
-                          size="10px"
-                          bg="primary.600"
-                          display="inline-block"
-                          mr="2"
-                        />
-                     <Text fontSize="sm" fontWeight="bold"  mr={2} >Canceladas: {countStatus.Cancelado} </Text>
+                    <Circle
+                      size="10px"
+                      bg="primary.600"
+                      display="inline-block"
+                      mr="2"
+                    />
+                    <Text fontSize="sm" fontWeight="bold" mr={2} >Canceladas: {countStatus.Cancelado} </Text>
                   </Box>
                 </Flex>
               </CardBody>
@@ -518,199 +519,207 @@ const Services = () => {
               <CardBody color="primary.250">
                 <Flex align="center">
                   <Heading size="sm" >Total previsto</Heading>
-                  
+
                 </Flex>
                 <Text color={"gray.500"} fontSize={"xs"}>São contabilizados somente os pendentes</Text>
                 <Flex align={"end"} mt={1}>
-                <Text
-                        textAlign={"center"}
-                        minWidth={"50px"}
-                        fontSize={"xs"}
-                        backgroundColor={"#D5FFE4"}
-                        p={"1"}
-                        borderRadius={"5px"}
-                        color={"#2EB086"}
-                        fontWeight={"bold"}
-                      >
-                       {totalprice} R$
-                      </Text>
+                  <Text
+                    textAlign={"center"}
+                    minWidth={"50px"}
+                    fontSize={"xs"}
+                    backgroundColor={"#D5FFE4"}
+                    p={"1"}
+                    px="2"
+                    borderRadius={"5px"}
+                    color={"#2EB086"}
+                    fontWeight={"bold"}
+                  >
+                    {totalprice} R$
+                  </Text>
                 </Flex>
               </CardBody>
             </Card>
           </SimpleGrid>
-        <Box
-          overflowX="auto"
-          mb="14"
-          borderRadius={"md"}
-          backgroundColor={"white"}
-          boxShadow={"md"}
-           mx="4"
-        >
-          <Table variant="simple">
-            <Thead backgroundColor={"primary.200"} color={"primary.100"}>
-              <Tr>
-                
-                <Th color={"primary.100"}>Categoria</Th>
-                <Th color={"primary.100"}>Tutor</Th>
-                <Th color={"primary.100"}>Rede</Th>
-                <Th color={"primary.100"}>Data-Agendamento</Th>
-                <Th color={"primary.100"}>Data-Solicitação</Th>
-                <Th color={"primary.100"}>Prioridade</Th>
-                <Th color={"primary.100"}>Preço</Th>
-                <Th color={"primary.100"}>Status</Th>
-                <Th color={"primary.100"}>Detalhes</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {paginatedServices.map((service) => {
-                const hoursDifference = differenceInHours(
-                  new Date(),
-                  service.datesolicitation
-                );
-                return (
-                  <Tr key={service.idos} paddingY={"2.5"}>
-                    <Td paddingY={"2.5"}>{service.categoryname}</Td>
-                    <Td paddingY={"2.5"}>{service.clientName}</Td>
-                    <Td paddingY={"2.5"}>{service.nameuserowner}</Td>
-                    <Td paddingY={"2.5"}>{format(service.date, "dd/MM/yy HH:mm")}</Td>
-                    <Td paddingY={"2.5"}>
-                      {format(service.datesolicitation, "dd/MM/yy HH:mm")}
-                      {hoursDifference >= 6 && (
-                        <WarningIcon color={"primary.600"} boxSize={"3"} ml="2" mt="-1"/>
-                      )}
-                    </Td>
-                    <Td paddingY={"2.5"}>
-                      <Text
-                        textAlign={"center"}
-                        minWidth={"70px"}
-                        fontSize={"xs"}
-                        borderLeftColor={getPriorityColor(service.priority)}
-                        borderLeftWidth={"7px"}
-                        p={"1"}
-                        borderRadius={"6px"}
-                        color={getPriorityColor(service.priority)}
-                        boxShadow={"md"}
-                        fontWeight={"bold"}
-                      >
-                        {service.priority}
-                      </Text>
-                    </Td>
-                    <Td paddingY={"2.5"}>
-                      <Text
-                        textAlign={"center"}
-                        minWidth={"50px"}
-                        fontSize={"xs"}
-                        backgroundColor={"#D5FFE4"}
-                        p={"1"}
-                        borderRadius={"5px"}
-                        color={"#2EB086"}
-                        fontWeight={"bold"}
-                      >
-                        {service.servicePrice} R$
-                      </Text>
-                    </Td>
-                    <Td paddingY={"2.5"}>
-                      <Text
-                      fontWeight={"bold"}
+          <Box
+            overflowX="auto"
+            mb="14"
+            borderRadius={"md"}
+            backgroundColor={"white"}
+            boxShadow={"md"}
+            mx="4"
+          >
+            <Table variant="simple">
+              <Thead backgroundColor={"primary.200"} color={"primary.100"}>
+                <Tr>
+
+                  <Th color={"primary.100"}>Categoria</Th>
+                  <Th color={"primary.100"}>Tutor</Th>
+                  <Th color={"primary.100"}>Rede</Th>
+                  <Th color={"primary.100"}>Data-Agendamento</Th>
+                  <Th color={"primary.100"}>Data-Solicitação</Th>
+                  <Th color={"primary.100"}>Prioridade</Th>
+                  <Th color={"primary.100"}>Preço</Th>
+                  <Th color={"primary.100"}>Status</Th>
+                  <Th color={"primary.100"}>Detalhes</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {paginatedServices.map((service) => {
+                  const hoursDifference = differenceInHours(
+                    new Date(),
+                    service.datesolicitation
+                  );
+                  return (
+                    <Tr key={service.idos} paddingY={"2.5"}>
+                      <Td paddingY={"2.5"}>{service.categoryname}</Td>
+                      <Td paddingY={"2.5"}
+                        overflow="hidden"
                         textAlign="center"
-                        minWidth="70px"
-                        p="1"
-                        fontSize={"sm"}
-                        borderRadius="5px"
-                        color={
-                          service.status === "Pendente"
-                            ? "#FFC100"
-                            : service.status === "Cancelado"
-                            ? "primary.600"
-                            : "gray.600"
-                        }
-                        backgroundColor={
-                          service.status === "Pendente"
-                            ? "#FFFBDA"
-                            : service.status === "Cancelado"
-                            ? "primary.650"
-                            : "gray.100"
-                        }
-                      >
-                        {service.status}
-                      </Text>
-                    </Td>
-                    <Td paddingY={"2.5"}>
-                      <Flex>
-                        <IconButton
-                          aria-label="Expandir detalhes"
-                          icon={<ExpandIcon />}
-                          size="sm"
-                          color="blue.500"
-                          backgroundColor="white"
-                          _hover={{ backgroundColor: "primary.100" }}
-                          onClick={() => handleDetailsClick(service)}
-                        />
-                      </Flex>
-                    </Td>
-                  </Tr>
-                );
-              })}
-            </Tbody>
-          </Table>
+                        whiteSpace="nowrap"
+                        textOverflow="ellipsis"
+                        maxWidth="130px" >{service.clientName}</Td>
+                      <Td paddingY={"2.5"}>{service.nameuserowner}</Td>
+                      <Td paddingY={"2.5"}>{format(service.date, "dd/MM/yy HH:mm")}</Td>
+                      <Td paddingY={"2.5"}>
+                        {format(service.datesolicitation, "dd/MM/yy HH:mm")}
+                        {hoursDifference >= 6 && (
+                           <Tooltip2
+                           label={`Solicitação com ou mais de 6h de espera. Cliente está há ${hoursDifference>=24?Math.trunc(hoursDifference/24):hoursDifference}${hoursDifference>=24?"d":"h"} aguardando retorno.`}
+                           fontSize="sm"
+                           bg="gray.700"
+                           color="white"
+                           borderRadius="md"
+                           p={2}
+                         >
+                           <WarningIcon color={"primary.300"} boxSize={"3"} ml="2" mt="-1" />
+                         </Tooltip2>
+                        )}
+                      </Td>
+                      <Td paddingY={"2.5"}>
+                        <Text
+                          textAlign={"center"}
+                          minWidth={"70px"}
+                          fontSize={"xs"}
+                          borderLeftColor={getPriorityColor(service.priority)}
+                          borderLeftWidth={"7px"}
+                          p={"1"}
+                          borderRadius={"6px"}
+                          color={getPriorityColor(service.priority)}
+                          boxShadow={"md"}
+                          fontWeight={"bold"}
+                        >
+                          {service.priority}
+                        </Text>
+                      </Td>
+                      <Td paddingY={"2.5"}>
+                        <Text
+                          textAlign={"center"}
+                          minWidth={"50px"}
+                          fontSize={"xs"}
+                          backgroundColor={"#D5FFE4"}
+                          p={"1"}
+                          borderRadius={"5px"}
+                          color={"primary.800"}
+                          fontWeight={"bold"}
+                        >
+                          {service.servicePrice} R$
+                        </Text>
+                      </Td>
+                      <Td paddingY={"2.5"}>
+                        <Text
+                          textAlign="center"
+                          minWidth="70px"
+                          p="1"
+                          fontSize={"sm"}
+                          borderRadius="5px"
+                          color={
+                            service.status === "Pendente"
+                              ? "#FFC100"
+                              : service.status === "Cancelado"
+                                ? "primary.600"
+                                : "gray.600"
+                          }
+                          backgroundColor={"white"}
+                        >
+                          {service.status}
+                        </Text>
+                      </Td>
+                      <Td paddingY={"2.5"}>
+                        <Flex>
+                          <IconButton
+                            aria-label="Expandir detalhes"
+                            icon={<ExpandIcon />}
+                            size="sm"
+                            color="blue.500"
+                            backgroundColor="white"
+                            _hover={{ backgroundColor: "primary.100" }}
+                            onClick={() => handleDetailsClick(service)}
+                          />
+                        </Flex>
+                      </Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </Box>
+
+          <Flex
+            justify="center"
+            align="center"
+            background="transparent"
+            borderTopWidth="0px"
+            borderColor="gray.200"
+            p="4"
+            position="fixed"
+            bottom="0"
+            width="calc(100% - 250px)"
+          >
+            <IconButton
+              aria-label="Previous Page"
+              icon={<ChevronLeftIcon />}
+              onClick={() => handlePageChange("prev")}
+              isDisabled={currentPage === 1}
+              fontSize={"sm"}
+              size={"sm"}
+              bgColor={"primary.100"}
+              border={"2px"}
+              borderColor={"primary.100"}
+              color={"primary.300"}
+              mr="2"
+            />
+            <Text>
+              {" "}
+              {currentPage}{" "}
+            </Text>
+            <IconButton
+              aria-label="Next Page"
+              icon={<ChevronRightIcon />}
+              onClick={() => handlePageChange("next")}
+              isDisabled={currentPage * itemsPerPage >= filteredServices.length}
+              ml="2"
+              fontSize={"sm"}
+              size={"sm"}
+              bgColor={"primary.100"}
+              border={"2px"}
+              color={"primary.300"}
+              borderColor={"primary.100"}
+            />
+          </Flex>
+
+          {selectedService && (
+            <ServiceDetailsModal
+              isOpen={isOpen}
+              onClose={onClose}
+              service={selectedService}
+              typefromrequest={toggleStateapi}
+              fetchservices={fetchServices}
+            />
+          )}
         </Box>
-
-        <Flex
-          justify="center"
-          align="center"
-          background="transparent"
-          borderTopWidth="0px"
-          borderColor="gray.200"
-          p="4"
-          position="fixed"
-          bottom="0"
-          width="calc(100% - 250px)"
-        >
-          <IconButton
-            aria-label="Previous Page"
-            icon={<ChevronLeftIcon />}
-            onClick={() => handlePageChange("prev")}
-            isDisabled={currentPage === 1}
-            fontSize={"sm"}
-            size={"sm"}
-            bgColor={"primary.100"}
-            border={"2px"}
-            borderColor={"primary.100"}
-            color={"primary.300"}
-            mr="2"
-          />
-          <Text>
-            {" "}
-            {currentPage}{" "}
-          </Text>
-          <IconButton
-            aria-label="Next Page"
-            icon={<ChevronRightIcon />}
-            onClick={() => handlePageChange("next")}
-            isDisabled={currentPage * itemsPerPage >= filteredServices.length}
-            ml="2"
-            fontSize={"sm"}
-            size={"sm"}
-            bgColor={"primary.100"}
-            border={"2px"}
-            color={"primary.300"}
-            borderColor={"primary.100"}
-          />
-        </Flex>
-
-        {selectedService && (
-          <ServiceDetailsModal
-            isOpen={isOpen}
-            onClose={onClose}
-            service={selectedService}
-            typefromrequest={toggleStateapi}
-            fetchservices={fetchServices}
-          />
-        )}
-      </Box>
-    </Flex>
+      </Flex>
     </>
-    
+
   );
 };
 

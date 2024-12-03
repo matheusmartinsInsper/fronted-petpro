@@ -16,6 +16,7 @@ interface BarData {
   totalFaturado: number;
   totalPerdido: number;
   totalClientesAtendidos: number;
+  totalDespesa: number
 }
 
 interface PieData {
@@ -24,13 +25,13 @@ interface PieData {
 }
 
 const barData: BarData[] = [
-  { day: 'Seg', totalFaturado: 300, totalPerdido: 50, totalClientesAtendidos: 40 },
-  { day: 'Ter', totalFaturado: 400, totalPerdido: 60, totalClientesAtendidos: 40 },
-  { day: 'Qua', totalFaturado: 350, totalPerdido: 40, totalClientesAtendidos: 40 },
-  { day: 'Qui', totalFaturado: 500, totalPerdido: 70, totalClientesAtendidos: 40 },
-  { day: 'Sex', totalFaturado: 420, totalPerdido: 55, totalClientesAtendidos: 40 },
-  { day: 'Sáb', totalFaturado: 480, totalPerdido: 65, totalClientesAtendidos: 40 },
-  { day: 'Dom', totalFaturado: 600, totalPerdido: 80, totalClientesAtendidos: 40 },
+  { day: 'Seg', totalFaturado: 300, totalPerdido: 50,totalDespesa: 250, totalClientesAtendidos: 40 },
+  { day: 'Ter', totalFaturado: 400, totalPerdido: 60,totalDespesa: 80, totalClientesAtendidos: 40 },
+  { day: 'Qua', totalFaturado: 350, totalPerdido: 40,totalDespesa: 100, totalClientesAtendidos: 40 },
+  { day: 'Qui', totalFaturado: 500, totalPerdido: 70,totalDespesa: 10, totalClientesAtendidos: 40 },
+  { day: 'Sex', totalFaturado: 420, totalPerdido: 55,totalDespesa: 400, totalClientesAtendidos: 40 },
+  { day: 'Sáb', totalFaturado: 480, totalPerdido: 65,totalDespesa: 0, totalClientesAtendidos: 40 },
+  { day: 'Dom', totalFaturado: 600, totalPerdido: 80,totalDespesa: 200, totalClientesAtendidos: 40 },
 ];
 
 const totalMeta = 5000;
@@ -42,10 +43,10 @@ const pieData: PieData[] = [
 ];
 
 const faturamentoSemanal: BarData[] = [
-  { day: '1º', totalFaturado: 1200, totalPerdido: 200, totalClientesAtendidos: 40 },
-  { day: '2º', totalFaturado: 1500, totalPerdido: 300, totalClientesAtendidos: 40 },
-  { day: '3º', totalFaturado: 1800, totalPerdido: 250, totalClientesAtendidos: 40 },
-  { day: '4º', totalFaturado: 1400, totalPerdido: 220, totalClientesAtendidos: 40 },
+  { day: '1º', totalFaturado: 1200, totalPerdido: 200,totalDespesa: 50, totalClientesAtendidos: 40 },
+  { day: '2º', totalFaturado: 1500, totalPerdido: 300,totalDespesa: 50, totalClientesAtendidos: 40 },
+  { day: '3º', totalFaturado: 1800, totalPerdido: 250,totalDespesa: 50, totalClientesAtendidos: 40 },
+  { day: '4º', totalFaturado: 1400, totalPerdido: 220,totalDespesa: 50, totalClientesAtendidos: 40 },
 ];
 
 const UserPage: React.FC = () => {
@@ -115,6 +116,7 @@ const UserPage: React.FC = () => {
   const totalFaturadoSemana: number = barData.reduce((acc, data) => acc + data.totalFaturado, 0);
   const totalAtendimentosSemana: number = barData.reduce((acc, data) => acc + data.totalClientesAtendidos, 0);
   const totalPerdido: number = barData.reduce((acc, data) => acc + data.totalPerdido, 0);
+  const totalDespesa: number = barData.reduce((acc, data) => acc + data.totalDespesa, 0);
 
   return (
     
@@ -325,12 +327,16 @@ const UserPage: React.FC = () => {
                   </Text> */}
                   <Flex mb="10" justify={"space-between"}>
                   <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Cliente atendidos</Text>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Atendidos</Text>
                       <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.300"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalAtendimentosSemana}</Text></Box>
                     </Box>
                     <Box>
-                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Total faturado</Text>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Receita</Text>
                       <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"#2EB086"} textAlign={"center"} maxWidth={"70px"}  border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalFaturadoSemana}R$</Text></Box>
+                    </Box>
+                    <Box>
+                      <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Despesas</Text>
+                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.600"} textAlign={"center"} maxWidth={"80px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalDespesa}R$</Text></Box>
                     </Box>
                     <Box>
                       <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Cancelados</Text>
@@ -338,8 +344,9 @@ const UserPage: React.FC = () => {
                     </Box>
                     <Box>
                       <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Perdas</Text>
-                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.600"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalPerdido}R$</Text></Box>
+                      <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.700"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"}  fontWeight={"bold"}><Text fontSize="sm">{totalPerdido}R$</Text></Box>
                     </Box>
+                    
                    
                   </Flex>
                   <ResponsiveContainer width="100%" height={300}>
@@ -348,8 +355,10 @@ const UserPage: React.FC = () => {
     <XAxis dataKey="day" />
     <YAxis />
     <Tooltip />
-    <Area type="monotone" dataKey="totalFaturado" strokeWidth={"2px"} stroke={theme.colors.primary[300]} fill={theme.colors.primary[100]} name="Total Faturado" />
-    <Area type="monotone" dataKey="totalPerdido" strokeWidth={"2px"} stroke={theme.colors.primary[600]} fill={theme.colors.primary[100]} fillOpacity={"90%"} name="Total Perdido" />
+    <Area type="monotone" dataKey="totalFaturado" strokeWidth={"2px"} stroke={theme.colors.primary[300]} fill={"transparent"} name="Total Faturado" />
+    <Area type="monotone" dataKey="totalDespesa" strokeWidth={"2px"} stroke={theme.colors.primary[600]} fill={"transparent"} fillOpacity={"100%"} name="Total Gasto" />
+    <Area type="monotone" dataKey="totalPerdido" strokeWidth={"2px"} stroke={theme.colors.primary[700]} fill={"transparent"} strokeOpacity={"100%"} name="Total Perdido" />
+    
   </AreaChart>
 </ResponsiveContainer>
 

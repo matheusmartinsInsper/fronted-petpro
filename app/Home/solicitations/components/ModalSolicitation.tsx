@@ -176,10 +176,10 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         isClosable: true,
       });
       onClose(); // Fecha o modal após a ação
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: 'Erro ao aceitar o serviço.',
-        description: "Selecione um usuario para o atendimento",
+        description: error.response?.data?.messageError,
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -190,7 +190,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent minWidth={"600px"} >
+      <ModalContent minWidth={"640px"} >
       <ModalHeader >
           <Flex align="center" justify="start" width="100%">
             
@@ -249,7 +249,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
               </Box>
               <Box flex="1">
                 <Text><strong>Idade:</strong></Text>
-                <Text>{service.petAge}</Text>
+                <Text whiteSpace="nowrap">{service.petAge}</Text>
               </Box>
              
             </Flex>
@@ -321,19 +321,23 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
         <ModalFooter>
           <Flex width="100%" justify="space-between">
             <Button 
-              colorScheme="red" 
-              backgroundColor={"primary.600"} 
+            fontWeight={"bold"}
+            size={"sm"}
+              color={"primary.600"}
+              backgroundColor={"primary.650"} 
               onClick={handleReject}
               isDisabled={service.status !== 'Pendente'}
               _hover={{ backgroundColor: "primary.600", color: "primary.100" }}>
               Rejeitar
             </Button>
             <Button 
+            fontWeight={"bold"}
               backgroundColor={"primary.500"}
               color="primary.300"
               _hover={{ backgroundColor: "primary.300", color: "primary.100" }} 
               isDisabled={service.status !== 'Pendente'} 
               onClick={handleAccept}
+              size={"sm"}
             >
               Aceitar
             </Button>

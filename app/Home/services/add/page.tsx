@@ -40,6 +40,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "../../../../utils/axiosConfig";
+import  { AxiosError } from "axios";
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/headers";
 
@@ -136,10 +137,10 @@ const AddService = () => {
       });
 
       router.push("/Home/services");
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Erro",
-        description: "Ocorreu um erro ao salvar o serviço.",
+        description:  error.response?.data?.messageError,
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -203,7 +204,7 @@ const AddService = () => {
           backgroundColor={"primary.100"}
           height={"53.4px"}
         >
-          <Flex justify="flex-start" align="center" textAlign={"center"} mb="2" borderBottomColor={"gray.200"} borderBottomWidth={"1px"} py={"2"} px="4" fontFamily="Nunito, sans-serif">
+          <Flex height={"53.4px"} justify="flex-start" align="center" textAlign={"center"} mb="2" borderBottomColor={"gray.200"} borderBottomWidth={"1px"} py={"2"} px="4" fontFamily="Nunito, sans-serif">
             <Heading as="h1" size="sm" color={"primary.200"} display={"flex"} flexDirection={"row"} fontFamily="Nunito, sans-serif">
               <Text color="gray.500" fontFamily="Nunito, sans-serif">Settings
                 <ChevronRightIcon />
@@ -462,7 +463,7 @@ const AddService = () => {
                     <Select
                       value={service.CodigoDaCategoria}
                       onChange={(e) => setNewVaccine({ ...newVaccine, name: e.target.value })}
-                      placeholder="Selecione uma vacina" // Placeholder adicionado
+                      placeholder={newVaccine.name || "Selecione uma vacina"} // Placeholder adicionado
                       focusBorderColor="primary.400"
                     >
                       {vaccinesCode.map((vaccine) => (

@@ -26,13 +26,15 @@ import {
   HStack,
   FormLabel,
   FormControl,
-  Checkbox
+  Checkbox,
+  IconButton
 } from '@chakra-ui/react';
-import { CheckCircleIcon, WarningIcon, InfoOutlineIcon,CheckIcon  } from '@chakra-ui/icons';
+import { CheckCircleIcon, WarningIcon, InfoOutlineIcon,CheckIcon ,SearchIcon } from '@chakra-ui/icons';
 import axios from "../../../../utils/axiosConfig"
 import { color } from 'framer-motion';
 import {ServiceRow} from "./ServiceRow"
 import {OutPutClientDTO} from "../page"
+import { MdBorderColor, MdOutlineBorderColor } from 'react-icons/md';
 
   
   
@@ -115,7 +117,11 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
       }
     }
     try {
-      const response = await axios.get(`/Service/${toggleStateapi}`); // Substitua pela URL da sua API
+      const response = await axios.get(`/Service/${toggleStateapi}`,{
+        params: {
+          posted: true
+        }
+      }); // Substitua pela URL da sua API
       if (response.data.status === 'confirmed') {
         const formattedServices = response.data.data.map((service: any) => ({
           idDoServiço: service.idDoServiço,
@@ -346,7 +352,25 @@ const handleSubcategorySelect = (id: string) => {
 
     {/* Coluna da direita com a box em branco */}
     <Box width="70%" border="1px" borderColor="gray.200" borderRadius="md" p={2} overflowY={"auto"}  maxHeight="390px" >
-        <Text fontSize={"sm"} fontWeight={"bold"} mb="2" bgColor={"primary.250"} borderTopRadius={"md"} p={"2"} borderBottomWidth={"2px"} borderBottomColor={"primary.250"} color={"primary.100"}>Serviços</Text>
+        <Text display={'flex'} flexDirection={"row"} alignItems={"center"} fontSize={"sm"} fontWeight={"bold"} mb="2" bgColor={"primary.250"} borderTopRadius={"md"} p={"2"} borderBottomWidth={"2px"} borderBottomColor={"primary.250"} color={"primary.100"}>
+          Serviços
+          <Box ml="auto">
+            <Input
+              placeholder="Pesquisar por titulo"
+              size="sm"
+              mr="4"
+              borderColor={"gray.600"}
+              focusBorderColor="primary.400"
+              borderRadius={"md"}
+              sx={{
+                _hover: {
+                  borderColor: "gray.600", // Altere para a cor desejada ao passar o mouse
+                },
+              }}
+            />
+          </Box>
+        </Text>
+     
       {service != undefined ?(
         <Box>
             <Flex direction={"row"} justifyContent={"space-between"} fontSize={"sm"} mb="2">

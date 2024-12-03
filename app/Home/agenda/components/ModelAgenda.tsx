@@ -135,7 +135,11 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
       }
     }
     try {
-      const response = await axios.get(`/Service/${toggleStateapi}`);
+      const response = await axios.get(`/Service/${toggleStateapi}`,{
+        params: {
+          posted: true
+        }
+      });
       if (response.data.status === 'confirmed') {
         const formattedServices = response.data.data.map((service: any) => ({
           idDoServiço: service.idDoServiço,

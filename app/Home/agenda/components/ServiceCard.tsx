@@ -58,7 +58,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
   return (
     <>
       <Box
-        bg="white"
+        bg={service.priority=="Emergencia"?"primary.650":"white"}
         color="primary.200"
         p={2}
         borderRadius="md"
@@ -74,9 +74,9 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
         <Flex justify="space-between" align="center">
           <Box flex="1" pr={2}>
             <Text fontSize="sm" fontWeight="bold">{service.categoryname}</Text>
-            <Text fontSize="xs" color="gray.500"  display={"flex"} flexDirection={"row"} alignItems={"center"}>{service.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
+            <Text fontSize="xs" color={service.priority=="Emergencia"?"primary.200":"gray.500"}  display={"flex"} flexDirection={"row"} alignItems={"center"}>{service.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
             <Flex align="center">
-              <Text fontSize="xs" color={statusColors[service.status]} mr={2}>
+              <Text fontSize="xs" fontWeight={service.status=="Cancelado"?"bold":""} color={statusColors[service.status]} mr={2}>
                 {service.status}
               </Text>
               {statusIcons[service.status]}
