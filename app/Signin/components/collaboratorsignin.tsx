@@ -11,7 +11,7 @@ const Signin = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5206/api/Signin/Collaborator', {
+      const response = await axios.post('http://localhost:5206/api/Signin/Platform', {
         "email":email,
         "password": password,
       });

@@ -45,7 +45,7 @@ const SignupPage = () => {
             <Flex justifyContent="center" alignItems="center" height="80%">
       <VStack spacing={2} align="center" width="70%">
        
-        <Text color="gray.500" mb={"2"} mt="4">Selecione o tipo de usuário abaixo e preencha seus dados</Text>
+        <Text color="gray.500" mb={"2"} mt="4">Selecione o tipo de usuário </Text>
         <Button
           width="50%"
           color="primary.300"

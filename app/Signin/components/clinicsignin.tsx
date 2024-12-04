@@ -1,4 +1,4 @@
-import { Box, FormControl, FormLabel, Input, VStack, Button, useToast,Text,Checkbox } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Input, VStack, Button, useToast,Text,Checkbox,Link } from '@chakra-ui/react';
 import { useState,createContext, useContext } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useRouter } from 'next/navigation';
@@ -19,7 +19,7 @@ const ClinicSignin = () => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post('http://localhost:5206/api/Signin/Clinic', {
+      const response = await axios.post('http://localhost:5206/api/Signin/Platform', {
         "email":email,
         "password":password,
       });
@@ -90,7 +90,7 @@ const ClinicSignin = () => {
         Esqueci senha
       </Text>
     </Box>
-    <Box display="flex" justifyContent="flex-start" mt={4}>
+    <Box display="flex" justifyContent="space-between" alignItems={["start","center"]} mt={4} flexDirection={["column-reverse","row"]}>
       <Button
         color="white"
         backgroundColor="primary.200"
@@ -98,9 +98,13 @@ const ClinicSignin = () => {
         _focus={{ backgroundColor: 'primary.300' }}
         size={"sm"}
         onClick={handleSubmit}
+        mt={["4","0"]}
       >
         Entrar
       </Button>
+      <Text color="gray.500" fontSize={["xs","sm"]}>
+        Sem cadastro? <Link fontSize={["xs","sm"]} href="/Signup" _hover={{textDecoration:"none"}} color={"primary.300"} fontWeight={"bold"}>Registrar</Link>
+        </Text>
     </Box>
   </Box>
 </VStack>
