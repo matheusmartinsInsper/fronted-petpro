@@ -29,7 +29,11 @@ const SignupPage = () => {
       {/* Container da Esquerda */}
       <Flex flex="3.5" bg="primary.100" p={8} justifyContent="center" alignItems="center">
         <Box bgColor={"primary.300"}  bgGradient="linear(to-tr, primary.200, primary.300)"  position={"absolute"} width={["90vw","35vw"]} height={["25vh","38vh"]} top={["20vh","12vh"]} borderRadius={"lg"}></Box>
-        <Box bg="white" zIndex={"2"}  p={4} shadow="lg" borderWidth="2px" borderRadius="10px" textAlign="center" width={["85%","25%"]} height={["45%","55%"]} borderColor={"primary.100"}>
+        <Box bg="white" zIndex={"2"}  p={4} shadow="lg" borderWidth="2px" borderRadius="10px" textAlign="center" width={["85%","25%"]} height={["45%","55%"]} borderColor={"primary.100"}  sx={{
+    "@media (max-height: 830px)": {
+      height: "55%", // Altura personalizada para telas menores que 830px
+    },
+  }}>
         <Flex alignItems="center" justifyContent="center">
       <Heading as="h1" size="md" mb={10} color="primary.200" display="flex" alignItems="center" marginBottom={"-5px"} opacity={"90%"}>
         Login
