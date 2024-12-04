@@ -18,7 +18,7 @@ const SignupPage = () => {
   return (
     <Flex minH="100vh">
       {/* Container da Esquerda */}
-      <Flex flex="3.5" bg="primary.100" p={8} justifyContent="center" alignItems="center">
+      <Flex flex="3.5" bg="primary.100"  p={8} justifyContent="center" alignItems="center">
       <Box bgColor={"primary.300"}  bgGradient="linear(to-tr, primary.200, primary.300)"  position={"absolute"} width={["90vw","35vw"]} height={["30vh","38vh"]} top={["12vh","12vh"]} borderRadius={"lg"}></Box>
         <Box bg="white" zIndex={"2"}  p={4} shadow="lg" borderWidth="2px" borderRadius="10px" textAlign="center" width={["80%","25%"]} height={["55%","60%"]}  borderColor={"primary.100"}>
         <Flex alignItems="center" justifyContent="center">
