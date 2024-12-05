@@ -35,6 +35,7 @@ import axios from "../../../../../utils/axiosConfig";
 import { FormAnamnese, Form } from '../components/FormAnamneseModal';
 import { Attendance } from '../components/Attendance';
 import { AxiosError } from 'axios';
+import { CardContraindication } from '../components/CardContraindication';
 const statusColors: any = {
   Confirmado: 'primary.300',
   Concluido: '#2EB086',
@@ -43,7 +44,7 @@ const statusColors: any = {
   Andamento: 'primary.900'
 };
 
-interface Pet {
+export interface Pet {
   age: string;
   petname: string;
   weight: number;
@@ -51,6 +52,7 @@ interface Pet {
   species: string;
   sex: string;
   castrated: boolean;
+  contraindications: Contraindication[]
 }
 
 interface Subcategory {
@@ -86,6 +88,11 @@ interface Tutor {
   name: string;
   email: string;
   number: string | null;
+}
+export interface Contraindication {
+  categoria: string;
+  description: string;
+  idcontraindication: string | null;
 }
 
 export interface AttendanceData {
@@ -167,7 +174,14 @@ const Atendimento = () => {
       race: '',
       species: '',
       sex: '',
-      castrated: false
+      castrated: false,
+      contraindications: [
+        {
+          idcontraindication: '',
+          categoria: '',
+          description: ''
+        }
+      ]
     },
     tutor: {
       name: '',
@@ -595,17 +609,9 @@ const Atendimento = () => {
                 </Box>
               </Box>
               <Text fontSize="md" fontWeight="bold" mb="2" mx={4} mt={"2"}>Contra indicações</Text>
-              <Box p="2" bgColor="white"
-                overflowY="auto" maxHeight={"140px"}>
+              <Box p="2" bgColor="white" overflowY="auto" maxHeight={"132px"}>
 
-                <Box height={"120px"} mb={"4"} bgColor={"white"} fontSize={"sm"} border={"1px"} borderColor={"gray.200"} borderRadius={"md"} p="2" >
-                  <Text fontSize={"xs"} mb="2">Contra Indicação</Text>
-                  <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"xs"}> meu pet nao pode tomar banho com produto x</Text></Text>
-                </Box>
-                <Box height={"120px"} bgColor={"white"} fontSize={"sm"} border={"1px"} borderColor={"gray.200"} borderRadius={"md"} p="2" >
-                  <Text fontSize={"xs"} mb="2">Contra Indicação<Text fontWeight={"bold"} fontSize={"xs"}> Alergico a shampo x</Text></Text>
-                  <Text fontSize={"xs"}>Descrição<Text fontWeight={"bold"} fontSize={"xs"}> meu pet nao pode tomar banho com produto x</Text></Text>
-                </Box>
+               {attendanceData.pet.contraindications?.map((contraindication)=><CardContraindication contraindication={contraindication}/>)}
               </Box>
             </Box>
             {/* Container do atendimento */}
