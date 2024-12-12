@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { Box, VStack, Link, Text, IconButton, Flex, HStack, Divider,Image} from '@chakra-ui/react';
-import { FaUser, FaChartBar,FaBoxes,FaSignOutAlt} from 'react-icons/fa';
-import { MdDashboard } from 'react-icons/md';
+import { FaUser, FaChartBar,FaBoxes,FaSignOutAlt,FaUserMd,FaServicestack,FaStethoscope} from 'react-icons/fa';
+import { MdDashboard,MdMoveToInbox,MdGifBox} from 'react-icons/md';
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
-  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon,CheckIcon,AtSignIcon 
+  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon,CheckIcon,AtSignIcon
 } from '@chakra-ui/icons';
-import { FiClipboard } from "react-icons/fi";
+import { FiClipboard ,FiBox,FiUsers,FiUser} from "react-icons/fi";
 import { useRouter } from 'next/navigation';
 
 interface sidebarprops {
@@ -158,7 +158,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/services'>
               <HStack>
-                <SettingsIcon color={"primary.200"}/>
+                <FaStethoscope color={"#1D2939"}/>
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Serviços</Text>}
               </HStack>
             </Link>
@@ -168,7 +168,7 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/collaborators'>
                   <HStack>
-                    <FaUser color={"#1D2939"}/>
+                    <FaUserMd color={"#1D2939"}/>
                     {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Colaboradores</Text>}
                   </HStack>
                 </Link>
@@ -177,9 +177,18 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
             )}
              <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
                   width={"100%"} p={1} pl={2}
-                  borderRadius={"md"} href='/Home/estoque'>
+                  borderRadius={"md"} href='/Home/collaborators'>
                   <HStack>
-                    <FaBoxes color={"#1D2939"}/>
+                    <FiUsers color={"#1D2939"}/>
+                    {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Funcionarios</Text>}
+                  </HStack>
+             </Link>
+
+             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+                  width={"100%"} p={1} pl={2}
+                  borderRadius={"md"} href='/Home/stock'>
+                  <HStack>
+                    <FiBox color={"#1D2939"}/>
                     {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Estoque</Text>}
                   </HStack>
                 </Link>

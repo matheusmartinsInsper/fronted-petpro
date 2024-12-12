@@ -336,7 +336,7 @@ const Services = () => {
                         p={"1"}
                         borderRadius={"5px"}
                         color={service.preço === 0 ? "#FFEFEF" : "#2EB086"}>
-                        {service.preço === 0 ? "Variado" : `${service.preço} R$`}
+                        {service.preço === 0 ? "Variado" : `R$ ${service.preço} `}
                       </Text>
                     </Td>
                     <Td paddingY={"2"} textAlign="center">{service.subcategorias.length} subcategoria{service.subcategorias.length > 1 ? 's' : ''}</Td>

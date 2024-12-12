@@ -534,7 +534,7 @@ const Services = () => {
                     color={"#2EB086"}
                     fontWeight={"bold"}
                   >
-                    {totalprice} R$
+                    R$ {totalprice} 
                   </Text>
                 </Flex>
               </CardBody>
@@ -622,7 +622,7 @@ const Services = () => {
                           color={"primary.800"}
                           fontWeight={"bold"}
                         >
-                          {service.servicePrice} R$
+                         R$ {service.servicePrice} 
                         </Text>
                       </Td>
                       <Td paddingY={"2.5"}>

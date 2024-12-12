@@ -58,7 +58,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
   return (
     <>
       <Box
-        bg={service.priority=="Emergencia"?"primary.650":"white"}
+        bg={"white"}
         color="primary.200"
         p={2}
         borderRadius="md"
