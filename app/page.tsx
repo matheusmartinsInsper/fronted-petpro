@@ -50,7 +50,7 @@ const HomePage = () => {
         alignItems="center"
         position="fixed"
         top="0"
-        px="24"
+        px={["4","24"]}
         py={"10"}
         zIndex="10" // Para garantir que o header fique acima de outros elementos
       >
@@ -85,7 +85,7 @@ const HomePage = () => {
             flexDirection={["column", "row"]}
             alignItems={["center", "start"]}
             gap={[8, 0]}
-            px={20}
+            px={[2,20]}
           >
             {/* Texto e Botão */}
             <MotionBox
