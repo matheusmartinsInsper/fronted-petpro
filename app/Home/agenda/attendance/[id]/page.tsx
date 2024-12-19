@@ -611,7 +611,7 @@ const Atendimento = () => {
               <Text fontSize="md" fontWeight="bold" mb="2" mx={4} mt={"2"}>Contra indicações</Text>
               <Box p="2" bgColor="white" overflowY="auto" maxHeight={"132px"}>
 
-               {attendanceData.pet.contraindications?.map((contraindication)=><CardContraindication contraindication={contraindication}/>)}
+               {attendanceData.pet.contraindications.map((contraindication)=><CardContraindication contraindication={contraindication}/>)}
               </Box>
             </Box>
             {/* Container do atendimento */}
