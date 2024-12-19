@@ -730,7 +730,7 @@ const Atendimento = () => {
                                     onChange={(e) => handleChange(attribute.idattribute, e.target.value)}
                                   >
                                     {attribute.options.map((option, optionIndex) => (
-                                      <option key={optionIndex} value={option.value} selected={option.isselected}>
+                                      <option key={option.idoption} value={option.value} selected={option.isselected}>
                                         {option.value}
                                       </option>
                                     ))}
@@ -739,7 +739,7 @@ const Atendimento = () => {
                                 {attribute.typeattribute === 'checkbox' && (
                                   <Box mt={2}>
                                     {attribute.options.map((option, optionIndex) => (
-                                      <FormControl key={optionIndex} display="flex">
+                                      <FormControl key={option.idoption} display="flex">
                                         <Checkbox
                                           iconColor="primary.300"
                                           colorScheme="primary.100"

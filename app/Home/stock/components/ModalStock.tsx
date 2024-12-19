@@ -225,7 +225,7 @@ const ModalStock = ({ isOpen, onClose, stock }: StockModalProps) => {
                             </Box>
                             {stock.transactions.map((transaction: any) => {
                                 return (
-                                    <Flex p={"2"} boxShadow={"md"} borderRadius={"md"} border={"1px"} borderColor={"gray.200"} flexDirection={"row"} fontSize={"xs"} width={"100%"} justifyContent={"space-around"} mb="2">
+                                    <Flex key={transaction.idtransaction} p={"2"} boxShadow={"md"} borderRadius={"md"} border={"1px"} borderColor={"gray.200"} flexDirection={"row"} fontSize={"xs"} width={"100%"} justifyContent={"space-around"} mb="2">
                                         <Box >
                                             <Text>Data</Text>
                                             <Text fontWeight={"bold"}>{format(transaction.datecreate, "dd/MM/yy HH:mm")}</Text>
