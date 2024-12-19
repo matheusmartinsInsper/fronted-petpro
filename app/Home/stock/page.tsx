@@ -25,6 +25,7 @@ import {
     Icon,
     Tooltip
 } from "@chakra-ui/react";
+import { FiFilter } from 'react-icons/fi';
 import { FaUser, FaChartBar, FaDollarSign } from 'react-icons/fa';
 import {
     SearchIcon,
@@ -35,7 +36,7 @@ import {
     EditIcon,
     ChatIcon,
     CalendarIcon,
-    ArrowDownIcon, ArrowUpIcon
+    ArrowDownIcon, ArrowUpIcon,ChevronRightIcon as ExpandIcon
 } from "@chakra-ui/icons";
 import { FiClipboard, FiBox, FiUsers, FiUser, FiAlertCircle } from "react-icons/fi";
 import { format } from 'date-fns';
@@ -46,6 +47,9 @@ import { useState, useEffect } from "react";
 import axios from "../../../utils/axiosConfig";
 import IsideStock from "./components/InsideStock"
 import OutsideStock from "./components/OutsideStock"
+import ModalStock from "./components/ModalStock";
+import Transactions from "./components/Transactions"
+import Products from "./components/Products"
 
 interface ItemSize {
     iditem: string | null;
@@ -53,6 +57,17 @@ interface ItemSize {
     size: string;
     price: number;
     avalaible: boolean;
+}
+export interface Transactions {
+    iditem: string;
+    iditemsize: string;
+    idstock: string;
+    idtransaction: string;
+    datecreate: Date;
+    priceunity: number;
+    lote: string;
+    quantity: number;
+    type: string;
 }
 
 export interface StockItem {
@@ -68,11 +83,13 @@ export interface StockItem {
     unity: string;
     description: string;
     itemsize: ItemSize;
+    transactions: Transactions[];
 }
 
 
 const Stock = () => {
     const [stocks, setStocks] = useState<StockItem[]>([]);
+    const [transactios, settransactios] = useState<Transactions[]>([]);
     const [filteredeStocks, setfilteredeStocks] = useState<StockItem[]>([]);
     const [currentPageNavigation, setcurrentPageNavigation] = useState("Estoque");
     const [currentPage, setCurrentPage] = useState(1);
@@ -82,15 +99,20 @@ const Stock = () => {
     const [toggleState, setToggleState] = useState<"Pessoal" | "rede">("Pessoal");
     const [toggleStateapi, setToggleStateapi] = useState<"User" | "NetWork">("User");
     const toast = useToast();
-    const [isOpenAgenda, setIsOpen] = useState(false);
     const [selectedStock, setselectedStock] = useState<StockItem>();
     const [selectedStockDown, setselectedStockDown] = useState<StockItem>();
+    const [selectedStockModal, setselectedStockModal] = useState<StockItem>();
     const { isOpen: isRemoveOpen, onOpen: onRemoveOpen, onClose: onRemoveClose } = useDisclosure();
+    const { isOpen: isModalStockOpen, onOpen: onModalStockOpen, onClose: onModalStockClose } = useDisclosure();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const openModal = (stock: StockItem) => {
         setselectedStock(stock); // Define o stock selecionado
         onOpen();; // Abre o modal
+    };
+    const openModalStock = (stock: StockItem) => {
+        setselectedStockModal(stock); // Define o stock selecionado
+        onModalStockOpen();; // Abre o modal
     };
     const openModalBaixa = (stock: StockItem) => {
         setselectedStockDown(stock); // Define o stock selecionado
@@ -100,12 +122,6 @@ const Stock = () => {
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
-    useEffect(() => {
-        if (selectedStock) {
-            setIsOpen(true); // Abre o modal quando selectedClient é atualizado
-        }
-        console.log(selectedStock)
-    }, [selectedStock]);
     useEffect(() => {
         fetchStock()
     }, [])
@@ -140,12 +156,24 @@ const Stock = () => {
                         price: item.itemsize.price,
                         avalaible: item.itemsize.avalaible,
                     },
+                    transactions: item.transactions?.map((transaction: any, index: any) => ({
+                        idstock: transaction.idstock,
+                        iditem: transaction.iditem,
+                        iditemsize: transaction.iditemsize,
+                        idtransaction: transaction.idtransaction,
+                        lote: transaction.lote,
+                        priceunity: transaction.priceunity,
+                        quantity: transaction.quantity,
+                        type: transaction.type,
+                        datecreate: transaction.datecreate,
+                    })) || [],
                 }));
 
                 setStocks(formattedClient);
                 setfilteredeStocks(formattedClient);
                 countTotalstock(formattedClient);
                 countTotalstockPrice(formattedClient)
+                settransactios(mergeTransactions(formattedClient))
             }
         } catch (error) {
             toast({
@@ -186,6 +214,21 @@ const Stock = () => {
         const newToggleStateapi = toggleStateapi === "User" ? "NetWork" : "User";
         setToggleState(newToggleState);
         setToggleStateapi(newToggleStateapi);
+    };
+    const mergeTransactions = (stocks: StockItem[]): Transactions[] => {
+        // Cria um novo array contendo todas as transações de todos os itens de estoque
+        const allTransactions = stocks
+        .map(stock =>
+            stock.transactions.map(transaction => ({
+                ...transaction, // Copia os dados originais da transação
+                itemname: stock.nameitem, // Adiciona o nome do item
+                category: stock.categoryitem, // Adiciona a categoria do item
+                size: stock.itemsize.size // Adiciona o tamanho a partir de itemsize.size
+            }))
+        )
+        .flat();  // Flatten transforma a matriz de arrays em um único array de transações
+    
+        return allTransactions;
     };
     const setNavigation = (page: string) => {
         setcurrentPageNavigation(page);
@@ -253,7 +296,7 @@ const Stock = () => {
                         </Button>
                         <Box ml="auto">
                             <Input
-                                placeholder="Pesquisar por nome"
+                                placeholder="Pesquisar por palavra chave"
                                 width="300px"
                                 size="sm"
                                 mr="4"
@@ -273,9 +316,9 @@ const Stock = () => {
                         <Box>
                             <Button
                                 size="sm"
-                                bg="white"
+                                bg="primary.100"
                                 color="primary.200"
-                                boxShadow={"md"}
+                                boxShadow={currentPageNavigation=="Estoque"?"md":"none"}
                                 _hover={{ bg: 'primary.100' }}
                                 onClick={() => { setNavigation("Estoque") }}
                                 fontWeight="bold" mr={"2"}>Estoque</Button>
@@ -283,7 +326,7 @@ const Stock = () => {
                                 size="sm"
                                 bg="primary.100"
                                 color="primary.200"
-                                boxShadow={"none"}
+                                boxShadow={currentPageNavigation=="Transações"?"md":"none"}
                                 _hover={{ bg: 'primary.100' }}
                                 onClick={() => { setNavigation("Transações") }}
                                 fontWeight="bold" mr={"2"}>Transações</Button>
@@ -291,14 +334,16 @@ const Stock = () => {
                                 size="sm"
                                 bg="primary.100"
                                 color="primary.200"
-                                boxShadow={"none"}
+                                boxShadow={currentPageNavigation=="Produtos"?"md":"none"}
                                 _hover={{ bg: 'primary.100' }}
                                 onClick={() => { setNavigation("Produtos") }}
                                 fontWeight="bold" mr={"0"}>Produtos</Button>
                         </Box>
 
                         <Box ml="auto">
-                            <Button bgColor={"primary.500"} size={"sm"} color={"primary.300"}>+ Entrada</Button>
+                            {currentPageNavigation == "Estoque"&&<><Button leftIcon={<AddIcon bgSize={"xs"} color={"primary.300"}/>} bgColor={"primary.500"} size={"sm"} color={"primary.300"}> Entrada</Button></>}
+                            {currentPageNavigation == "Produtos"&&<><Button _hover={{bgColor:"primary.300",color:"primary.100"}} leftIcon={<AddIcon color="primary.300"/>} bgColor={"primary.500"} size={"sm"} color={"primary.300"}>Cadastar</Button></>}
+                            {currentPageNavigation == "Transações"&&<><Button _hover={{bgColor:"primary.300",color:"primary.100"}} leftIcon={<FiFilter color="primary.300"/>} bgColor={"primary.500"} size={"sm"} color={"primary.300"}>Filtrar</Button></>}
                         </Box>
                     </Flex>
                     {currentPageNavigation == "Estoque" &&
@@ -320,7 +365,7 @@ const Stock = () => {
                                                 <Heading size="sm" display={"flex"} flexDirection={"row"}><Text color={"primary.800"} mr="2">$</Text> Valor em estoque</Heading>
                                             </Flex>
                                             <Flex align={"end"} mt={2}>
-                                                <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>R$ {totalStockPrice} </Text>
+                                                <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>R$ {Number(totalStockPrice.toFixed(2)).toLocaleString("pt-BR")} </Text>
                                             </Flex>
 
                                         </CardBody>
@@ -392,6 +437,16 @@ const Stock = () => {
                                                 <Td paddingY={"2.5"}>{format(new Date(stock.updatedate), 'yyyy-MM-dd')}</Td>
                                                 <Td paddingY={"3.5"}>
                                                     <Flex>
+                                                        <IconButton
+                                                            aria-label="Expandir detalhes"
+                                                            icon={<ExpandIcon />}
+                                                            size="xs"
+                                                            color="primary.250"
+                                                            backgroundColor="white"
+                                                            boxShadow={"md"}
+                                                            onClick={()=>openModalStock(stock)}
+                                                            _hover={{ backgroundColor: "primary.100" }}
+                                                        />
                                                         <IconButton
                                                             mx="1"
                                                             aria-label="Dar baixa"
@@ -478,9 +533,21 @@ const Stock = () => {
                                     stock={selectedStockDown}
                                 />
                             )}
+                              {selectedStockModal && (
+                                <ModalStock
+                                    isOpen={isModalStockOpen}
+                                    onClose={onModalStockClose}
+                                    stock={selectedStockModal}
+                                />
+                            )}
                         </>
                     }
-
+                    {
+                     currentPageNavigation == "Transações" && <><Transactions transactions={transactios}/></>
+                    }
+                    {
+                     currentPageNavigation == "Produtos" && <><Products/></>
+                    }
                 </Box>
 
             </Flex>

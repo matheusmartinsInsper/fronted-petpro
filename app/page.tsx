@@ -9,16 +9,32 @@ import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { motion, useAnimation, useInView, isValidMotionProp } from 'framer-motion';
 import { useEffect, useState, useRef } from "react";
 import { chakra } from "@chakra-ui/react";
+import { MdGroups, MdRestaurant } from "react-icons/md";
+import { FaCut, FaRunning,FaBone,FaDog,FaBasketballBall,FaStethoscope,FaHotel } from "react-icons/fa";
+import { GiSyringe, GiBrain ,GiScalpel} from "react-icons/gi";
+import { BsThreeDots } from "react-icons/bs";
 
 const MotionBox = chakra(motion.div, {
   shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
 });
+  const categoryIcons: Record<string, React.ElementType> = {
+    petshop: FaDog,       // Ícone do Chakra UI
+    clinica: GiSyringe,         // Ícone do React Icons
+    veterinario: FaStethoscope,       // Ícone do React Icons
+    hoteis: FaHotel      // Ícone do React Icons
+  };
 
 const HomePage = () => {
   const router = useRouter();
   const redirecttologin = () => {
     router.push('/Signin');
   };
+
+  const geticonclient = (client: string)=>{
+    const IconComponent = categoryIcons[client];
+    return IconComponent
+  }
+  
 
   return (
     <Box >
@@ -34,7 +50,7 @@ const HomePage = () => {
         alignItems="center"
         position="fixed"
         top="0"
-        px="6"
+        px="24"
         py={"10"}
         zIndex="10" // Para garantir que o header fique acima de outros elementos
       >
@@ -69,6 +85,7 @@ const HomePage = () => {
             flexDirection={["column", "row"]}
             alignItems={["center", "start"]}
             gap={[8, 0]}
+            px={20}
           >
             {/* Texto e Botão */}
             <MotionBox
@@ -122,7 +139,7 @@ const HomePage = () => {
               height={["auto", "70vh"]} // Garante altura consistente no layout
               transition={"all 1s ease-in-out"}
             >
-              <Image src="/home.png" width={["100%", "80%"]} objectFit="contain" mb={["6","0"]}/>
+              <Image src="/tutoreslp.png" width={["100%", "80%"]} objectFit="contain" mb={["6","0"]}/>
             </MotionBox>
           </Box>
 
@@ -150,14 +167,14 @@ const HomePage = () => {
               whiteSpace={["nowrap", "normal"]}
             >
               {[
-                { title: "Clínica", text: "Gerencie sua rede e funcionários", icon: "/baixados.jpeg" ,iconSize: "40px"},
-                { title: "PetShop", text: "Registro de serviços e produtos", icon: "/secador.jpeg",iconSize: "40px" },
-                { title: "Veterinário", text: "Acesse recursos de rede e pessoais", icon: "/estetoscopio.jpeg", iconSize: "70px" },
-                { title: "Hotéis", text: "Realize check-in e check-out dos pets", icon: "/hotelpet.jpeg",iconSize: "40px" },
+                { title: "Clínica", text: "Gerencie sua rede e funcionários", icon: "clinica" ,iconSize: "40px"},
+                { title: "PetShop", text: "Registro de serviços e produtos", icon: "petshop",iconSize: "40px" },
+                { title: "Veterinário", text: "Acesse recursos de rede e pessoais", icon: "veterinario", iconSize: "70px" },
+                { title: "Hotéis", text: "Realize check-in e check-out dos pets", icon: "hoteis",iconSize: "40px" },
               ].map((item, idx) => (
                 <Box key={idx} display="flex" flexDirection="row" alignItems="start" minWidth="150px" flexShrink={[0, 1]}>
                   <Box mr={2}>
-                    <Image src={item.icon} width={["30px", item.iconSize]} />
+                    <Icon  as={geticonclient(item.icon)} color="primary.300" boxSize="5" />
                   </Box>
                   <Box>
                     <Text fontWeight="bold" fontSize="lg">
