@@ -120,7 +120,7 @@ export const FormAnamnese: React.FC<{ isOpen: boolean, onClose: () => void, sele
                 </Thead>
                 <Tbody>
                   {forms.map((form, index) => (
-                    <Tr key={index} paddingY={"2.5"}>
+                    <Tr key={form.idform} paddingY={"2.5"}>
                       <Td>{form.nameform}</Td>
                       <Td>
                         <Box 

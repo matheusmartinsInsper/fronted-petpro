@@ -741,6 +741,7 @@ const Atendimento = () => {
                                     {attribute.options.map((option, optionIndex) => (
                                       <FormControl key={option.idoption} display="flex">
                                         <Checkbox
+                                          key={option.idoption}
                                           iconColor="primary.300"
                                           colorScheme="primary.100"
                                           value={option.value}
