@@ -35,7 +35,7 @@ import axios from "../../../../../utils/axiosConfig";
 import { FormAnamnese, Form } from '../components/FormAnamneseModal';
 import { Attendance } from '../components/Attendance';
 import { AxiosError } from 'axios';
-import { CardContraindication } from '../components/CardContraindication';
+import  CardContraindication  from '../components/CardContraindication';
 const statusColors: any = {
   Confirmado: 'primary.300',
   Concluido: '#2EB086',

@@ -55,8 +55,7 @@ type ContraindicationCategory =
     Outros: BsThreeDots,        // Ícone do React Icons
   };
 
-
-export const CardContraindication:React.FC<{ contraindication: Contraindication,key: string }>=({contraindication,key})=>{
+const CardContraindication:React.FC<{ contraindication: Contraindication,key: string }>=({contraindication,key})=>{
 
   const validCategories: ContraindicationCategory[] = [
     "Alergia",
@@ -94,3 +93,5 @@ export const CardContraindication:React.FC<{ contraindication: Contraindication,
     )
    
 }
+
+export default CardContraindication
