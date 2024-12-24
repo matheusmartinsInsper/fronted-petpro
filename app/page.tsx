@@ -34,7 +34,11 @@ const HomePage = () => {
   };
 
   const slides = [
-
+    {
+      image: "/homepage.png",
+      title: "Gestão",
+      description: "Tenha uma visão geral e detalhada de tudo que acontece na sua empresa, seja relacionado a finanças, clientes, funcionarios ou metas pessoais",
+    },
     {
       image: "/agenda3.png",
       title: "Agenda",
@@ -43,32 +47,32 @@ const HomePage = () => {
     {
       image: "/atend.png",
       title: "Atendimento",
-      description: "Realize prescrições, criação de protocolos, agendamento de retorno e saiba em detalhes tudo sobre seu cliente e pet",
+      description: "Realize prescrições, criação de protocolos,link para pagamento, agende retorno e saiba em detalhes tudo sobre seu cliente e pet",
     },
     {
       image: "/solicitations5.png",
       title: "Solicitações",
-      description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios ou rejeita o pedido",
+      description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios/colaboradores ou rejeita a solicitação",
     },
     {
       image: "/tutores.png",
       title: "Clientes",
-      description: "Gestão completa da sua carteira de clientes, com varias ações como chat, agendamento, gerar pagamentos dentre outras",
+      description: "Gestão completa da sua carteira de clientes, com varias ações como chat, agendamento, gerar pagamentos,visualizar perfil dentre outras",
     },
     {
       image: "/prontuario.png",
       title: "Prontuarios",
-      description: "Tenha o histórico de atendimento, solicitações, protocolos, pagamentos dentro do prontuario dos pets atendidos",
+      description: "Com a criação automatica do prontuario, tenha o histórico de atendimento, solicitações, anexos, protocolos, pagamentos e muito mais",
     },
     {
       image: "/stock2.png",
       title: "Estoque",
-      description: "Dentro do recuros de estoque você pode acompanhar o balanço geral, por item, por período etc",
+      description: "Dentro dos recuros de estoque além de disponibilizar seus produtos no app de tutores, você pode acompanhar o balanço geral, por item, por período etc ",
     },
     {
       image: "/service3.png",
       title: "Serviços",
-      description: "Organize sue catalogo de serviços prestados e disponibilize os mesmos no app para todos os tutores",
+      description: "Organize sue catalogo de serviços prestados, atualize quando quiser ou exclua-os e disponibilize os mesmos no app para todos os tutores",
     },
   ];
 
@@ -123,7 +127,7 @@ const HomePage = () => {
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Blog</Text>
         </HStack>
         <Flex >
-          <Button fontWeight="bold" bg="primary.500" color="primary.300" mr={4} size="sm" _hover={{ bgColor: "primary.300", color: "primary.100" }} onClick={redirecttologin}>
+          <Button boxShadow={"md"} borderWidth={"1px"} borderColor={"gray.200"} fontWeight="bold" bg="transparent" color="primary.200" mr={4} size="sm" _hover={{ bgColor: "primary.300", color: "primary.100" }} onClick={redirecttologin}>
             Login
           </Button>
         </Flex>
@@ -151,16 +155,22 @@ const HomePage = () => {
               justifyContent="center"
               padding={["16px", "24px"]}
               gap="24px"
-              textAlign={["center", "left"]}
+              textAlign={["left", "left"]}
               height={["auto", "70vh"]}
               transition={"all 0.5s ease-in-out"}
               my={[0, 10]}
+              color={"primary.200"}
             >
-              <Text fontSize={["3xl", "5xl"]} fontFamily={"sans-serif"}  >
-                Gerencie seus clientes agenda e recursos empresariais
+              <Text fontSize={["3xl", "5xl"]} fontFamily={"sans-serif"}>
+                A melhor plataforma de{" "}
+                <Text as="span" color="primary.300" fontWeight="bold">
+                  gestão pet
+                </Text>{" "}
+                para o seu negócio!
               </Text>
+
               <Text fontSize={["md", "lg"]} color="gray.500">
-                Tenha o total <strong>controle</strong> do que acontece no seu negócio <br /> <strong>otimize </strong>seu <strong>tempo</strong> e <strong>recursos financeiros</strong>
+                Gestão completa de <strong>agenda, clientes,estoque</strong><br /> e uma série de recursos em uma <strong>única </strong>ferramenta
 
               </Text>
               <Link href="#recursos">
@@ -220,7 +230,7 @@ const HomePage = () => {
         >
           {[
             { title: "Clínica", text: "Gerencie sua rede ", text2: "e  funcionários", icon: "clinica", iconSize: "40px" },
-            { title: "PetShop", text: "Registro de serviços e produtos", text2: "e disponibilize na no app", icon: "petshop", iconSize: "40px" },
+            { title: "PetShop", text: "Registro de serviços e produtos", text2: "e disponibilize no app", icon: "petshop", iconSize: "40px" },
             { title: "Veterinário", text: "Acesse recursos de rede e pessoais", text2: "como agenda,clientes,etc", icon: "veterinario", iconSize: "70px" },
             { title: "Hotéis", text: "check-in e check-out", text2: "dos pets", icon: "hoteis", iconSize: "40px" },
           ].map((item, idx) => (
@@ -250,11 +260,11 @@ const HomePage = () => {
           justify="center"
         >
           {/* Image */}
-          <Box bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"260px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"260px"} width={["75vw","45vw"]} height={["30vh",'50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+          <Box mr={6} bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"260px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"260px"} width={["75vw", "45vw"]} height={["30vh", '50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Image
               src={slides[currentIndex].image}
               alt={slides[currentIndex].title}
-              width={["80vw","40vw"]}
+              width={["80vw", "40vw"]}
               objectFit="cover"
               borderRadius="md"
               boxShadow={"lg"}
@@ -269,7 +279,7 @@ const HomePage = () => {
             mt={{ base: 4, md: 0 }}
             display={"flex"}
             flexDirection={"column"}
-            alignItems={["center","start"]}
+            alignItems={["center", "start"]}
             maxWidth="500px"
           >
             <Text mb="2" fontWeight={"bold"} fontSize={"3xl"}>Nossos recursos</Text>
@@ -302,11 +312,11 @@ const HomePage = () => {
 
             {/* Learn More Button */}
             <Button
-            ml={-4}
+              ml={-4}
               rightIcon={<ArrowRightIcon />}
               bgColor={"transparent"}
               color={"primary.200"}
-              _hover={{ bgcolo: "transparent",color:"primary.300" }}
+              _hover={{ bgcolo: "transparent", color: "primary.300" }}
               onClick={() =>
                 alert(`Learn more about: ${slides[currentIndex].title}`)
               }
@@ -344,7 +354,7 @@ const HomePage = () => {
 
           <Text
             borderWidth={"1px"}
-            borderColor={"primary.300"}
+            borderColor={"primary.400"}
             textAlign={"center"}
             width={["90%", "40%"]} // Responsivo: no mobile ocupa 90%, no desktop 40%
             bgColor={"primary.250"}
@@ -356,8 +366,8 @@ const HomePage = () => {
             fontSize={["sm", "md"]} // Responsivo: fonte menor no mobile
             mb={"4"}
           >
-            Nosso objeto é bem simples <br /> conectar tutores a Estabelecimentos e profissionais autonomos <br />
-            fornecer segurança, praticidade e ótima gestão <br /> tanto do negocio quanto da vida do seu pet
+            Desejamos nos tornar um ecossitema que conecta tutores a estabelecimentos e profissionais autonomos ,
+            fornecendo segurança, praticidade e maior proximidade dos tutores com profissionais da área, assegurando assim uma vida mais saúdavel a seus pets
           </Text>
 
           <Text
@@ -422,16 +432,16 @@ const HomePage = () => {
         >
           <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Contato</Text>
           <VStack spacing={4} align="center">
-           
+
             <Text color="gray.500" >
-              Entre em contato conosco e ficaremos <strong>muito feliz</strong>  em lhe atender.<br/>
-              Venha conheça nossa <strong>solução</strong> e tenha<strong> 30 dias gratuitos</strong> de uso da ferramenta.
+              Entre em contato conosco e ficaremos <strong>muito feliz</strong>  em lhe atender.<br />
+              Venha conhecer nossa <strong>solução</strong> e tenha<strong> 30 dias gratuitos</strong> de uso da ferramenta.
             </Text>
             <Image
               src={"/sendemail.png"}
               objectFit="cover"
               borderRadius="md"
-             width='60%'
+              width='60%'
             />
           </VStack>
         </Box>
