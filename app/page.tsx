@@ -46,7 +46,7 @@ const HomePage = () => {
       description: "Realize prescrições, criação de protocolos, agendamento de retorno e saiba em detalhes tudo sobre seu cliente e pet",
     },
     {
-      image: "/solicitations1.png",
+      image: "/solicitations5.png",
       title: "Solicitações",
       description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios ou rejeita o pedido",
     },
@@ -250,14 +250,14 @@ const HomePage = () => {
           justify="center"
         >
           {/* Image */}
-          <Box bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"180px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"180px"} width={["75vw","45vw"]} height={["30vh",'50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+          <Box bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"260px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"260px"} width={["75vw","45vw"]} height={["30vh",'50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Image
               src={slides[currentIndex].image}
               alt={slides[currentIndex].title}
               width={["80vw","40vw"]}
               objectFit="cover"
               borderRadius="md"
-              boxShadow={"md"}
+              boxShadow={"lg"}
 
             />
           </Box>
@@ -267,7 +267,9 @@ const HomePage = () => {
           <Box
             ml={{ base: 0, md: 8 }}
             mt={{ base: 4, md: 0 }}
-            textAlign={{ base: "center", md: "left" }}
+            display={"flex"}
+            flexDirection={"column"}
+            alignItems={["center","start"]}
             maxWidth="500px"
           >
             <Text mb="2" fontWeight={"bold"} fontSize={"3xl"}>Nossos recursos</Text>
@@ -418,12 +420,12 @@ const HomePage = () => {
           mb={["6", "0"]} // Espaçamento inferior em telas pequenas
           mt={["30px", "0px"]}
         >
-          <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Entre em contato</Text>
+          <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Contato</Text>
           <VStack spacing={4} align="center">
            
             <Text color="gray.500" >
-              Entre em contato conosco e ficamos <strong>muito feliz</strong>  em lhe atender,<br/>
-              Conheça nossa <strong>solução</strong> e tenha<strong> gratuitamente 30 dias</strong>  de uso da ferramenta
+              Entre em contato conosco e ficaremos <strong>muito feliz</strong>  em lhe atender.<br/>
+              Venha conheça nossa <strong>solução</strong> e tenha<strong> 30 dias gratuitos</strong> de uso da ferramenta.
             </Text>
             <Image
               src={"/sendemail.png"}
