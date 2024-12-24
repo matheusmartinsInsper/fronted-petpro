@@ -128,8 +128,8 @@ const IsideStock = ({ isOpen, onClose, stock }: StockModalProps) => {
                     <Button
                         backgroundColor={"primary.300"}
                         onClick={handleMoveStock}
-                        color={"primary.100"}
-                        _hover={{ backgroundColor: "primary.300" }}
+                        color={"primary.500"}
+                        _hover={{ backgroundColor: "primary.300",color:"primary.100" }}
                     >
                         Confirmar
                     </Button>

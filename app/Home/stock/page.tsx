@@ -36,7 +36,7 @@ import {
     EditIcon,
     ChatIcon,
     CalendarIcon,
-    ArrowDownIcon, ArrowUpIcon,ChevronRightIcon as ExpandIcon
+    ArrowDownIcon, ArrowUpIcon, ChevronRightIcon as ExpandIcon
 } from "@chakra-ui/icons";
 import { FiClipboard, FiBox, FiUsers, FiUser, FiAlertCircle } from "react-icons/fi";
 import { format } from 'date-fns';
@@ -50,6 +50,7 @@ import OutsideStock from "./components/OutsideStock"
 import ModalStock from "./components/ModalStock";
 import Transactions from "./components/Transactions"
 import Products from "./components/Products"
+import ModalAddStock from "./components/ModalAddStock";
 
 interface ItemSize {
     iditem: string | null;
@@ -104,6 +105,7 @@ const Stock = () => {
     const [selectedStockModal, setselectedStockModal] = useState<StockItem>();
     const { isOpen: isRemoveOpen, onOpen: onRemoveOpen, onClose: onRemoveClose } = useDisclosure();
     const { isOpen: isModalStockOpen, onOpen: onModalStockOpen, onClose: onModalStockClose } = useDisclosure();
+    const { isOpen: isModalAddStock, onOpen: onModalAddStockOpen, onClose: onModalAddStockClose } = useDisclosure();
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const openModal = (stock: StockItem) => {
@@ -117,6 +119,9 @@ const Stock = () => {
     const openModalBaixa = (stock: StockItem) => {
         setselectedStockDown(stock); // Define o stock selecionado
         onRemoveOpen();; // Abre o modal
+    };
+    const openModalAddStock = () => {
+        onModalAddStockOpen();; // Abre o modal
     };
     const [isCollapsed, setIsCollapsed] = useState(false);
     const toggleSidebar = () => {
@@ -177,8 +182,8 @@ const Stock = () => {
             }
         } catch (error) {
             toast({
-                title: "Erro ao buscar Clientes",
-                description: "Ocorreu um erro ao tentar buscar os clientes. Tente novamente mais tarde.",
+                title: "Erro ao buscar Estoque",
+                description: "Ocorreu um erro ao tentar buscar os Estoque, tente mais tarde",
                 status: "error",
                 duration: 5000,
                 isClosable: true,
@@ -218,16 +223,16 @@ const Stock = () => {
     const mergeTransactions = (stocks: StockItem[]): Transactions[] => {
         // Cria um novo array contendo todas as transações de todos os itens de estoque
         const allTransactions = stocks
-        .map(stock =>
-            stock.transactions.map(transaction => ({
-                ...transaction, // Copia os dados originais da transação
-                itemname: stock.nameitem, // Adiciona o nome do item
-                category: stock.categoryitem, // Adiciona a categoria do item
-                size: stock.itemsize.size // Adiciona o tamanho a partir de itemsize.size
-            }))
-        )
-        .flat();  // Flatten transforma a matriz de arrays em um único array de transações
-    
+            .map(stock =>
+                stock.transactions.map(transaction => ({
+                    ...transaction, // Copia os dados originais da transação
+                    itemname: stock.nameitem, // Adiciona o nome do item
+                    category: stock.categoryitem, // Adiciona a categoria do item
+                    size: stock.itemsize.size // Adiciona o tamanho a partir de itemsize.size
+                }))
+            )
+            .flat();  // Flatten transforma a matriz de arrays em um único array de transações
+
         return allTransactions;
     };
     const setNavigation = (page: string) => {
@@ -268,7 +273,7 @@ const Stock = () => {
 
                         </Text>Estoque</Heading>
 
-                        <Button
+                        {/* <Button
                             backgroundColor="white"
                             borderRadius="md"
                             size="sm"
@@ -293,7 +298,7 @@ const Stock = () => {
                             <Text ml="2" color="primary.250" fontWeight="bold" fontSize="sm">
                                 {toggleState === "Pessoal" ? "Pessoal" : "Rede"}
                             </Text>
-                        </Button>
+                        </Button> */}
                         <Box ml="auto">
                             <Input
                                 placeholder="Pesquisar por palavra chave"
@@ -315,35 +320,41 @@ const Stock = () => {
                     <Flex justify="space-between" align="center" mb="2" borderBottomColor={"gray.200"} borderBottomWidth={"1px"} pb={"1"} px="4">
                         <Box>
                             <Button
+                                borderWidth={"1px"}
+                                borderColor={currentPageNavigation == "Estoque" ? "gray.200" : "transparent"}
                                 size="sm"
                                 bg="primary.100"
                                 color="primary.200"
-                                boxShadow={currentPageNavigation=="Estoque"?"md":"none"}
+                                boxShadow={currentPageNavigation == "Estoque" ? "md" : "none"}
                                 _hover={{ bg: 'primary.100' }}
                                 onClick={() => { setNavigation("Estoque") }}
                                 fontWeight="bold" mr={"2"}>Estoque</Button>
                             <Button
+                                borderWidth={"1px"}
+                                borderColor={currentPageNavigation == "Transações" ? "gray.200" : "transparent"}
                                 size="sm"
                                 bg="primary.100"
                                 color="primary.200"
-                                boxShadow={currentPageNavigation=="Transações"?"md":"none"}
+                                boxShadow={currentPageNavigation == "Transações" ? "md" : "none"}
                                 _hover={{ bg: 'primary.100' }}
                                 onClick={() => { setNavigation("Transações") }}
                                 fontWeight="bold" mr={"2"}>Transações</Button>
                             <Button
+                                borderWidth={"1px"}
+                                borderColor={currentPageNavigation == "Produtos" ? "gray.200" : "transparent"}
                                 size="sm"
                                 bg="primary.100"
                                 color="primary.200"
-                                boxShadow={currentPageNavigation=="Produtos"?"md":"none"}
+                                boxShadow={currentPageNavigation == "Produtos" ? "md" : "none"}
                                 _hover={{ bg: 'primary.100' }}
                                 onClick={() => { setNavigation("Produtos") }}
                                 fontWeight="bold" mr={"0"}>Produtos</Button>
                         </Box>
 
                         <Box ml="auto">
-                            {currentPageNavigation == "Estoque"&&<><Button leftIcon={<AddIcon bgSize={"xs"} color={"primary.300"}/>} bgColor={"primary.500"} size={"sm"} color={"primary.300"}> Entrada</Button></>}
-                            {currentPageNavigation == "Produtos"&&<><Button _hover={{bgColor:"primary.300",color:"primary.100"}} leftIcon={<AddIcon color="primary.300"/>} bgColor={"primary.500"} size={"sm"} color={"primary.300"}>Cadastar</Button></>}
-                            {currentPageNavigation == "Transações"&&<><Button _hover={{bgColor:"primary.300",color:"primary.100"}} leftIcon={<FiFilter color="primary.300"/>} bgColor={"primary.500"} size={"sm"} color={"primary.300"}>Filtrar</Button></>}
+                            {currentPageNavigation == "Estoque" && <><Button onClick={() => openModalAddStock()} leftIcon={<AddIcon bgSize={"xs"} />} _hover={{ bgColor: "primary.300", color: "primary.500" }} bgColor={"primary.500"} size={"sm"} color={"primary.300"}> Entrada</Button></>}
+                            {currentPageNavigation == "Produtos" && <><Button as="a" href="/Home/stock/Product/Add" _hover={{ bgColor: "primary.300", color: "primary.100" }} leftIcon={<AddIcon />} bgColor={"primary.500"} size={"sm"} color={"primary.300"}>Cadastar</Button></>}
+                            {currentPageNavigation == "Transações" && <><Button _hover={{ bgColor: "primary.300", color: "primary.100" }} leftIcon={<FiFilter color="primary.300" />} bgColor={"primary.500"} size={"sm"} color={"primary.300"}>Filtrar</Button></>}
                         </Box>
                     </Flex>
                     {currentPageNavigation == "Estoque" &&
@@ -444,7 +455,7 @@ const Stock = () => {
                                                             color="primary.250"
                                                             backgroundColor="white"
                                                             boxShadow={"md"}
-                                                            onClick={()=>openModalStock(stock)}
+                                                            onClick={() => openModalStock(stock)}
                                                             _hover={{ backgroundColor: "primary.100" }}
                                                         />
                                                         <IconButton
@@ -533,20 +544,26 @@ const Stock = () => {
                                     stock={selectedStockDown}
                                 />
                             )}
-                              {selectedStockModal && (
+                            {selectedStockModal && (
                                 <ModalStock
                                     isOpen={isModalStockOpen}
                                     onClose={onModalStockClose}
                                     stock={selectedStockModal}
                                 />
                             )}
+                            {(
+                                <ModalAddStock
+                                    isOpen={isModalAddStock}
+                                    onClose={onModalAddStockClose}
+                                />
+                            )}
                         </>
                     }
                     {
-                     currentPageNavigation == "Transações" && <><Transactions transactions={transactios}/></>
+                        currentPageNavigation == "Transações" && <><Transactions transactions={transactios} /></>
                     }
                     {
-                     currentPageNavigation == "Produtos" && <><Products/></>
+                        currentPageNavigation == "Produtos" && <><Products /></>
                     }
                 </Box>
 

@@ -1,40 +1,93 @@
 "use client";
-import { Box, Button, Flex, Heading, Text, Link, HStack, Image, VStack, Input, FormControl, FormLabel, Select, Circle } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Link, HStack, Image, VStack, Input, FormControl, FormLabel, Select, Circle, IconButton } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
-  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon, CheckIcon, AtSignIcon, Icon
+  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon, CheckIcon, AtSignIcon, Icon,
+  ArrowLeftIcon,
+  ArrowRightIcon
 } from '@chakra-ui/icons';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { motion, useAnimation, useInView, isValidMotionProp } from 'framer-motion';
 import { useEffect, useState, useRef } from "react";
 import { chakra } from "@chakra-ui/react";
 import { MdGroups, MdRestaurant } from "react-icons/md";
-import { FaCut, FaRunning,FaBone,FaDog,FaBasketballBall,FaStethoscope,FaHotel } from "react-icons/fa";
-import { GiSyringe, GiBrain ,GiScalpel} from "react-icons/gi";
+import { FaCut, FaRunning, FaBone, FaDog, FaBasketballBall, FaStethoscope, FaHotel } from "react-icons/fa";
+import { GiSyringe, GiBrain, GiScalpel } from "react-icons/gi";
 import { BsThreeDots } from "react-icons/bs";
 
 const MotionBox = chakra(motion.div, {
   shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === "children",
 });
-  const categoryIcons: Record<string, React.ElementType> = {
-    petshop: FaDog,       // Ícone do Chakra UI
-    clinica: GiSyringe,         // Ícone do React Icons
-    veterinario: FaStethoscope,       // Ícone do React Icons
-    hoteis: FaHotel      // Ícone do React Icons
-  };
+const categoryIcons: Record<string, React.ElementType> = {
+  petshop: FaDog,       // Ícone do Chakra UI
+  clinica: GiSyringe,         // Ícone do React Icons
+  veterinario: FaStethoscope,       // Ícone do React Icons
+  hoteis: FaHotel      // Ícone do React Icons
+};
 
 const HomePage = () => {
   const router = useRouter();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const redirecttologin = () => {
     router.push('/Signin');
   };
 
-  const geticonclient = (client: string)=>{
+  const slides = [
+
+    {
+      image: "/agenda3.png",
+      title: "Agenda",
+      description: "Gerencie sua agenda em poucos cliques, agende atendimentos para novos clientes, cancele ou inicie o atendimento",
+    },
+    {
+      image: "/atend.png",
+      title: "Atendimento",
+      description: "Realize prescrições, criação de protocolos, agendamento de retorno e saiba em detalhes tudo sobre seu cliente e pet",
+    },
+    {
+      image: "/solicitations1.png",
+      title: "Solicitações",
+      description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios ou rejeita o pedido",
+    },
+    {
+      image: "/tutores.png",
+      title: "Clientes",
+      description: "Gestão completa da sua carteira de clientes, com varias ações como chat, agendamento, gerar pagamentos dentre outras",
+    },
+    {
+      image: "/prontuario.png",
+      title: "Prontuarios",
+      description: "Tenha o histórico de atendimento, solicitações, protocolos, pagamentos dentro do prontuario dos pets atendidos",
+    },
+    {
+      image: "/stock2.png",
+      title: "Estoque",
+      description: "Dentro do recuros de estoque você pode acompanhar o balanço geral, por item, por período etc",
+    },
+    {
+      image: "/service3.png",
+      title: "Serviços",
+      description: "Organize sue catalogo de serviços prestados e disponibilize os mesmos no app para todos os tutores",
+    },
+  ];
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
+    );
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+  const geticonclient = (client: string) => {
     const IconComponent = categoryIcons[client];
     return IconComponent
   }
-  
+
 
   return (
     <Box >
@@ -50,14 +103,14 @@ const HomePage = () => {
         alignItems="center"
         position="fixed"
         top="0"
-        px={["4","24"]}
+        px={["4", "28"]}
         py={"10"}
         zIndex="10" // Para garantir que o header fique acima de outros elementos
       >
         <Heading size="lg" flexDirection={"row"} display={"flex"} alignItems={"center"} ml={"-4"}>
-          <Image src='mylogo.png' width={"70px"} />
+          <Image src='mylogo.png' width={"80px"} />
           <Link ml="-4" href="/" _hover={{ textDecoration: "none" }}>
-            <Text fontSize="xl" fontWeight="bold">
+            <Text fontSize="2xl" fontWeight="bold">
               <span style={{ color: '#7839EE' }}>PET</span>pro
             </Text>
           </Link>
@@ -85,11 +138,11 @@ const HomePage = () => {
             flexDirection={["column", "row"]}
             alignItems={["center", "start"]}
             gap={[8, 0]}
-            px={[2,20]}
+            px={[2, 24]}
           >
             {/* Texto e Botão */}
             <MotionBox
-              initial={{ y: -100, opacity: 0 }}
+              initial={{ y: 100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               width="100%"
               maxWidth={["100%", "50%"]}
@@ -100,399 +153,175 @@ const HomePage = () => {
               gap="24px"
               textAlign={["center", "left"]}
               height={["auto", "70vh"]}
-              transition={"all 1s ease-in-out"}
+              transition={"all 0.5s ease-in-out"}
+              my={[0, 10]}
             >
-              <Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-                Gerencie seus clientes <br /> agenda e recursos empresariais
+              <Text fontSize={["3xl", "5xl"]} fontFamily={"sans-serif"}  >
+                Gerencie seus clientes agenda e recursos empresariais
               </Text>
-              <Text fontSize={["md", "lg"]}>
-                Tenha o total controle do que acontece no seu negócio <br /> otimize seu tempo e recursos
-                financeiros
+              <Text fontSize={["md", "lg"]} color="gray.500">
+                Tenha o total <strong>controle</strong> do que acontece no seu negócio <br /> <strong>otimize </strong>seu <strong>tempo</strong> e <strong>recursos financeiros</strong>
+
               </Text>
               <Link href="#recursos">
                 <Button
                   width={["66%", "33%"]}
-                  bgColor="primary.300"
-                  size="md"
-                  color="primary.100"
-                  borderRadius="50px"
+                  bgGradient="linear(to-r, primary.250, primary.300)"
+                  size="lg"
+                  color="primary.500"
+                  borderRadius="md"
                   _hover={{
-                    bgGradient: "linear(to-r, primary.300, primary.500)",
-                    color: "primary.100",
+                    bgGradient: "linear(to-r, primary.300, primary.300)",
+                    color: "white",
                   }}
                   transition="background-color 2s ease"
+                  p={4}
                 >
-                  Conheça nossa solução
+                  Nossa solução
                 </Button>
               </Link>
             </MotionBox>
 
             {/* Imagem */}
             <MotionBox
-              initial={{ y: 100, opacity: 0 }}
+              initial={{ y: -100, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
+              transition={"all 0.5s ease-in-out"}
+              my={[0, 10]}
               width="100%"
               maxWidth={["100%", "50%"]}
               display="flex"
               alignItems="center"
               justifyContent="center"
-              height={["auto", "70vh"]} // Garante altura consistente no layout
-              transition={"all 1s ease-in-out"}
+              height={["auto", "70vh"]}
             >
-              <Image src="/tutoreslp.png" width={["100%", "80%"]} objectFit="contain" mb={["6","0"]}/>
+
+              <Image src="/animallp3.gif" width={["100%", "80%"]} objectFit="contain" mb={["6", "0"]} />
             </MotionBox>
           </Box>
-
-          {/* Ícones e Seções */}
-          <MotionBox
-            initial={{ scale: 0.5, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            width={["90%", "60%"]}
-            transition={"all 1s ease-in-out"}
-          >
-            <Box
-              p="6"
-              width="100%"
-              bgColor="white"
-              height="auto"
-              mb="-60px"
-              borderRadius="xl"
-              boxShadow="md"
-              display="flex"
-              flexDirection={["row", "row"]}
-              justifyContent="space-between"
-              alignItems="center"
-              gap={[6, 0]}
-              overflowX={["auto", "visible"]} // Ativa o scroll horizontal no mobile
-              whiteSpace={["nowrap", "normal"]}
-            >
-              {[
-                { title: "Clínica", text: "Gerencie sua rede e funcionários", icon: "clinica" ,iconSize: "40px"},
-                { title: "PetShop", text: "Registro de serviços e produtos", icon: "petshop",iconSize: "40px" },
-                { title: "Veterinário", text: "Acesse recursos de rede e pessoais", icon: "veterinario", iconSize: "70px" },
-                { title: "Hotéis", text: "Realize check-in e check-out dos pets", icon: "hoteis",iconSize: "40px" },
-              ].map((item, idx) => (
-                <Box key={idx} display="flex" flexDirection="row" alignItems="start" minWidth="150px" flexShrink={[0, 1]}>
-                  <Box mr={2}>
-                    <Icon  as={geticonclient(item.icon)} color="primary.300" boxSize="5" />
-                  </Box>
-                  <Box>
-                    <Text fontWeight="bold" fontSize="lg">
-                      {item.title}
-                    </Text>
-                    <Text fontSize="sm" color="gray.600">
-                      {item.text}
-                    </Text>
-                  </Box>
-                </Box>
-              ))}
-            </Box>
-          </MotionBox>
         </Box>
-
-      </Box>
-      <Box display="flex" flexDirection="column" alignItems="center" pt={"120px"} bgColor={"primary.500"} id='recursos'>
-        <Box display="flex" flexDirection="column" alignItems="center" pt={["0px", "120px"]} bgColor={"primary.500"} id='recursos'>
-          <Box height={["100%", "100vh"]} display="flex" px={"6"} flexDirection={["column", "row"]}>
-            {/* Left side: Images */}
-            <Box
-              width={["100%", "50%"]}
-              display="flex"
-              flexDirection="column"
-              alignItems="center"
-              position="relative"
-            >
-              <Box display="flex" flexDirection={["row", "column"]} overflowX={["auto", "unset"]} width="100%" alignItems="center">
-                <Image
-                  src="/agenda1.png"
-                  width={["90%", "75%"]}
-                  borderRadius={"md"}
-                  mb={["0px", "0"]}
-                />
-                <Image
-                  src="/agenda3.png"
-                  width={["90%", "75%"]}
-                  borderRadius={"md"}
-                  mr={["0", "-160px"]}
-                  mt={["0px", "-160px"]}
-                />
-                <Image
-                  src="/agenda2.png"
-                  width={["90%", "75%"]}
-                  borderRadius={"md"}
-                  mt={["0px", "-80px"]}
-                  mr={["0", "-320px"]}
-                />
+        <Box
+          p="6"
+          width="100%"
+          bgColor="primary.200"
+          height="auto"
+          boxShadow="md"
+          display="flex"
+          flexDirection={["row", "row"]}
+          justifyContent="space-between"
+          alignItems="center"
+          gap={[6, 0]}
+          overflowX={["auto", "visible"]} // Ativa o scroll horizontal no mobile
+          whiteSpace={["nowrap", "normal"]}
+          color={"primary.100"}
+          minHeight={"120px"}
+          px={["8", "28"]}
+          zIndex={999}
+        >
+          {[
+            { title: "Clínica", text: "Gerencie sua rede ", text2: "e  funcionários", icon: "clinica", iconSize: "40px" },
+            { title: "PetShop", text: "Registro de serviços e produtos", text2: "e disponibilize na no app", icon: "petshop", iconSize: "40px" },
+            { title: "Veterinário", text: "Acesse recursos de rede e pessoais", text2: "como agenda,clientes,etc", icon: "veterinario", iconSize: "70px" },
+            { title: "Hotéis", text: "check-in e check-out", text2: "dos pets", icon: "hoteis", iconSize: "40px" },
+          ].map((item, idx) => (
+            <Box key={idx} display="flex" flexDirection="row" textAlign={"center"} minWidth="150px" flexShrink={[0, 1]}>
+              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} p={"2"} borderRadius={"md"}>
+                <Icon as={geticonclient(item.icon)} color="primary.300" boxSize="6" />
+              </Box>
+              <Box display={"flex"} alignItems={"start"} flexDirection={"column"}>
+                <Text fontSize="sm" display={"flex"} alignItems={"start"} justifyContent={"start"}>
+                  {item.text}
+                </Text>
+                <Text fontSize="sm" display={"flex"} alignItems={"start"} justifyContent={"start"}>
+                  {item.text2}
+                </Text>
               </Box>
             </Box>
+          ))}
+        </Box>
+      </Box>
 
-            {/* Right side: Platform Resources */}
-            <Box
-              width={["100%", "50%"]}
-              display="flex"
-              alignItems="center"
-              justifyContent="start"
-              flexDirection="column"
-              my={["30px", "0px"]}
+      <Box height="95vh" px="4" display="flex" justifyContent="center" alignItems="center" bgColor={"primary.100"}>
+        <Flex
+          width="100%"
+          maxWidth="1200px"
+          direction={{ base: "column", md: "row" }}
+          align="center"
+          justify="center"
+        >
+          {/* Image */}
+          <Box bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"180px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"180px"} width={["75vw","45vw"]} height={["30vh",'50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+            <Image
+              src={slides[currentIndex].image}
+              alt={slides[currentIndex].title}
+              width={["80vw","40vw"]}
+              objectFit="cover"
+              borderRadius="md"
+              boxShadow={"md"}
 
+            />
+          </Box>
+
+
+          {/* Text and Buttons */}
+          <Box
+            ml={{ base: 0, md: 8 }}
+            mt={{ base: 4, md: 0 }}
+            textAlign={{ base: "center", md: "left" }}
+            maxWidth="500px"
+          >
+            <Text mb="2" fontWeight={"bold"} fontSize={"3xl"}>Nossos recursos</Text>
+            {/* Navigation Arrows */}
+            <Flex justify="start" align="center" mb="4" ml={-4}>
+              <IconButton
+                icon={<ChevronLeftIcon />}
+                onClick={handlePrev}
+                aria-label="Previous Slide"
+                bgColor="transparent"
+                _hover={{ bgColor: "transparent", color: "primary.300" }}
+              />
+              <IconButton
+                icon={<ChevronRightIcon />}
+                onClick={handleNext}
+                aria-label="Next Slide"
+                bgColor="transparent"
+                size={"md"}
+                _hover={{ bgColor: "transparent", color: "primary.300" }}
+              />
+            </Flex>
+
+            {/* Slide Text */}
+            <Text fontSize="2xl" fontWeight="bold" mb="2" color={"primary.300"}>
+              {slides[currentIndex].title}
+            </Text>
+            <Text fontSize="lg" mb="4" color={"gray.500"}>
+              {slides[currentIndex].description}
+            </Text>
+
+            {/* Learn More Button */}
+            <Button
+            ml={-4}
+              rightIcon={<ArrowRightIcon />}
+              bgColor={"transparent"}
+              color={"primary.200"}
+              _hover={{ bgcolo: "transparent",color:"primary.300" }}
+              onClick={() =>
+                alert(`Learn more about: ${slides[currentIndex].title}`)
+              }
             >
-              <Text fontWeight={"bold"} fontSize={["xl", "2xl"]} mb={"4"}>Agenda</Text>
-              <VStack spacing={4} align="start">
-                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                  <CheckIcon color={"primary.300"} mr={"2"} />Status
-                </Text>
-                <Text color={"gray.500"}>Acompanhe o status dos seus atendimentos</Text>
-
-                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                  <CheckIcon color={"primary.300"} mr={"2"} />Prioridade
-                </Text>
-                <Text color={"gray.500"}>Controle de agenda por prioridade</Text>
-
-                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                  <CheckIcon color={"primary.300"} mr={"2"} />Atribuir atendimentos
-                </Text>
-                <Text color={"gray.500"}>Atribua atendimentos a seus colaboradores</Text>
-
-                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                  <CheckIcon color={"primary.300"} mr={"2"} />Rede e pessoal
-                </Text>
-                <Text color={"gray.500"}>Para veterinarios, gestão de agenda pessoal e da rede que atua</Text>
-
-                <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                  <CheckIcon color={"primary.300"} mr={"2"} />Agendamento
-                </Text>
-                <Text color={"gray.500"}>Agende manualmente para tutores não registrados no app</Text>
-              </VStack>
-            </Box>
+              Saiba mais
+            </Button>
           </Box>
-        </Box>
-
-        <Box height={["100%", "100vh"]} display="flex" px={"6"} bgColor={"primary.100"} pt={["0px", "120px"]} flexDirection={["column", "row"]}>
-          {/* Left side: Text content */}
-          <Box
-            width={["100%", "50%"]} // No mobile ocupa 100% da largura, no desktop 50%
-            display="flex"
-            alignItems="center"
-            justifyContent="start"
-            flexDirection="column"
-            mt={["30px", "0px"]}
-          >
-            <Text fontWeight={"bold"} fontSize={["xl", "2xl"]} mb={"4"}>Solicitações</Text>
-            <VStack spacing={4} align="start">
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Status
-              </Text>
-              <Text color={"gray.500"}>Aceite ou rejeite as solicitações gerada pelos tutores</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Prioridade
-              </Text>
-              <Text color={"gray.500"}>Organiza-se por prioriedade das solicitações</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Atribuir atendimentos
-              </Text>
-              <Text color={"gray.500"}>Atribua atendimentos a seus colaboradores</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Rede e pessoal
-              </Text>
-              <Text color={"gray.500"}>Para veterinarios, vizualize solicitações de rede e pessoal</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Receita
-              </Text>
-              <Text color={"gray.500"}>Tenha uma estimativa de receita gerada pelas solicitações</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Clientes
-              </Text>
-              <Text color={"gray.500"}>Ao solicitar um serviço o tutor já é adicionado a sua carteira de clientes</Text>
-            </VStack>
-          </Box>
-
-          {/* Right side: Images */}
-          <Box
-            width={["100%", "50%"]} // No mobile ocupa 100% da largura, no desktop 50%
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            my={["30px", "0px"]}
-          >
-            <Image
-              src="/solicitations1.png"
-              width={["100%","70%"]}
-              borderRadius={"md"}
-              boxShadow={"md"}
-            />
-            <Image
-              src="/solicitations2.png"
-              width={["100%","70%"]}
-              borderRadius={"md"}
-              mt={"6"}
-              boxShadow={"md"}
-            />
-          </Box>
-        </Box>
-        <Box height={["100%", "100vh"]} display="flex" px={"6"} pt={["30px", "120px"]} flexDirection={["column-reverse", "row"]}>
-          {/* Left side: Images */}
-          <Box
-            width={["100%", "50%"]}
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            position="relative"
-            mb={["30px", "0px"]}
-          >
-            <Box display="flex" flexDirection={["row", "column"]} overflowX={["auto", "unset"]} width="100%" alignItems="center">
-              <Image
-                src="/anamnese2.png"
-                width={["90%","70%"]}
-                borderRadius={"md"}
-                boxShadow={"md"}
-              />
-              <Image
-                src="/medialeadingpage.png"
-                width={["90%","70%"]}
-                borderRadius={"md"}// Para sobrepor as imagens
-                mr={["0", "-160px"]}
-                mt={["0px", "-160px"]}// Ajusta no mobile e desktop
-                boxShadow={"md"}
-              />
-              <Image
-                src="/anamnese1.png"
-                width={["90%","70%"]}
-                borderRadius={"md"}
-                mt={["0px", "-80px"]}
-                mr={["0", "-320px"]}// Ajusta no mobile e desktop
-                boxShadow={"md"}
-              />
-            </Box>
-          </Box>
-
-          {/* Right side: Platform Resources */}
-          <Box
-            width={["100%", "50%"]} // No mobile ocupa 100%, no desktop 50%
-            display="flex"
-            alignItems="center"
-            justifyContent="start"
-            flexDirection="column"
-            my={["30px", "0px"]}
-          >
-            <Text fontWeight={"bold"} fontSize={["xl", "2xl"]} mb={"4"}>Atendimento</Text>
-            <VStack spacing={4} align="start">
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Atender
-              </Text>
-              <Text color={"gray.500"}>Inicie ou cancele os atendimentos confirmados</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Anamnese
-              </Text>
-              <Text color={"gray.500"}>Crie formularios de anamnese dinamico e <br /> preencha-os dentro dos atendimentos</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Gerar Prescrição
-              </Text>
-              <Text color={"gray.500"}>Crie prescrições para seus pacientes e envie via Whatsapp e E-mail</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Protocolos
-              </Text>
-              <Text color={"gray.500"}>Realize e envie de forma automatica protocolos aos tutores</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Retorno
-              </Text>
-              <Text color={"gray.500"}>Agende o retorno dentro do proprio atendimento</Text>
-
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}>
-                <CheckIcon color={"primary.300"} mr={"2"} />Pagamento
-              </Text>
-              <Text color={"gray.500"}>Gere link de pagamento que suporte varios metodos para os tutores</Text>
-            </VStack>
-          </Box>
-        </Box>
-
-
+        </Flex>
       </Box>
-      <Box height={["100%","100vh"]} display="flex" px={"6"} bgColor={"primary.100"} pt={["30px", "120px"]} flexDirection={["column","row"]}>
-        <Box 
-         width={["100%", "50%"]} // No mobile ocupa 100%, no desktop 50%
-         display="flex"
-         alignItems="center"
-         justifyContent="start"
-         flexDirection="column"
-         my={["30px", "0px"]}>
-          <Text fontWeight={"bold"}  fontSize={["xl", "2xl"]} mb={"4"}>Rede</Text>
-          <VStack spacing={4} align="start">
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}><CheckIcon color={"primary.300"} mr={"2"} />Estabelecimentos</Text>
-            <Text color={"gray.500"}>Convite veterinarios a integrar a sua rede</Text>
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}><CheckIcon color={"primary.300"} mr={"2"} />Remover</Text>
-            <Text color={"gray.500"}>Remova colaboradores da sua rede</Text>
-            <Text fontSize={["lg", "xl"]}fontWeight="bold" color={"primary.200"}><CheckIcon color={"primary.300"} mr={"2"} />Veterinarios</Text>
-            <Text color={"gray.500"}>Receba convites de petshops, clinicas e hoteis para integrar a rede</Text>
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.200"}><CheckIcon color={"primary.300"} mr={"2"} />Rede e pessoal</Text>
-            <Text color={"gray.500"}>Vizualize e interaja com informações de rede e pessoal em <br /> agenda, solicitações, anamnese, prontuario, clientes e outros</Text>
-          </VStack>
-        </Box>
-        <Box width={["100%","50%" ]} display="flex" flexDirection="column" alignItems="center" my={["30px","0px"]}>
-          <Image
-            src="/colaborador.jpeg" width={["50px","200px"]} borderRadius={"md"} mt={"0"} zIndex={"2"} mr={"75%"} boxShadow={"md"}
-          />
-          <Image
-            src="/colaborator2.png" width={["100%","80%"]} borderRadius={"md"} boxShadow={"md"} mt={"-50px"}
-          />
-        </Box>
-      </Box>
-      <Box height={["100%","100vh"]} display="flex" px={"6"} bgColor={"primary.500"} pt={["30px", "120px"]} flexDirection={["column-reverse","row"]}>
-        {/* Left side: Images */}
-        <Box 
-         width={["100%", "50%"]} // No mobile ocupa 100% da largura, no desktop 50%
-         display="flex"
-         flexDirection="column"
-         alignItems="center"
-         my={["30px", "0px"]}>
-          <Image
-            src="/services2.png" width={["100%","70%"]} borderRadius={"md"} boxShadow={"md"}
-          />
-          <Image
-            src="/service3.png" width={["100%","70%"]} borderRadius={"md"} mt="6" boxShadow={"md"}
-          />
-        </Box>
 
-        {/* Right side: Platform Resources */}
-        <Box  width={["100%", "50%"]} // No mobile ocupa 100% da largura, no desktop 50%
-            display="flex"
-            alignItems="center"
-            justifyContent="start"
-            flexDirection="column"
-            mt={["30px", "0px"]}>
-          <Text fontWeight={"bold"}  fontSize={["xl", "2xl"]} mb={"4"}>Serviços</Text>
-          <VStack spacing={4} align="start">
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Categorias</Text>
-            <Text color={"gray.500"}>Crie um catalogo de serviços prestados, escolha uma categoria <br /> e siga as regras da mesma</Text>
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Subcategorias</Text>
-            <Text color={"gray.500"}>Caso desejar, crie subcategorias para seus serviços <br />tutores podem escolher 1 ou mais subcategorias na solicitação</Text>
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Vacinas</Text>
-            <Text color={"gray.500"}>Crie serviços de vacinação <br /> dê um titulo para esse serviço e escolha as vacinas aplicadas</Text>
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Anti parasitario</Text>
-            <Text color={"gray.500"}>Crie serviços de anti-parasitarios, semelhante a vacinação</Text>
-            <Text fontSize={["lg", "xl"]} fontWeight="bold" color={"primary.300"}><CheckIcon color={"primary.300"} mr={"2"} />Modelo</Text>
-            <Text color={"gray.500"}>Escolha Online, Domiciliar ou Presencial para seus serviços criados</Text>
-          </VStack>
-        </Box>
-      </Box>
       <Box
         height={["100%", "100vh"]}
         display="flex"
         px={"6"}
         pt={"120px"}
-        bgColor={"primary.100"}
-        backgroundImage={"/proposito.jpeg"}
-        backgroundRepeat="no-repeat"
-        backgroundSize="cover"
-        backgroundPosition="center"
+        bgColor={"primary.200"}
+        color={"primary.100"}
       >
         {/* Left side: Content */}
         <Box
@@ -512,13 +341,13 @@ const HomePage = () => {
           </Text>
 
           <Text
-            borderWidth={"2px"}
+            borderWidth={"1px"}
             borderColor={"primary.300"}
             textAlign={"center"}
             width={["90%", "40%"]} // Responsivo: no mobile ocupa 90%, no desktop 40%
-            bgColor={"white"}
+            bgColor={"primary.250"}
             boxShadow={"md"}
-            color={"primary.250"}
+            color={"primary.400"}
             p="6"
             borderRadius={"md"}
             fontWeight={"bold"}
@@ -530,13 +359,13 @@ const HomePage = () => {
           </Text>
 
           <Text
-            borderWidth={"2px"}
+            borderWidth={"1px"}
             borderColor={"primary.300"}
             textAlign={"center"}
             width={["90%", "40%"]} // Responsivo: no mobile ocupa 90%, no desktop 40%
-            bgColor={"white"}
+            bgColor={"primary.250"}
             boxShadow={"md"}
-            color={"primary.250"}
+            color={"primary.400"}
             p="6"
             borderRadius={"md"}
             fontWeight={"bold"}
@@ -589,39 +418,19 @@ const HomePage = () => {
           mb={["6", "0"]} // Espaçamento inferior em telas pequenas
           mt={["30px", "0px"]}
         >
-          <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Ao enviar</Text>
-          <VStack spacing={4} align="start">
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Contato</Text>
-            </Box>
+          <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Entre em contato</Text>
+          <VStack spacing={4} align="center">
+           
             <Text color="gray.500" >
-             Iremos salvar seus dados em nossa base <br />e em breve entraremos em contato via Whatsapp e E-mail
+              Entre em contato conosco e ficamos <strong>muito feliz</strong>  em lhe atender,<br/>
+              Conheça nossa <strong>solução</strong> e tenha<strong> gratuitamente 30 dias</strong>  de uso da ferramenta
             </Text>
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Validação</Text>
-            </Box>
-            <Text color="gray.500">
-              No nosso primeiro contato iremos apenas nos conhecer<br />
-              após isso iremos validar algumas questões, solicitar mais dados <br />
-              e retornaremos via E-mail
-            </Text>
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize={["lg", "xl"]}fontWeight="bold" color="primary.300" textAlign="center">Acesso</Text>
-            </Box>
-            <Text color="gray.500">
-              Atendido os critérios, iremos liberar um acesso da plataforma valido por 30 dias<br />
-              você poderá alterar sua senha e fazer uso normal da ferramenta
-            </Text>
-            <Box display="flex" flexDirection="row" alignItems="center">
-              <Circle size="12px" bgColor="primary.300" mr="2" />
-              <Text fontSize={["lg", "xl"]} fontWeight="bold" color="primary.300" textAlign="center">Conclusão</Text>
-            </Box>
-            <Text color="gray.500">
-              Após esse período de teste o usuário pode ou não assinar nossa ferramenta
-            </Text>
+            <Image
+              src={"/sendemail.png"}
+              objectFit="cover"
+              borderRadius="md"
+             width='60%'
+            />
           </VStack>
         </Box>
 

@@ -13,7 +13,8 @@ import {
     Flex,
     Box,
     Text,
-    Image
+    Image,
+    Tooltip
 } from "@chakra-ui/react";
 import {
     SearchIcon,
@@ -24,7 +25,9 @@ import {
     EditIcon,
     ChatIcon,
     CalendarIcon,
-    ArrowDownIcon, ArrowUpIcon, ChevronRightIcon as ExpandIcon
+    ArrowDownIcon, ArrowUpIcon, ChevronRightIcon as ExpandIcon,
+    CheckCircleIcon,
+    NotAllowedIcon
 } from "@chakra-ui/icons";
 import { format } from 'date-fns';
 import { useEffect, useState } from "react";
@@ -128,6 +131,8 @@ const ModalStock = ({ isOpen, onClose, stock }: StockModalProps) => {
                 <ModalBody display={"flex"} flexDirection={"row"}>
                     <Flex flexDirection={"row"}>
                         <Button
+                            borderWidth={"1px"}
+                            borderColor={currentPageNavigation == "stock" ? "gray.200" : "transparent"}
                             size="sm"
                             bg="white"
                             color="primary.200"
@@ -136,6 +141,8 @@ const ModalStock = ({ isOpen, onClose, stock }: StockModalProps) => {
                             onClick={() => { setNavigation("stock") }}
                             fontWeight="bold" mr={"2"}>Produto</Button>
                         <Button
+                            borderWidth={"1px"}
+                            borderColor={currentPageNavigation == "Movimentation" ? "gray.200" : "transparent"}
                             size="sm"
                             bg="white"
                             color="primary.200"
@@ -148,46 +155,56 @@ const ModalStock = ({ isOpen, onClose, stock }: StockModalProps) => {
                 </ModalBody>
                 {currentPageNavigation == "stock" && (
                     <>
-                        <ModalBody display={"flex"} flexDirection={"row"} pb={6}>
-                            <Image
-                                src="/bolinhabrinquedo.jpg" width={["50%", "40%"]} height={["50%", "40%"]} borderRadius={"md"} boxShadow={"md"} mr={4}
-                            />
-                            <Box ml={4}>
-                                <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"} mb={0}>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Produto:</Text>
-                                        <Text fontWeight={"bold"}>{stock.nameitem}</Text>
+                        <ModalBody display={"flex"} flexDirection={"column"} pb={6}>
+                            <Box display={"flex"} flexDirection={"row"}>
+                                <Image
+                                    src="/amoxilina.webp" width={["50%", "40%"]} height={["50%", "40%"]} borderRadius={"md"} mr={12}
+                                />
+                                <Box display={"flex"} flexDirection={"column"} justifyContent={"start"} mb={0}>
+
+                                    <Flex flexDirection={"row"} width={"100%"}>
+                                        <Text fontWeight={"bold"}>{stock.nameitem} / {stock.lote}</Text>
                                     </Flex>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Tamanho:</Text>
-                                        <Text fontWeight={"bold"}>{stock.itemsize.size}</Text>
+                                    <Flex mt={"2"} flexDirection={"column"} width={"80%"}>
+                                        <Text mr={2}>Tamanho</Text>
+                                        <Flex textAlign={"center"} bgColor={"primary.500"} borderWidth={"1px"} borderColor={"primary.300"} borderRadius={"md"} flexDirection={"column"} py="2">
+                                            <Text color={"primary.300"} fontWeight={"bold"}>{stock.itemsize.size}</Text>
+                                            <Text color={"primary.300"} fontSize={"sm"}>R${stock.itemsize.price}</Text>
+                                        </Flex>
+
                                     </Flex>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Preço:</Text>
-                                        <Text fontWeight={"bold"}>R$ {stock.itemsize.price}</Text>
-                                    </Flex>
+                                    <Box borderWidth={"1px"} borderColor={"gray.200"} width={"80%"} p={2} mt={"2"} boxShadow={"sm"} borderRadius={"md"} bgColor={"white"}>
+                                        Estoque  <strong>{stock.quantity}</strong>
+                                    </Box>
+                                    <Tooltip
+                                        label={`Produto ${stock.itemsize.avalaible ? "" : "não"} disponível na loja do aplicativo`}
+                                        fontSize="sm"
+                                        bg="gray.700"
+                                        color="white"
+                                        borderRadius="md"
+                                        p={2}
+                                    >
+                                        <Flex mt={"2"} flexDirection={"row"} textAlign={"center"}>
+                                            <Text fontSize={"sm"} mr={2}>Disponível</Text>
+                                            <Text fontWeight={"bold"}>{stock.itemsize.avalaible == true ? <CheckCircleIcon mt="-1" color={"primary.800"} /> : <NotAllowedIcon mt="-1" color={"primary.600"} />}</Text>
+                                        </Flex>
+                                    </Tooltip>
+
                                 </Box>
-                                <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"} mb={2}>
-                                    <Flex flexDirection={"row"} mb={0}>
-                                        <Text mr={2}>Unidade:</Text>
-                                        <Text fontWeight={"bold"}>{stock.unity}</Text>
+                            </Box>
+
+                            <Box mt={2} borderTopWidth={"1px"} borderTopColor={"gray.200"}>
+
+                                <Box mt={4} display={"flex"} flexDirection={"column"} justifyContent={"space-between"} mb={2}>
+                                    <Flex flexDirection={"column"} mb={2}>
+                                        <Text mr={2}>Descrição </Text>
+                                        <Text fontWeight={"bold"}>{stock.description}</Text>
                                     </Flex>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Lote:</Text>
-                                        <Text fontWeight={"bold"}>{stock.lote}</Text>
+                                    <Flex flexDirection={"column"}>
+                                        <Text mr={2}>Ultima transação </Text>
+                                        <Text fontWeight={"bold"} color={"primary.250"}>{format(stock.updatedate, "dd/MM/yy HH:mm")}</Text>
                                     </Flex>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Em estoque :</Text>
-                                        <Text fontWeight={"bold"}>{stock.quantity}</Text>
-                                    </Flex>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Atualizado em :</Text>
-                                        <Text fontWeight={"bold"}>{format(stock.updatedate, "dd/MM/yy HH:mm")}</Text>
-                                    </Flex>
-                                    <Flex flexDirection={"row"}>
-                                        <Text mr={2}>Disponível na loja:</Text>
-                                        <Text fontWeight={"bold"}>{stock.itemsize.avalaible == true ? "Sim" : "Não"}</Text>
-                                    </Flex>
+
                                 </Box>
                             </Box>
 
@@ -203,17 +220,17 @@ const ModalStock = ({ isOpen, onClose, stock }: StockModalProps) => {
                                 <Box>
                                     <Flex>
                                         <Text mr={2}>Despesa:</Text>
-                                        <Text fontWeight={"bold"}>R$ {despesa.toFixed(2)}</Text>
+                                        <Text fontWeight={"bold"}>R$ {Number(despesa).toLocaleString("pt-BR")}</Text>
                                     </Flex>
                                     <Flex>
                                         <Text mr={2}>Receita:</Text>
-                                        <Text fontWeight={"bold"} >R$ {receita.toFixed(2)} </Text>
+                                        <Text fontWeight={"bold"} >R$ {Number(receita).toLocaleString("pt-BR")} </Text>
                                     </Flex>
                                 </Box>
                                 <Box>
                                     <Flex>
                                         <Text mr={2}>Lucro Bruto:</Text>
-                                        <Text fontWeight={"bold"}>R$ {lucroBruto.toFixed(2)}{lucroBruto < 0 ? <ArrowDownIcon ml={2} color={"primary.600"} /> : <ArrowUpIcon ml={2} color={"primary.800"} />}</Text>
+                                        <Text fontWeight={"bold"}>R$ {Number(lucroBruto).toLocaleString("pt-BR")}{lucroBruto < 0 ? <ArrowDownIcon ml={2} color={"primary.600"} /> : <ArrowUpIcon ml={2} color={"primary.800"} />}</Text>
                                     </Flex>
                                     <Flex>
                                         <Text mr={2}>Margem de lucro:</Text>

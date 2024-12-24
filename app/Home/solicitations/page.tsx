@@ -437,7 +437,7 @@ const Services = () => {
                     barGap={0}  // Sem espaçamento entre as barras
                   >
                     <XAxis dataKey="prioridade" tick={false} axisLine={true} /> {/* Escondendo ticks e linha do eixo X */}
-                    <YAxis  /> {/* Escondendo o eixo Y */}
+                    <YAxis /> {/* Escondendo o eixo Y */}
                     <Tooltip />
                     <Bar
                       dataKey="quantidade"
@@ -445,7 +445,7 @@ const Services = () => {
                       radius={[2.5, 2.5, 2.5, 2.5]}
                       barSize={5}  // Ajustando o tamanho das barras
                       fontSize={"xs"}
-           
+
                     >
                       {priorityData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={getPriorityColor2(entry.prioridade, theme)} strokeWidth={"2px"} />
@@ -534,7 +534,7 @@ const Services = () => {
                     color={"#2EB086"}
                     fontWeight={"bold"}
                   >
-                    R$ {totalprice} 
+                    R$ {totalprice}
                   </Text>
                 </Flex>
               </CardBody>
@@ -583,30 +583,31 @@ const Services = () => {
                       <Td paddingY={"2.5"}>
                         {format(service.datesolicitation, "dd/MM/yy HH:mm")}
                         {hoursDifference >= 6 && (
-                           <Tooltip2
-                           label={`Solicitação com ou mais de 6h de espera. Cliente está há ${hoursDifference>=24?Math.trunc(hoursDifference/24):hoursDifference}${hoursDifference>=24?"d":"h"} aguardando retorno.`}
-                           fontSize="sm"
-                           bg="gray.700"
-                           color="white"
-                           borderRadius="md"
-                           p={2}
-                         >
-                           <WarningIcon color={"primary.300"} boxSize={"3"} ml="2" mt="-1" />
-                         </Tooltip2>
+                          <Tooltip2
+                            label={`Solicitação com ou mais de 6h de espera. Cliente está há ${hoursDifference >= 24 ? Math.trunc(hoursDifference / 24) : hoursDifference}${hoursDifference >= 24 ? "d" : "h"} aguardando retorno.`}
+                            fontSize="sm"
+                            bg="gray.700"
+                            color="white"
+                            borderRadius="md"
+                            p={2}
+                          >
+                            <WarningIcon color={"primary.300"} boxSize={"3"} ml="2" mt="-1" />
+                          </Tooltip2>
                         )}
                       </Td>
                       <Td paddingY={"2.5"}>
                         <Text
                           textAlign={"center"}
-                          minWidth={"70px"}
                           fontSize={"xs"}
-                          borderLeftColor={getPriorityColor(service.priority)}
-                          borderLeftWidth={"7px"}
                           p={"1"}
+                          maxWidth={"100px"}
                           borderRadius={"6px"}
+                          borderColor={"primary.100"}
                           color={getPriorityColor(service.priority)}
                           boxShadow={"md"}
                           fontWeight={"bold"}
+                          borderLeftWidth={'7px'}
+                          borderLeftColor={getPriorityColor(service.priority)}
                         >
                           {service.priority}
                         </Text>
@@ -622,7 +623,7 @@ const Services = () => {
                           color={"primary.800"}
                           fontWeight={"bold"}
                         >
-                         R$ {service.servicePrice} 
+                          R$ {service.servicePrice}
                         </Text>
                       </Td>
                       <Td paddingY={"2.5"}>

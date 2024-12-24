@@ -354,11 +354,11 @@ const UserPage: React.FC = () => {
                         {/* Definição dos gradientes */}
                         <defs>
                           <linearGradient id="gradientFaturado" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={theme.colors.primary[300]} stopOpacity={0.6} />
+                            <stop offset="0%" stopColor={theme.colors.primary[300]} stopOpacity={0.2} />
                             <stop offset="50%" stopColor={theme.colors.primary[300]} stopOpacity={0} />
                           </linearGradient>
                           <linearGradient id="gradientDespesa" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor={theme.colors.primary[600]} stopOpacity={0.6} />
+                            <stop offset="0%" stopColor={theme.colors.primary[600]} stopOpacity={0.2} />
                             <stop offset="50%" stopColor={theme.colors.primary[600]} stopOpacity={0} />
                           </linearGradient>
                         </defs>

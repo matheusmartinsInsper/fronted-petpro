@@ -43,7 +43,7 @@ import {
     ArrowDownIcon, ArrowUpIcon, ChevronRightIcon as ExpandIcon
 } from "@chakra-ui/icons";
 import { TriangleUpIcon, TriangleDownIcon } from '@chakra-ui/icons';
-import { FiPieChart, FiBarChart2,FiBox } from "react-icons/fi";
+import { FiPieChart, FiBarChart2, FiBox } from "react-icons/fi";
 import { format } from 'date-fns';
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -61,7 +61,7 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
     const [filteredTransactions, setfilteredTransactions] = useState<Transactions[]>([]);
     const [lucroBruto, setLucroBruto] = useState<number>(0);
     const [margemLucro, setMargemLucro] = useState<number>(0);
-    const [sortConfig, setSortConfig] = useState([{ key: 'quantity', direction: 'ascending' },{ key: 'priceunity', direction: 'ascending' },{ key: 'datecreate', direction: 'ascending' }]);
+    const [sortConfig, setSortConfig] = useState([{ key: 'quantity', direction: 'ascending' }, { key: 'priceunity', direction: 'ascending' }, { key: 'datecreate', direction: 'ascending' }]);
 
     useEffect(() => {
         gettransactions()
@@ -76,7 +76,7 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
     }
     const sortedTransactions = transactions.sort(
         (a, b) => new Date(b.datecreate).getTime() - new Date(a.datecreate).getTime()
-      );
+    );
     // Função para calcular lucro bruto
     const calcularLucroBruto = (transactions: Transactions[]): number => {
         let lucroTotal = 0;
@@ -155,15 +155,15 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
     const handleSort = (key: string) => {
         // Definir direção inicial como 'ascending'
         let direction = 'ascending';
-    
+
         // Verificar se a key já existe no sortConfig
         const existingSortConfig = sortConfig.find((x) => x.key === key);
-    
+
         if (existingSortConfig) {
             // Se a direção já for 'ascending', altere para 'descending'
             direction = existingSortConfig.direction === 'ascending' ? 'descending' : 'ascending';
         }
-    
+
         // Atualizar o estado de sortConfig
         setSortConfig((prev) => {
             // Substituir o objeto existente no array
@@ -171,7 +171,7 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
                 x.key === key ? { ...x, direction } : x
             );
         });
-    
+
         // Ordenar os dados de acordo com a direção
         const sortedData = [...filteredTransactions].sort((a: any, b: any) => {
             if (a[key] < b[key]) {
@@ -182,14 +182,14 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
             }
             return 0;
         });
-    
+
         // Atualizar o estado de filteredTransactions
         setfilteredTransactions(sortedData);
     };
-    
+
 
     const getSortIcon = (key: string) => {
-        const confisort = sortConfig.find((x)=>x.key===key)
+        const confisort = sortConfig.find((x) => x.key === key)
         if (confisort) {
             return confisort.direction === 'ascending' ? <TriangleUpIcon /> : <TriangleDownIcon />;
         }
@@ -208,7 +208,7 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
         <>
             <SimpleGrid zIndex={2} mx={4} mb="2" columns={{ base: 1, md: 2, lg: 4 }} spacing="2" position={"relative"}>
 
-                <Card   maxHeight={"100px"}>
+                <Card maxHeight={"100px"}>
                     <CardBody color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"}>
 
                         <Flex align="center" >
@@ -221,7 +221,7 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
 
                     </CardBody>
                 </Card>
-                <Card   maxHeight={"100px"}>
+                <Card maxHeight={"100px"}>
                     <CardBody color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"}>
                         <Flex align="center">
                             {/* <Icon as={FiBox} boxSize={4} mr={2} /> */}
@@ -233,8 +233,8 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
                     </CardBody>
                 </Card>
 
-                <Card  maxHeight={"100px"}>
-                    <CardBody className="group" color="primary.250" _hover={{maxHeight:"100px", backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} >
+                <Card maxHeight={"100px"}>
+                    <CardBody className="group" color="primary.250" _hover={{ maxHeight: "100px", backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} >
                         <Flex align="center">
                             <Icon as={FiBarChart2} boxSize={4} mr={2} color={"primary.300"} _groupHover={{ color: "primary.100" }} />
                             <Heading size="sm" >Resumo</Heading>
@@ -253,25 +253,25 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
                 </Card>
 
                 <Card maxHeight={"100px"}>
-                    <CardBody className="group" color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2",maxHeight:"100px" }} transition={"1"}>
+                    <CardBody className="group" color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2", maxHeight: "100px" }} transition={"1"}>
                         <Flex align="center" flexDirection={"row"}>
                             {/* <Icon as={FiAlertCircle} boxSize={4} mr={2} color={"primary.600"} /> */}
                             <Icon as={FiBox} boxSize={4} mr={2} />
                             <Heading size="sm" >Ultima transação -</Heading>
-                            <Text _groupHover={{ color: "primary.100" }} ml={"1"} fontSize={"xs"} color={"gray.500"}>{ lastTransiction?.datecreate!=null?format(new Date(lastTransiction?.datecreate), "dd/MM/yy HH:mm"):null}</Text>
+                            <Text _groupHover={{ color: "primary.100" }} ml={"1"} fontSize={"xs"} color={"gray.500"}>{lastTransiction?.datecreate != null ? format(new Date(lastTransiction?.datecreate), "dd/MM/yy HH:mm") : null}</Text>
                         </Flex>
-                        <Flex  mt={2} flexDirection={"row"} justifyContent={"space-between"}>
+                        <Flex mt={2} flexDirection={"row"} justifyContent={"space-between"}>
                             <Box>
                                 <Text fontSize="sm" fontWeight="bold" >Categoria </Text>
                                 <Text fontSize="xs" color={"gray.500"} _groupHover={{ color: "primary.100" }}>{lastTransiction?.category} </Text>
                             </Box>
                             <Box>
                                 <Text fontSize="sm" fontWeight="bold" >Lote </Text>
-                                <Text fontSize="xs"  color={"gray.500"} _groupHover={{ color: "primary.100" }}>{lastTransiction?.lote} </Text>
+                                <Text fontSize="xs" color={"gray.500"} _groupHover={{ color: "primary.100" }}>{lastTransiction?.lote} </Text>
                             </Box>
                             <Box>
                                 <Text fontSize="sm" fontWeight="bold" >Transação </Text>
-                                <Text fontSize="xs" color={"gray.500"} _groupHover={{ color: "primary.100" }}>{lastTransiction?.type == "Entrada" ? <ArrowUpIcon mr={1} color={"primary.300"} _groupHover={{ color: "primary.500" }}/> : <ArrowDownIcon mr={1} color={"primary.600"} />}{lastTransiction?.type}</Text>
+                                <Text fontSize="xs" color={"gray.500"} _groupHover={{ color: "primary.100" }}>{lastTransiction?.type == "Entrada" ? <ArrowUpIcon mr={1} color={"primary.300"} _groupHover={{ color: "primary.500" }} /> : <ArrowDownIcon mr={1} color={"primary.600"} />}{lastTransiction?.type}</Text>
                             </Box>
                         </Flex>
                     </CardBody>
@@ -283,7 +283,7 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
             <Box overflowX="auto" mb="14" borderRadius={"8px"} backgroundColor={"white"} boxShadow={"md"} mx="4">
                 <Table variant="simple">
                     <Thead backgroundColor={"primary.200"} color={"primary.100"}>
-                        <Tr >
+                        <Tr>
                             <Th color={"primary.100"}>Produto</Th>
                             <Th color={"primary.100"}>Tamanho</Th>
                             <Th color={"primary.100"}>Lote</Th>
@@ -328,8 +328,14 @@ const ModalStock = ({ transactions }: { transactions: Transactions[] }) => {
                     <Tbody>
                         {paginatedTransaction.map((transaction: any, index: any) => (
                             <Tr key={transaction.idtransaction} paddingY={"3"}>
-                                <Td paddingY={"2.5"}>{transaction.itemname}</Td>
-                                <Td paddingY={"2.5"}>{transaction.size}</Td>
+                                <Td paddingY={"2.5"} overflow={"hidden"}
+                                    textOverflow={"ellipsis"}
+                                    whiteSpace={"nowrap"}
+                                    maxWidth={"220px"} >{transaction.itemname}</Td>
+                                <Td paddingY={"2.5"} overflow={"hidden"}
+                                    textOverflow={"ellipsis"}
+                                    whiteSpace={"nowrap"}
+                                    maxWidth={"160px"} >{transaction.size}</Td>
                                 <Td paddingY={"2.5"}>{transaction.lote}</Td>
                                 <Td paddingY={"2.5"}>{transaction.quantity}</Td>
                                 <Td paddingY={"2.5"}><Text textAlign={"center"} py={"1"} borderRadius={"md"} maxWidth={"80px"} bgColor={"#D5FFE4"} fontSize={"sm"} color={"primary.800"} fontWeight={"bold"}>R$ {transaction.priceunity}</Text></Td>

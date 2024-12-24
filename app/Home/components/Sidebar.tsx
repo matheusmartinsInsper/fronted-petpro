@@ -94,29 +94,29 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
         </HStack>
         {isMainMenuExpanded && (
           <>
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.200", opacity: "100%" }}
+            <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/solicitations'>
               <HStack>
-                <FiClipboard color={"#1D2939"}/>
+                <FiClipboard />
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Solicitações</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"}
               href='/Home/agenda'
             >
               <HStack>
-                <CalendarIcon color={"primary.200"}/>
+                <CalendarIcon />
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Agenda</Text>}
               </HStack>
             </Link>
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.200", opacity: "100%" }}
+            <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/clients'>
               <HStack>
-                <AtSignIcon  color={"primary.200"}/>
+                <AtSignIcon  />
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Clientes</Text>}
               </HStack>
             </Link>
@@ -136,11 +136,11 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Chat</Text>}
               </HStack>
             </Link> */}
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/prontuarios' mb={0}>
               <HStack>
-                <AttachmentIcon color={"primary.200"}/>
+                <AttachmentIcon />
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Prontuários</Text>}
               </HStack>
             </Link>
@@ -154,41 +154,41 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
         </HStack>
         {isSettingsExpanded && (
           <>
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/services'>
               <HStack>
-                <FaStethoscope color={"#1D2939"}/>
+                <FaStethoscope />
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Serviços</Text>}
               </HStack>
             </Link>
             {!isCollaborator && (
               <>
-                <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+                <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/collaborators'>
                   <HStack>
-                    <FaUserMd color={"#1D2939"}/>
-                    {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Colaboradores</Text>}
+                    <FaUserMd />
+                    {!isCollapsed && <Text ml={"2px"} color={"primary.200"}  fontWeight={"bold"}>Colaboradores</Text>}
                   </HStack>
                 </Link>
                
               </>
             )}
-             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+             <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/collaborators'>
                   <HStack>
-                    <FiUsers color={"#1D2939"}/>
+                    <FiUsers />
                     {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Funcionarios</Text>}
                   </HStack>
              </Link>
 
-             <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+             <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
                   width={"100%"} p={1} pl={2}
                   borderRadius={"md"} href='/Home/stock'>
                   <HStack>
-                    <FiBox color={"#1D2939"}/>
+                    <FiBox />
                     {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Estoque</Text>}
                   </HStack>
                 </Link>
@@ -200,11 +200,11 @@ const Sidebar = ({isCollapsed,toggleSidebar}:sidebarprops) => {
                 {!isCollapsed && <Text ml={"5px"} color={"primary.250"} fontWeight={"bold"}>Integrações</Text>}
               </HStack>
             </Link> */}
-            <Link fontSize="md" _hover={{ backgroundColor: 'primary.500', color: "primary.100", opacity: "100%" }}
+            <Link fontSize="md" color={"primary.200"} _hover={{ backgroundColor: 'primary.500', color: "primary.300", opacity: "100%" }}
               width={"100%"} p={1} pl={2}
               borderRadius={"md"} href='/Home/form'>
               <HStack>
-                <EditIcon color={"primary.200"}/>
+                <EditIcon/>
                 {!isCollapsed && <Text ml={"2px"} color={"primary.200"} fontWeight={"bold"}>Anamnese</Text>}
               </HStack>
             </Link>
