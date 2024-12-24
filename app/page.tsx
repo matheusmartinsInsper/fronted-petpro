@@ -29,6 +29,8 @@ const categoryIcons: Record<string, React.ElementType> = {
 const HomePage = () => {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [animationDirection, setAnimationDirection] = useState("none");
   const redirecttologin = () => {
     router.push('/Signin');
   };
@@ -50,6 +52,11 @@ const HomePage = () => {
       description: "Realize prescrições, criação de protocolos,link para pagamento, agende retorno e saiba em detalhes tudo sobre seu cliente e pet",
     },
     {
+      image: "/anamnese2.png",
+      title: "Anamnese",
+      description: "Crie formulários de anamnese de forma dinâmica, e utilize os furmularios criados para serem preenchidos dentro dos atendimentos ",
+    },
+    {
       image: "/solicitations5.png",
       title: "Solicitações",
       description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios/colaboradores ou rejeita a solicitação",
@@ -65,6 +72,11 @@ const HomePage = () => {
       description: "Com a criação automatica do prontuario, tenha o histórico de atendimento, solicitações, anexos, protocolos, pagamentos e muito mais",
     },
     {
+      image: "/colaborator2.png",
+      title: "Rede",
+      description: "Veterinários e estabelecimentos agora podem trabalhar em conjunto, basta enviar o convite ao médico, após a confirmação o profissional ja está integrado a rede",
+    },
+    {
       image: "/stock2.png",
       title: "Estoque",
       description: "Dentro dos recuros de estoque além de disponibilizar seus produtos no app de tutores, você pode acompanhar o balanço geral, por item, por período etc ",
@@ -77,15 +89,23 @@ const HomePage = () => {
   ];
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
+    if (isAnimating) return;
+    setAnimationDirection("left");
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+      setIsAnimating(false);
+    }, 300); // Tempo da animação
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
+    if (isAnimating) return;
+    setAnimationDirection("right");
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+      setIsAnimating(false);
+    }, 300); // Tempo da animação
   };
   const geticonclient = (client: string) => {
     const IconComponent = categoryIcons[client];
@@ -163,10 +183,20 @@ const HomePage = () => {
             >
               <Text fontSize={["3xl", "5xl"]} fontFamily={"sans-serif"}>
                 A melhor plataforma de{" "}
-                <Text as="span" color="primary.300" fontWeight="bold">
+                <Text
+                  as="span"
+                  fontWeight="bold"
+                  bgGradient="linear(to-r, primary.200, primary.400)"
+                  bgClip="text"
+                >
                   gestão pet
                 </Text>{" "}
-                para o seu negócio!
+                para o seu  {" "}<Text
+                  as="span"
+                  fontWeight="bold"
+                  bgGradient="linear(to-r, primary.400, primary.200)"
+                  bgClip="text"
+                >negócio!</Text>
               </Text>
 
               <Text fontSize={["md", "lg"]} color="gray.500">
@@ -301,14 +331,42 @@ const HomePage = () => {
                 _hover={{ bgColor: "transparent", color: "primary.300" }}
               />
             </Flex>
-
-            {/* Slide Text */}
-            <Text fontSize="2xl" fontWeight="bold" mb="2" color={"primary.300"}>
-              {slides[currentIndex].title}
-            </Text>
-            <Text fontSize="lg" mb="4" color={"gray.500"}>
-              {slides[currentIndex].description}
-            </Text>
+            <Box
+              position="relative"
+              height="25vh"
+              width={["85vw", "33vw"]}
+              overflow="hidden"
+              display="flex"
+              justifyContent="start"
+              alignItems={["center", "start"]}
+              mb={[4, 0]}
+            >
+              <Flex
+                position="absolute"
+                transform={
+                  animationDirection === "right"
+                    ? isAnimating
+                      ? "translateX(-100%)"
+                      : "translateX(0)"
+                    : isAnimating
+                      ? "translateX(100%)"
+                      : "translateX(0)"
+                }
+                transition="transform 0.5s ease"
+                key={currentIndex}
+                width="100%"
+                justifyContent="start"
+                alignItems={["center", "start"]}
+                flexDirection="column"
+              >
+                <Text fontSize="2xl" fontWeight="bold" color="primary.300">
+                  {slides[currentIndex].title}
+                </Text>
+                <Text fontSize="lg" color="gray.500" display={"flex"} flexDirection={"column"} textAlign={["center","left"]}>
+                  {slides[currentIndex].description}
+                </Text>
+              </Flex>
+            </Box>
 
             {/* Learn More Button */}
             <Button
@@ -331,7 +389,7 @@ const HomePage = () => {
         height={["100%", "100vh"]}
         display="flex"
         px={"6"}
-        pt={"120px"}
+        py={"60px"}
         bgColor={"primary.200"}
         color={"primary.100"}
       >
@@ -340,7 +398,7 @@ const HomePage = () => {
           width="100%"
           display="flex"
           alignItems="center"
-          justifyContent="start"
+          justifyContent="center"
           flexDirection="column"
         >
 
@@ -384,8 +442,8 @@ const HomePage = () => {
             fontSize={["sm", "md"]} // Responsivo: fonte menor no mobile
             mb={"4"}
           >
-            Entregar mais do que um ERP do nicho pet <br /> queremos ser uma ferramenta de automação de rotina, <br />
-            fornecer um ambiente para teleatendimentos,<br /> gerar pagamentos e prescrições online
+            Proporcionar um maior cuidado com os pets, auxiliando tanto o tutor com informações, quanto os profissionais do segmento,
+            fornecendo funcionalidades que mantenha ambos os lados em sinergia, contribuindo para o bem estar dos animais
           </Text>
 
           <Box
@@ -398,6 +456,7 @@ const HomePage = () => {
             <Text
               fontSize={["xs", "sm"]} // Responsivo: menor no mobile
               color="gray.500"
+              
             >
               Conectar, cuidar e atender é o que nos faz
             </Text>
@@ -419,7 +478,7 @@ const HomePage = () => {
         px={["6", "6"]} // Menor padding em telas pequenas
         pt={["80px", "120px"]} // Ajuste do padding superior para telas pequenas
         bgColor="primary.100"
-        flexDirection={["column-reverse", "row"]} // Coluna em telas pequenas, linha em desktop
+        flexDirection={["column", "row"]} // Coluna em telas pequenas, linha em desktop
       >
         <Box
           width={["100%", "50%"]} // 100% de largura em telas pequenas
