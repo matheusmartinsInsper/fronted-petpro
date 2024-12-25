@@ -44,7 +44,7 @@ const HomePage = () => {
     {
       image: "/agenda3.png",
       title: "Agenda",
-      description: "Gerencie sua agenda em poucos cliques, agende atendimentos para novos clientes, cancele ou inicie o atendimento",
+      description: "Gerencie sua agenda em poucos cliques, agende atendimentos para novos clientes, cancele ou inicie o atendimento, organize-se por prioridade e deixe lembretes a sua equipe",
     },
     {
       image: "/atend.png",
@@ -155,7 +155,7 @@ const HomePage = () => {
 
       {/* Conteúdo da página */}
       <Box width="100%" >
-        <Box display="flex" flexDirection="column" alignItems="center" pt={["120px", "40px"]} bgColor="primary.100">
+        <Box display="flex" flexDirection="column" alignItems="center" pt={["80px", "40px"]} bgColor="primary.100">
           <Box
             width="100%"
             display="flex"
@@ -312,28 +312,12 @@ const HomePage = () => {
             alignItems={["center", "start"]}
             maxWidth="500px"
           >
-            <Text mb="2" fontWeight={"bold"} fontSize={"3xl"}>Nossos recursos</Text>
+            <Text mb={["2","0"]} fontWeight={"bold"} fontSize={"2xl"}>Nossos recursos</Text>
             {/* Navigation Arrows */}
-            <Flex justify="start" align="center" mb="4" ml={-4}>
-              <IconButton
-                icon={<ChevronLeftIcon />}
-                onClick={handlePrev}
-                aria-label="Previous Slide"
-                bgColor="transparent"
-                _hover={{ bgColor: "transparent", color: "primary.300" }}
-              />
-              <IconButton
-                icon={<ChevronRightIcon />}
-                onClick={handleNext}
-                aria-label="Next Slide"
-                bgColor="transparent"
-                size={"md"}
-                _hover={{ bgColor: "transparent", color: "primary.300" }}
-              />
-            </Flex>
+          
             <Box
               position="relative"
-              height="25vh"
+              minHeight={["20vh","15vh"]}
               width={["85vw", "33vw"]}
               overflow="hidden"
               display="flex"
@@ -359,19 +343,36 @@ const HomePage = () => {
                 alignItems={["center", "start"]}
                 flexDirection="column"
               >
-                <Text fontSize="2xl" fontWeight="bold" color="primary.300">
+                <Text fontSize="xl" fontWeight="bold" color="primary.300">
                   {slides[currentIndex].title}
                 </Text>
-                <Text fontSize="lg" color="gray.500" display={"flex"} flexDirection={"column"} textAlign={["center","left"]}>
+                <Text fontSize="md" color="gray.500" display={"flex"} flexDirection={"column"} textAlign={["center","left"]}>
                   {slides[currentIndex].description}
                 </Text>
               </Flex>
             </Box>
-
+            <Flex mt={[0,2]} justify="start" align="center" mb="" ml={-4}>
+              <IconButton
+                icon={<ChevronLeftIcon boxSize={"8"} />}
+                onClick={handlePrev}
+                color={"primary.250"}
+                aria-label="Previous Slide"
+                bgColor="transparent"
+                _hover={{ bgColor: "transparent", color: "primary.300" }}
+              />
+              <IconButton
+                icon={<ChevronRightIcon boxSize={"8"}/>}
+                onClick={handleNext}
+                color={"primary.250"}
+                aria-label="Next Slide"
+                bgColor="transparent"
+                _hover={{ bgColor: "transparent", color: "primary.300" }}
+              />
+            </Flex>
             {/* Learn More Button */}
             <Button
               ml={-4}
-              rightIcon={<ArrowRightIcon />}
+              rightIcon={<ArrowRightIcon boxSize={"3"}/>}
               bgColor={"transparent"}
               color={"primary.200"}
               _hover={{ bgcolo: "transparent", color: "primary.300" }}
@@ -521,6 +522,7 @@ const HomePage = () => {
             color="primary.100"
             borderRadius="md"
             boxShadow="lg"
+            mb={["12","0"]}
           >
             <Text fontSize={["xl", "2xl"]} mb="6">Preencha seus dados</Text>
             <FormControl id="name" mb={4}>
