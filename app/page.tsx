@@ -7,13 +7,13 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon
 } from '@chakra-ui/icons';
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTwitter,FaHeart } from 'react-icons/fa';
 import { motion, useAnimation, useInView, isValidMotionProp } from 'framer-motion';
 import { useEffect, useState, useRef } from "react";
 import { chakra } from "@chakra-ui/react";
-import { MdGroups, MdRestaurant } from "react-icons/md";
+import { MdGroups, MdRestaurant, MdRocket } from "react-icons/md";
 import { FaCut, FaRunning, FaBone, FaDog, FaBasketballBall, FaStethoscope, FaHotel } from "react-icons/fa";
-import { GiSyringe, GiBrain, GiScalpel } from "react-icons/gi";
+import { GiSyringe, GiBrain, GiScalpel, GiTargeted,GiHand } from "react-icons/gi";
 import { BsThreeDots } from "react-icons/bs";
 
 const MotionBox = chakra(motion.div, {
@@ -141,8 +141,7 @@ const HomePage = () => {
         </Heading>
         <HStack display={["none", "flex"]}>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Recursos</Text>
-          <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Propósito</Text>
-          <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Quem somos</Text>
+          <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Sobre nós</Text>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Contato</Text>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Blog</Text>
         </HStack>
@@ -155,7 +154,7 @@ const HomePage = () => {
 
       {/* Conteúdo da página */}
       <Box width="100%" >
-        <Box display="flex" flexDirection="column" alignItems="center" pt={["80px", "40px"]} bgColor="primary.100">
+        <Box display="flex" flexDirection="column" alignItems="center" pt={["100px", "40px"]} bgColor="primary.100">
           <Box
             width="100%"
             display="flex"
@@ -236,7 +235,7 @@ const HomePage = () => {
               height={["auto", "70vh"]}
             >
 
-              <Image src="/animallp3.gif" width={["100%", "80%"]} objectFit="contain" mb={["6", "0"]} />
+              <Image src="/animallp3.gif" width={["80%", "80%"]} objectFit="contain" mb={["6", "0"]} />
             </MotionBox>
           </Box>
         </Box>
@@ -290,7 +289,7 @@ const HomePage = () => {
           justify="center"
         >
           {/* Image */}
-          <Box mr={6} bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"260px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"260px"} width={["75vw", "45vw"]} height={["30vh", '50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
+          <Box mr={[0, 6]} bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"260px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"260px"} width={["75vw", "45vw"]} height={["30vh", '50vh']} display={"flex"} justifyContent={"center"} alignItems={"center"}>
             <Image
               src={slides[currentIndex].image}
               alt={slides[currentIndex].title}
@@ -312,12 +311,12 @@ const HomePage = () => {
             alignItems={["center", "start"]}
             maxWidth="500px"
           >
-            <Text mb={["2","0"]} fontWeight={"bold"} fontSize={"2xl"}>Nossos recursos</Text>
+            <Text mb={["4", "4"]} fontWeight={"bold"} fontSize={"2xl"}>Nossos recursos</Text>
             {/* Navigation Arrows */}
-          
+
             <Box
               position="relative"
-              minHeight={["20vh","15vh"]}
+              minHeight={["20vh", "15vh"]}
               width={["85vw", "33vw"]}
               overflow="hidden"
               display="flex"
@@ -346,12 +345,12 @@ const HomePage = () => {
                 <Text fontSize="xl" fontWeight="bold" color="primary.300">
                   {slides[currentIndex].title}
                 </Text>
-                <Text fontSize="md" color="gray.500" display={"flex"} flexDirection={"column"} textAlign={["center","left"]}>
+                <Text fontSize="md" color="gray.500" display={"flex"} flexDirection={"column"} textAlign={["center", "left"]}>
                   {slides[currentIndex].description}
                 </Text>
               </Flex>
             </Box>
-            <Flex mt={[0,2]} justify="start" align="center" mb="" ml={-4}>
+            <Flex mt={[0, 2]} justify="start" align="center" mb="" ml={-4}>
               <IconButton
                 icon={<ChevronLeftIcon boxSize={"8"} />}
                 onClick={handlePrev}
@@ -361,7 +360,7 @@ const HomePage = () => {
                 _hover={{ bgColor: "transparent", color: "primary.300" }}
               />
               <IconButton
-                icon={<ChevronRightIcon boxSize={"8"}/>}
+                icon={<ChevronRightIcon boxSize={"8"} />}
                 onClick={handleNext}
                 color={"primary.250"}
                 aria-label="Next Slide"
@@ -372,7 +371,7 @@ const HomePage = () => {
             {/* Learn More Button */}
             <Button
               ml={-4}
-              rightIcon={<ArrowRightIcon boxSize={"3"}/>}
+              rightIcon={<ArrowRightIcon boxSize={"3"} />}
               bgColor={"transparent"}
               color={"primary.200"}
               _hover={{ bgcolo: "transparent", color: "primary.300" }}
@@ -387,10 +386,10 @@ const HomePage = () => {
       </Box>
 
       <Box
-        height={["100%", "100vh"]}
+        height={"100%"}
         display="flex"
-        px={"6"}
-        py={"60px"}
+        px={["6","24"]}
+        py={["16","24"]}
         bgColor={"primary.200"}
         color={"primary.100"}
       >
@@ -401,74 +400,54 @@ const HomePage = () => {
           alignItems="center"
           justifyContent="center"
           flexDirection="column"
+          my={6}
         >
-
-          <Text
-            fontWeight="bold"
-            fontSize={["3xl", "4xl"]} // Responsivo: maior no desktop
-            mb="6"
-          >
-            Propósito
-          </Text>
-
-          <Text
-            borderWidth={"1px"}
-            borderColor={"primary.400"}
-            textAlign={"center"}
-            width={["90%", "40%"]} // Responsivo: no mobile ocupa 90%, no desktop 40%
-            bgColor={"primary.250"}
-            boxShadow={"md"}
-            color={"primary.400"}
-            p="6"
-            borderRadius={"md"}
-            fontWeight={"bold"}
-            fontSize={["sm", "md"]} // Responsivo: fonte menor no mobile
-            mb={"4"}
-          >
-            Desejamos nos tornar um ecossitema que conecta tutores a estabelecimentos e profissionais autonomos ,
-            fornecendo segurança, praticidade e maior proximidade dos tutores com profissionais da área, assegurando assim uma vida mais saúdavel a seus pets
-          </Text>
-
-          <Text
-            borderWidth={"1px"}
-            borderColor={"primary.300"}
-            textAlign={"center"}
-            width={["90%", "40%"]} // Responsivo: no mobile ocupa 90%, no desktop 40%
-            bgColor={"primary.250"}
-            boxShadow={"md"}
-            color={"primary.400"}
-            p="6"
-            borderRadius={"md"}
-            fontWeight={"bold"}
-            fontSize={["sm", "md"]} // Responsivo: fonte menor no mobile
-            mb={"4"}
-          >
-            Proporcionar um maior cuidado com os pets, auxiliando tanto o tutor com informações, quanto os profissionais do segmento,
-            fornecendo funcionalidades que mantenha ambos os lados em sinergia, contribuindo para o bem estar dos animais
-          </Text>
-
-          <Box
-            mt={"6"}
-            display={"flex"}
-            flexDirection={["column", "row"]} // Empilha no mobile, mantém lado a lado no desktop
-            textAlign={"center"}
-            alignItems={"center"}
-          >
+          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <Text
-              fontSize={["xs", "sm"]} // Responsivo: menor no mobile
-              color="gray.500"
-              
+              fontWeight="bold"
+              fontSize={["xl", "2xl"]}
+              color={"primary.300"}
             >
-              Conectar, cuidar e atender é o que nos faz
+              Sobre nós
             </Text>
             <Text
-              ml={["0", "1"]} // No mobile, remove a margem à esquerda
-              fontSize={["xs", "sm"]} // Responsivo: menor no mobile
+              color={"primary.100"}
               fontWeight="bold"
+              fontSize={["3xl", "4xl"]} // Responsivo: maior no desktop
+              mb="12"
             >
-              <span style={{ color: '#7839EE' }}>PET</span>pro
+              A Empresa
             </Text>
           </Box>
+          <Flex mb={"12"} flexDirection={["column","row"]} justifyContent={["center","space-between"]} alignItems={["center","space-between"]}>
+            <Box width={["100%","30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+              <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2} >
+              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
+                <GiTargeted color='#7839EE' />
+              </Box>Propósito</Text>
+              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Oferecer uma ferramenta que impulsione seu negócio no segmento pet e conecte você aos tutores e seus pets.</Text>
+            </Box>
+            <Box width={["100%","30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+              <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
+              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
+                <FaHeart color='#7839EE' />
+              </Box>
+                Valores
+                </Text>
+              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Pessoas, pets, saúde, gestão e tecnologia sãos os pilares do nosso negócio</Text>
+            </Box>
+            <Box width={["100%","30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+              <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
+              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
+                <MdRocket color='#7839EE' />
+              </Box>
+                Metas
+                </Text>
+              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Tornar-se o maior ecossistema virtual de pets do brasil, integrando tutores a estabelecimentos e veterinarios </Text>
+            </Box>
+
+          </Flex>
+
 
         </Box>
       </Box>
@@ -522,7 +501,7 @@ const HomePage = () => {
             color="primary.100"
             borderRadius="md"
             boxShadow="lg"
-            mb={["12","0"]}
+            mb={["12", "0"]}
           >
             <Text fontSize={["xl", "2xl"]} mb="6">Preencha seus dados</Text>
             <FormControl id="name" mb={4}>
@@ -582,6 +561,7 @@ const HomePage = () => {
             </Button>
           </Box>
         </Box>
+
       </Box>
 
       <Box display="flex" flexDirection="column" alignItems="center" pt="60px" bgColor="primary.250" color="white">
