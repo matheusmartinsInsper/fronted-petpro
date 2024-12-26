@@ -478,7 +478,7 @@ const HomePage = () => {
         px={["6", "24"]} // Menor padding em telas pequenas
         pt={["80px", "120px"]} // Ajuste do padding superior para telas pequenas
         bgColor="primary.100"
-        flexDirection={["column", "row"]} // Coluna em telas pequenas, linha em desktop
+        flexDirection={["column-reverse", "row"]} // Coluna em telas pequenas, linha em desktop
       >
         <Box
           width={["100%", "50%"]} // 100% de largura em telas pequenas
@@ -490,23 +490,40 @@ const HomePage = () => {
           mt={["30px", "0px"]}
           mx={4}
         >
-          <Text fontWeight="bold" fontSize={["3xl", "4xl"]} mb="4">Contate nos</Text>
-          <VStack align="start">
 
-            <Text color="gray.500" width={["100%", "66%"]}>
-              Entre em contato conosco e ficaremos <strong>muito feliz</strong>  em lhe atender.
-              Venha conhecer nossa <strong>solução</strong> e tenha<strong> 7 dias gratuitos</strong> de uso da ferramenta.
-            </Text>
-            <Text color="gray.500">contato@petpro.com</Text>
-            <Text color="gray.500">(34) - 91234-4321</Text>
+          <HStack align="center" flexDirection={["column", "row"]} mb={8}>
+            <Box>
+              <Text fontWeight="bold" color={"primary.200"} fontSize={["3xl", "4xl"]} mb="4">Contate nos</Text>
+              <Text color="gray.500" width={["100%", "100%"]} mb={4}>
+                Entre em contato conosco e ficaremos <strong>felizes</strong> em lhe atender.
+                Venha conhecer nossa <strong>solução</strong> e tenha<strong> 15 dias gratuitos</strong> de uso da ferramenta.
+              </Text>
+              <Text color="gray.500" mb={2}>contato@petpro.com</Text>
+              <Text color="gray.500">(34) - 91234-4321</Text>
+            </Box>
+
             <Image
               src={"/sendemail.png"}
               objectFit="cover"
               borderRadius="md"
-              width='60%'
+              width={['80%', "40%"]}
             />
-          </VStack>
-        </Box>
+          </HStack>
+          <Box display={"flex"} width={"100%"} flexDirection={"row"}>
+            <Box mr={6}>
+              <Text fontWeight={"bold"} color={"primary.200"} fontSize={"lg"}>Suporte</Text>
+              <Text color={"gray.500"} fontSize={["xs","sm"]}>Somos uma empresa pequena, porém que presa pelo suporte a nossos usuarios.</Text>
+            </Box>
+            <Box mr={6}>
+              <Text fontWeight={"bold"} color={"primary.200"} fontSize={"lg"}>Feedback</Text>
+              <Text color={"gray.500"} fontSize={["xs","sm"]}>Sujestão de melhoria? nova funcionalidade?, estamos com nosso canal aberto para te ouvir.</Text>
+            </Box>
+            <Box>
+              <Text fontWeight={"bold"} color={"primary.200"} fontSize={"lg"}>Mídias</Text>
+              <Text color={"gray.500"} fontSize={["xs","sm"]}>Siga-nos no instagram, e tenha conteúdo relacionado ao mundo pet e a nossa ferramenta.</Text>
+            </Box>
+          </Box>
+      </Box>
 
         <Box
           width={["100%", "50%"]} // 100% de largura em telas pequenas
@@ -516,72 +533,79 @@ const HomePage = () => {
           <Box
             width={["90%", "75%"]} // Ajuste da largura do formulário para telas pequenas
             display="flex"
-            height={["auto", "75vh"]} // Altura automática em telas menores
             flexDirection="column"
             alignItems="center"
             p={6}
-            bgColor="primary.200"
-            color="primary.100"
-            borderRadius="md"
+            height={["auto", "60vh"]}
+            bgColor="white"
+            color="primary.200"
+            borderRadius="20"
             boxShadow="md"
-            mb={["12", "0"]}
+            mb={[8, "12"]}
           >
-            <Text fontSize={["xl", "2xl"]} mb="6">Preencha seus dados</Text>
-            <FormControl id="name" mb={4}>
-              <FormLabel>Nome</FormLabel>
-              <Input
-                focusBorderColor="primary.400"
-                type="text"
-                placeholder="Matheus Rocha"
-                borderWidth="1px"
-                borderColor="primary.250"
-              />
-            </FormControl>
+            <Text fontSize={["xl", "2xl"]} mb="6" fontWeight={"bold"}>Preencha seus dados</Text>
+            <Box width={"100%"} gap={2} display={"flex"} flexDirection={["column", "row"]}>
+              <FormControl id="name" mb={4}>
+                <FormLabel>Nome</FormLabel>
+                <Input
+                  focusBorderColor="primary.400"
+                  type="text"
+                  placeholder="Matheus Rocha"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                />
+              </FormControl>
 
-            <FormControl id="email" mb={4}>
-              <FormLabel>E-mail</FormLabel>
-              <Input
-                focusBorderColor="primary.400"
-                type="email"
-                placeholder="email@exemplo.com"
-                borderWidth="1px"
-                borderColor="primary.250"
-              />
-            </FormControl>
+              <FormControl id="email" mb={4} >
+                <FormLabel>E-mail</FormLabel>
+                <Input
+                  focusBorderColor="primary.400"
+                  type="email"
+                  placeholder="email@exemplo.com"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                />
+              </FormControl>
+            </Box>
+            <Box width={"100%"}> 
+              <FormControl id="phone" mb={4}>
+                <FormLabel>Telefone</FormLabel>
+                <Input
+                  focusBorderColor="primary.400"
+                  type="number"
+                  placeholder="34988121234"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                />
+              </FormControl>
 
-            <FormControl id="phone" mb={4}>
-              <FormLabel>Telefone</FormLabel>
-              <Input
-                focusBorderColor="primary.400"
-                type="number"
-                placeholder="34988121234"
-                borderWidth="1px"
-                borderColor="primary.250"
-              />
-            </FormControl>
+              <FormControl id="userType" mb={6}>
+                <FormLabel>Tipo de Usuário</FormLabel>
+                <Select
+                  focusBorderColor="primary.400"
+                  placeholder="Selecione uma opção"
+                  borderWidth="1px"
+                  borderColor="gray.200"
+                >
+                  <option color="primary.300" value="petshop">Petshop</option>
+                  <option color="primary.300" value="clinica">Clinica</option>
+                  <option color="primary.300" value="hospital">Hospital</option>
+                  <option value="hotel">Hotel/Creche</option>
+                  <option value="veterinario">Veterinário</option>
+                </Select>
+              </FormControl>
 
-            <FormControl id="userType" mb={6}>
-              <FormLabel>Tipo de Usuário</FormLabel>
-              <Select
-                focusBorderColor="primary.400"
-                placeholder="Selecione uma opção"
-                borderWidth="1px"
-                borderColor="primary.250"
+              <Button
+                bgColor="primary.300"
+                color="primary.100"
+                width="100%"
+                _hover={{ backgroundColor: "primary.400" }}
               >
-                <option color="primary.300" value="petshop">Petshop/Clínica</option>
-                <option value="hotel">Hotel</option>
-                <option value="veterinario">Veterinário</option>
-              </Select>
-            </FormControl>
+                Enviar
+              </Button>
+            </Box>
 
-            <Button
-              bgColor="primary.300"
-              color="primary.100"
-              width="100%"
-              _hover={{ backgroundColor: "primary.400" }}
-            >
-              Enviar
-            </Button>
+
           </Box>
         </Box>
 
