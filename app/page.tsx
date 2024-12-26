@@ -7,13 +7,13 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon
 } from '@chakra-ui/icons';
-import { FaFacebook, FaInstagram, FaTwitter,FaHeart } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaTwitter, FaHeart } from 'react-icons/fa';
 import { motion, useAnimation, useInView, isValidMotionProp } from 'framer-motion';
 import { useEffect, useState, useRef } from "react";
 import { chakra } from "@chakra-ui/react";
 import { MdGroups, MdRestaurant, MdRocket } from "react-icons/md";
 import { FaCut, FaRunning, FaBone, FaDog, FaBasketballBall, FaStethoscope, FaHotel } from "react-icons/fa";
-import { GiSyringe, GiBrain, GiScalpel, GiTargeted,GiHand } from "react-icons/gi";
+import { GiSyringe, GiBrain, GiScalpel, GiTargeted, GiHand } from "react-icons/gi";
 import { BsThreeDots } from "react-icons/bs";
 
 const MotionBox = chakra(motion.div, {
@@ -39,52 +39,52 @@ const HomePage = () => {
     {
       image: "/homepage.png",
       title: "Gestão",
-      description: "Tenha uma visão geral e detalhada de tudo que acontece na sua empresa, seja relacionado a finanças, clientes, funcionarios ou metas pessoais",
+      description: "Tenha uma visão geral e detalhada de tudo que acontece na sua empresa, seja relacionado a finanças, clientes, funcionarios ou metas pessoais.",
     },
     {
       image: "/agenda3.png",
       title: "Agenda",
-      description: "Gerencie sua agenda em poucos cliques, agende atendimentos para novos clientes, cancele ou inicie o atendimento, organize-se por prioridade e deixe lembretes a sua equipe",
+      description: "Gerencie sua agenda em poucos cliques, agende atendimentos para novos clientes, cancele ou inicie o atendimento, organize-se por prioridade e deixe lembretes a sua equipe.",
     },
     {
       image: "/atend.png",
       title: "Atendimento",
-      description: "Realize prescrições, criação de protocolos,link para pagamento, agende retorno e saiba em detalhes tudo sobre seu cliente e pet",
+      description: "Realize prescrições, criação de protocolos,link para pagamento, agende retorno e saiba em detalhes tudo sobre seu cliente e pet.",
     },
     {
       image: "/anamnese2.png",
       title: "Anamnese",
-      description: "Crie formulários de anamnese de forma dinâmica, e utilize os furmularios criados para serem preenchidos dentro dos atendimentos ",
+      description: "Crie formulários de anamnese de forma dinâmica, e utilize os furmularios criados para serem preenchidos dentro dos atendimentos. ",
     },
     {
       image: "/solicitations5.png",
       title: "Solicitações",
-      description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios/colaboradores ou rejeita a solicitação",
+      description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios/colaboradores ou rejeita a solicitação.",
     },
     {
       image: "/tutores.png",
       title: "Clientes",
-      description: "Gestão completa da sua carteira de clientes, com varias ações como chat, agendamento, gerar pagamentos,visualizar perfil dentre outras",
+      description: "Gestão completa da sua carteira de clientes, com varias ações como chat, agendamento, gerar pagamentos,visualizar perfil dentre outras.",
     },
     {
       image: "/prontuario.png",
       title: "Prontuarios",
-      description: "Com a criação automatica do prontuario, tenha o histórico de atendimento, solicitações, anexos, protocolos, pagamentos e muito mais",
+      description: "Com a criação automatica do prontuario, tenha o histórico de atendimento, solicitações, anexos, protocolos, pagamentos e muito mais.",
     },
     {
       image: "/colaborator2.png",
       title: "Rede",
-      description: "Veterinários e estabelecimentos agora podem trabalhar em conjunto, basta enviar o convite ao médico, após a confirmação o profissional ja está integrado a rede",
+      description: "Veterinários e estabelecimentos agora podem trabalhar em conjunto, basta enviar o convite ao médico, após a confirmação o profissional ja está integrado a rede.",
     },
     {
       image: "/stock2.png",
       title: "Estoque",
-      description: "Dentro dos recuros de estoque além de disponibilizar seus produtos no app de tutores, você pode acompanhar o balanço geral, por item, por período etc ",
+      description: "Dentro dos recuros de estoque além de disponibilizar seus produtos no app de tutores, você pode acompanhar o balanço geral, por item, por período etc. ",
     },
     {
       image: "/service3.png",
       title: "Serviços",
-      description: "Organize sue catalogo de serviços prestados, atualize quando quiser ou exclua-os e disponibilize os mesmos no app para todos os tutores",
+      description: "Organize sue catalogo de serviços prestados, atualize quando quiser ou exclua-os e disponibilize os mesmos no app para todos os tutores.",
     },
   ];
 
@@ -140,9 +140,9 @@ const HomePage = () => {
           </Link>
         </Heading>
         <HStack display={["none", "flex"]}>
-          <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Recursos</Text>
-          <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Sobre nós</Text>
-          <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Contato</Text>
+          <Link mx={2} href='#resource' _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Recursos</Link>
+          <Link mx={2} href="#aboutus" _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Sobre nós</Link>
+          <Link mx={2} href='#contact' _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Contato</Link>
           <Text mx={2} _hover={{ borderBottomWidth: "2px", borderBottomColor: "primary.300" }} fontWeight="bold" cursor="pointer" borderBottomWidth="2px" borderBottomColor="primary.100">Blog</Text>
         </HStack>
         <Flex >
@@ -280,7 +280,7 @@ const HomePage = () => {
         </Box>
       </Box>
 
-      <Box height="95vh" px="4" display="flex" justifyContent="center" alignItems="center" bgColor={"primary.100"}>
+      <Box id="resource" height="95vh" px="4" display="flex" justifyContent="center" alignItems="center" bgColor={"primary.100"}>
         <Flex
           width="100%"
           maxWidth="1200px"
@@ -310,8 +310,9 @@ const HomePage = () => {
             flexDirection={"column"}
             alignItems={["center", "start"]}
             maxWidth="500px"
+
           >
-            <Text mb={["4", "4"]} fontWeight={"bold"} fontSize={["2xl","3xl"]}>Nossos recursos</Text>
+            <Text mb={["4", "4"]} fontWeight={"bold"} fontSize={["2xl", "3xl"]}>Nossos recursos</Text>
             {/* Navigation Arrows */}
 
             <Box
@@ -384,28 +385,29 @@ const HomePage = () => {
           </Box>
         </Flex>
       </Box>
-      <Box flexDirection={["column","row"]} height="100%" px="24" pb={24} display="flex" justifyContent="center" alignItems="center" bgColor={"primary.100"}>
-        <Box mr={[0,4]}  width={["80vw","33vw"]} mb={6} display={"flex"} flexDirection={"column"} alignItems={["center","start"]}>
-          <Text  fontSize={["2xl","4xl"]} fontWeight={"bold"} color={"primary.300"} mb={4}>App  completo <br/> para tutores</Text>
-          <Text textAlign={["center","left"]} width={["100%","80%"]} color={"gray.500"}>Estamos desenvolvendo uma <strong>plataforma e app completo</strong> para os tutores, onde eles poderão realizar <strong>solicitações</strong>, compras, realizar pagamentos e cuidar da saúde do seus animais</Text>
+      <Box flexDirection={["column", "row"]} height="100%" px="24" pb={24} display="flex" justifyContent="center" alignItems="center" bgColor={"primary.100"}>
+        <Box mr={[0, 4]} width={["80vw", "33vw"]} mb={6} display={"flex"} flexDirection={"column"} alignItems={["center", "start"]}>
+          <Text fontSize={["2xl", "4xl"]} fontWeight={"bold"} color={"primary.300"} mb={4}>App  completo <br /> para tutores</Text>
+          <Text textAlign={["center", "left"]} width={["100%", "80%"]} color={"gray.500"}>Estamos desenvolvendo uma <strong>plataforma e app completo</strong> para os tutores, onde eles poderão realizar <strong>solicitações</strong>, compras, realizar pagamentos e cuidar da saúde do seus animais.</Text>
         </Box>
-        <Box mt={[6,0]} mb={6} bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"280px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"280px"}>
-        <Image
-              src={"./phoneapp.png"}
-              width={"400px"}
-              objectFit="cover"
-              borderRadius="md"
+        <Box mt={[6, 0]} mb={6} bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"280px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"280px"}>
+          <Image
+            src={"./phoneapp.png"}
+            width={"400px"}
+            objectFit="cover"
+            borderRadius="md"
 
-            />
+          />
         </Box>
       </Box>
       <Box
         height={"100%"}
         display="flex"
-        px={["6","24"]}
-        py={["16","24"]}
+        px={["6", "24"]}
+        py={["16", "24"]}
         bgColor={"primary.200"}
         color={"primary.100"}
+        id="aboutus"
       >
         {/* Left side: Content */}
         <Box
@@ -415,6 +417,7 @@ const HomePage = () => {
           justifyContent="center"
           flexDirection="column"
           my={6}
+
         >
           <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <Text
@@ -433,31 +436,33 @@ const HomePage = () => {
               A Empresa
             </Text>
           </Box>
-          <Flex mb={"12"} flexDirection={["column","row"]} justifyContent={["center","space-between"]} alignItems={["center","space-between"]}>
-            <Box width={["100%","30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
-              <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2} >
-              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
-                <GiTargeted color='#7839EE' />
-              </Box>Propósito</Text>
+          <Flex mb={"12"} flexDirection={["column", "row"]} justifyContent={["center", "space-between"]} alignItems={["center", "space-between"]}>
+            <Box width={["100%", "30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2} >
+                <Box width={"40px"} height={"40px"} mr={4} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} borderRadius={"full"}>
+                  <GiTargeted color='#7839EE' />
+                </Box>
+                <Text>Propósito</Text>
+              </Box>
               <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Oferecer uma ferramenta que impulsione seu negócio no segmento pet e conecte você aos tutores e seus pets.</Text>
             </Box>
-            <Box width={["100%","30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
-              <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
-              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
-                <FaHeart color='#7839EE' />
+            <Box width={["100%", "30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
+                <Box mr={2} width={"40px"} height={"40px"} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} borderRadius={"full"}>
+                  <FaHeart color='#7839EE' />
+                </Box>
+                <Text ml={2}>Valores</Text>
               </Box>
-                Valores
-                </Text>
-              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Pessoas, pets, saúde, gestão e tecnologia sãos os pilares do nosso negócio</Text>
+              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Pessoas, pets, saúde, gestão e tecnologia sãos os pilares do nosso negócio.</Text>
             </Box>
-            <Box width={["100%","30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
-              <Text display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
-              <Box width={"40px"} height={"40px"} mr={3} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
-                <MdRocket color='#7839EE' />
+            <Box width={["100%", "30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
+              <Box display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
+                <Box width={"40px"} height={"40px"} mr={4} borderWidth={"1px"} borderColor={"primary.300"} bgColor={"primary.250"} display={"flex"} justifyContent={"center"} alignItems={"center"} p={"2"} borderRadius={"full"}>
+                  <MdRocket color='#7839EE' />
+                </Box>
+                <Text>Metas</Text>
               </Box>
-                Metas
-                </Text>
-              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Tornar-se o maior ecossistema virtual de pets do brasil, integrando tutores a estabelecimentos e veterinarios </Text>
+              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Tornar-se o maior ecossistema virtual de pets do brasil, integrando tutores a estabelecimentos e veterinarios. </Text>
             </Box>
 
           </Flex>
@@ -465,11 +470,12 @@ const HomePage = () => {
 
         </Box>
       </Box>
-      
+
       <Box
+        id="contact"
         height={["100%", "100vh"]}
         display="flex"
-        px={["6", "6"]} // Menor padding em telas pequenas
+        px={["6", "24"]} // Menor padding em telas pequenas
         pt={["80px", "120px"]} // Ajuste do padding superior para telas pequenas
         bgColor="primary.100"
         flexDirection={["column", "row"]} // Coluna em telas pequenas, linha em desktop
@@ -477,19 +483,22 @@ const HomePage = () => {
         <Box
           width={["100%", "50%"]} // 100% de largura em telas pequenas
           display="flex"
-          alignItems="center"
+          alignItems="start"
           justifyContent="start"
           flexDirection="column"
           mb={["6", "0"]} // Espaçamento inferior em telas pequenas
           mt={["30px", "0px"]}
+          mx={4}
         >
-          <Text fontWeight="bold" fontSize={["xl", "2xl"]} mb="4">Contato</Text>
-          <VStack spacing={4} align="center">
+          <Text fontWeight="bold" fontSize={["3xl", "4xl"]} mb="4">Contate nos</Text>
+          <VStack align="start">
 
-            <Text color="gray.500" >
-              Entre em contato conosco e ficaremos <strong>muito feliz</strong>  em lhe atender.<br />
-              Venha conhecer nossa <strong>solução</strong> e tenha<strong> 30 dias gratuitos</strong> de uso da ferramenta.
+            <Text color="gray.500" width={["100%", "66%"]}>
+              Entre em contato conosco e ficaremos <strong>muito feliz</strong>  em lhe atender.
+              Venha conhecer nossa <strong>solução</strong> e tenha<strong> 7 dias gratuitos</strong> de uso da ferramenta.
             </Text>
+            <Text color="gray.500">contato@petpro.com</Text>
+            <Text color="gray.500">(34) - 91234-4321</Text>
             <Image
               src={"/sendemail.png"}
               objectFit="cover"
@@ -514,7 +523,7 @@ const HomePage = () => {
             bgColor="primary.200"
             color="primary.100"
             borderRadius="md"
-            boxShadow="lg"
+            boxShadow="md"
             mb={["12", "0"]}
           >
             <Text fontSize={["xl", "2xl"]} mb="6">Preencha seus dados</Text>
@@ -523,7 +532,7 @@ const HomePage = () => {
               <Input
                 focusBorderColor="primary.400"
                 type="text"
-                placeholder="Digite seu nome"
+                placeholder="Matheus Rocha"
                 borderWidth="1px"
                 borderColor="primary.250"
               />
@@ -534,7 +543,7 @@ const HomePage = () => {
               <Input
                 focusBorderColor="primary.400"
                 type="email"
-                placeholder="Digite seu e-mail"
+                placeholder="email@exemplo.com"
                 borderWidth="1px"
                 borderColor="primary.250"
               />
@@ -544,8 +553,8 @@ const HomePage = () => {
               <FormLabel>Telefone</FormLabel>
               <Input
                 focusBorderColor="primary.400"
-                type="tel"
-                placeholder="Digite seu telefone"
+                type="number"
+                placeholder="34988121234"
                 borderWidth="1px"
                 borderColor="primary.250"
               />
