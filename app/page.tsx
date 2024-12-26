@@ -311,7 +311,7 @@ const HomePage = () => {
             alignItems={["center", "start"]}
             maxWidth="500px"
           >
-            <Text mb={["4", "4"]} fontWeight={"bold"} fontSize={"2xl"}>Nossos recursos</Text>
+            <Text mb={["4", "4"]} fontWeight={"bold"} fontSize={["2xl","3xl"]}>Nossos recursos</Text>
             {/* Navigation Arrows */}
 
             <Box
@@ -384,7 +384,21 @@ const HomePage = () => {
           </Box>
         </Flex>
       </Box>
+      <Box flexDirection={["column","row"]} height="100%" px="24" pb={24} display="flex" justifyContent="center" alignItems="center" bgColor={"primary.100"}>
+        <Box mr={[0,4]}  width={["80vw","33vw"]} mb={6} display={"flex"} flexDirection={"column"} alignItems={["center","start"]}>
+          <Text  fontSize={["2xl","4xl"]} fontWeight={"bold"} color={"primary.300"} mb={4}>App  completo <br/> para tutores</Text>
+          <Text textAlign={["center","left"]} width={["100%","80%"]} color={"gray.500"}>Estamos desenvolvendo uma <strong>plataforma e app completo</strong> para os tutores, onde eles poderão realizar <strong>solicitações</strong>, compras, realizar pagamentos e cuidar da saúde do seus animais</Text>
+        </Box>
+        <Box mt={[6,0]} mb={6} bgColor={"primary.300"} borderTopLeftRadius={"10px"} borderBottomLeftRadius={"280px"} borderBottomRightRadius={"10px"} borderTopRightRadius={"280px"}>
+        <Image
+              src={"./phoneapp.png"}
+              width={"400px"}
+              objectFit="cover"
+              borderRadius="md"
 
+            />
+        </Box>
+      </Box>
       <Box
         height={"100%"}
         display="flex"
@@ -451,7 +465,7 @@ const HomePage = () => {
 
         </Box>
       </Box>
-
+      
       <Box
         height={["100%", "100vh"]}
         display="flex"
