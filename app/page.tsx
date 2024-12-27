@@ -419,7 +419,7 @@ const HomePage = () => {
           my={6}
 
         >
-          <Box display="flex" flexDirection="column" alignItems="center" position="relative">
+          <Box display="flex" flexDirection="column" alignItems="center" mb={12} >
 
 
             {/* Texto "Sobre nós" */}
@@ -432,8 +432,7 @@ const HomePage = () => {
               <Text
                 color="primary.100"
                 fontWeight="bold"
-                fontSize={["3xl", "4xl"]} // Responsivo: maior no desktop
-                mb="12"
+                fontSize={["3xl", "4xl"]} 
               >
                 A Empresa
               </Text>
@@ -447,7 +446,7 @@ const HomePage = () => {
                 </Box>
                 <Text>Propósito</Text>
               </Box>
-              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Oferecer uma ferramenta que impulsione seu negócio no segmento pet e conecte você aos tutores e seus pets.</Text>
+              <Text color={'gray.400'} fontSize={"md"} textAlign={"center"}>Oferecer uma ferramenta que impulsione seu negócio no segmento pet e conecte você aos tutores.</Text>
             </Box>
             <Box width={["100%", "30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
               <Box display={"flex"} flexDirection={"row"} alignItems={"center"} fontSize={"lg"} mb={2}>
