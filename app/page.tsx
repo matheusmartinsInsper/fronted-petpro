@@ -597,9 +597,9 @@ const HomePage = () => {
 
               <Button
                 bgColor="primary.300"
-                color="primary.100"
+                color="primary.500"
                 width="100%"
-                _hover={{ backgroundColor: "primary.400" }}
+                _hover={{ backgroundColor: "primary.400",color:"white" }}
               >
                 Enviar
               </Button>
