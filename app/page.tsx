@@ -420,28 +420,7 @@ const HomePage = () => {
 
         >
           <Box display="flex" flexDirection="column" alignItems="center" position="relative">
-            {/* Animação centralizada */}
-            <MotionBox
-              position="absolute"
-              top="-20%"  // Centraliza horizontalmente dentro do container pai
-              transform="translate(-50%, -50%)" // Ajusta o ponto de origem para o centro
-              w="160px"
-              h="160px"
-              borderRadius="full"
-              bgGradient="radial(primary.300, transparent)"
-              initial={{ scale: 1, opacity: 0.6 }}
-              animate={{
-                scale: [1, 1.5, 2],
-                opacity: [0.6, 0.3, 0],
-                transition: {
-                  duration: 2,
-                  repeat: Infinity, // Repete infinitamente
-                  ease: "easeInOut", 
-                  repeatDelay: 2
-                },
-              }}
-              pointerEvents="none"
-            />
+
 
             {/* Texto "Sobre nós" */}
             <Text fontWeight="bold" fontSize={["xl", "2xl"]} color="primary.300">
@@ -455,7 +434,6 @@ const HomePage = () => {
                 fontWeight="bold"
                 fontSize={["3xl", "4xl"]} // Responsivo: maior no desktop
                 mb="12"
-                cursor={"pointer"}
               >
                 A Empresa
               </Text>
@@ -636,7 +614,7 @@ const HomePage = () => {
 
       </Box>
 
-      <Box display="flex" flexDirection="column" alignItems="center" pt="60px"  bgGradient="linear(to-b, primary.250 70%, primary.200 100%)" color="white">
+      <Box display="flex" flexDirection="column" alignItems="center" pt="60px" bgGradient="linear(to-b, primary.250 70%, primary.200 100%)" color="white">
         <Box
           display="flex"
           width="80%"
