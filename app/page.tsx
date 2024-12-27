@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Flex, Heading, Text, Link, HStack, Image, VStack, Input, FormControl, FormLabel, Select, Circle, IconButton } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text, Link, HStack, Image, VStack, Input, FormControl, FormLabel, Select, Circle, IconButton, Divider } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
@@ -7,12 +7,13 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon
 } from '@chakra-ui/icons';
+import { CheckCircleIcon } from "@chakra-ui/icons";
 import { FaFacebook, FaInstagram, FaTwitter, FaHeart } from 'react-icons/fa';
 import { motion, useAnimation, useInView, isValidMotionProp } from 'framer-motion';
 import { useEffect, useState, useRef } from "react";
 import { chakra } from "@chakra-ui/react";
 import { MdGroups, MdRestaurant, MdRocket } from "react-icons/md";
-import { FaCut, FaRunning, FaBone, FaDog, FaBasketballBall, FaStethoscope, FaHotel } from "react-icons/fa";
+import { FaCut, FaRunning, FaBone, FaDog, FaBasketballBall, FaStethoscope, FaHotel, FaCheck } from "react-icons/fa";
 import { GiSyringe, GiBrain, GiScalpel, GiTargeted, GiHand } from "react-icons/gi";
 import { BsThreeDots } from "react-icons/bs";
 
@@ -432,7 +433,7 @@ const HomePage = () => {
               <Text
                 color="primary.100"
                 fontWeight="bold"
-                fontSize={["3xl", "4xl"]} 
+                fontSize={["3xl", "4xl"]}
               >
                 A Empresa
               </Text>
@@ -472,7 +473,135 @@ const HomePage = () => {
 
         </Box>
       </Box>
-
+      <Box alignItems={"center"} bgColor={"primary.100"} display={"flex"} flexDirection={"column"} p={[4,24]}>
+        <Box mt={[8,0]}  mx={4} alignItems={"center"} display={"flex"} flexDirection={"column"} >
+          <Text
+            mb={4}
+            color="primary.200"
+            fontWeight="bold"
+            fontSize={["4xl", "5xl"]} borderBottomWidth={"3px"} borderBottomColor={"primary.300"}>Escolha seu plano!</Text>
+          <Text mb={16} textAlign={"center"} color={"gray.500"} width={["100%","66%"]}>Compare nossos planos e analise aquilo faz mais sentido para você e o seu negócio, estamos disponíves a tirar qualquer dúvida</Text>
+        </Box>
+        <Box mx={0} display={"flex"} flexDirection={["column", "row"]}>
+          <Box my={[4,0]}  p={8} mx={6} boxShadow={"md"} bgColor={"white"} display={"flex"} flexDirection={"column"} borderWidth={"1px"} borderColor={"gray.200"} borderRadius={"18"} >
+            <Text mb={2} width={"80px"} p={2} bgColor={"primary.300"} fontWeight={"bold"} borderRadius={"md"} color={"primary.100"}>Vet PRO</Text>
+            <Text mb={8} color={"gray.500"}>Ideal para <strong>veterinarios</strong> que atendam particular e trabalham em um ou mais estabelecimentos.</Text>
+            <Text mb={2} fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 97,00</Text>
+            <Divider color={"gray.500"} bgColor={"gray.500"} />
+            <VStack my={8} alignItems="start" spacing={3}>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Integração com até 10 redes</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Prescrição ilimitada</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Gestão de agenda</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Controle de estoque</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Gestão financeira</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Carteira de clientes</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Prontuario digital</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Perfil no app de tutores</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Automação com WhatsApp</Text>
+              </HStack>
+            </VStack>
+            <Divider mb="4" color={"gray.500"} bgColor={"gray.500"} />
+            <Button borderRadius={"md"} boxShadow={"md"} borderWidth={"1px"} bgColor={"white"} color={"primary.200"} borderColor={"gray.200"}
+            _hover={{bgColor:"primary.300",color:"primary.500"}}>Começar</Button>
+          </Box>
+          <Box my={[4,0]} p={8} mx={6} boxShadow={"md"} bgColor={"white"} display={"flex"} flexDirection={"column"} borderWidth={"1px"} borderColor={"gray.200"} borderRadius={"18"} >
+            <Text mb={2} alignItems={"center"} justifyContent={"center"} textAlign={"center"} width={"100px"} p={2} bgColor={"primary.300"} fontWeight={"bold"} borderRadius={"md"} color={"primary.100"}>PREMIUM</Text>
+            <Text mb={8} color={"gray.500"}>Para <strong>estabelecimentos</strong>  que desejam gerenciar não só seus recursos mas funcionarios e colaboradores.</Text>
+            <Text fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 132,00</Text>
+            <Divider color={"gray.500"} bgColor={"gray.500"} />
+            <VStack my={8} alignItems="start" spacing={3}>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Até 20 colaboradores</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Até 20 funcionarios</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Gestão de agenda</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Controle de estoque</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Gestão financeira</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Carteira de clientes</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Prontuarios digital</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Formularios de anamnese</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Automação com WhatsApp</Text>
+              </HStack>
+            </VStack>
+            <Divider mb="4" color={"gray.500"} bgColor={"gray.500"} />
+            <Button borderRadius={"md"} boxShadow={"md"} borderWidth={"1px"} bgColor={"white"} color={"primary.200"} borderColor={"gray.200"}
+            _hover={{bgColor:"primary.300",color:"primary.500"}}>Começar</Button>
+          </Box>
+          <Box my={[4,0]} p={8} mx={6} boxShadow={"md"} bgColor={"white"} display={"flex"} flexDirection={"column"} borderWidth={"1px"} borderColor={"gray.200"} borderRadius={"18"} >
+            <Text mb={2} width={"80px"} fontWeight={"bold"} borderRadius={"md"} fontSize={"xl"}>Free</Text>
+            <Text mb={8} color={"gray.500"}>Para <strong>veterinarios</strong> que trabalham em uma única clinica, e que não necessitam de gestão pessoal.</Text>
+            <Text fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 00,00</Text>
+            <Divider color={"gray.500"} bgColor={"gray.500"} />
+            <VStack my={8} alignItems="start" spacing={3}>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Integração com 1 rede</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Carteira de clientes</Text>
+              </HStack>
+              <HStack>
+                <Icon as={FaCheck} color="primary.300" />
+                <Text>Formularios de Anamnese</Text>
+              </HStack>
+            </VStack>
+            <Divider mb="4" color={"gray.500"} bgColor={"gray.500"} />
+            <Button borderRadius={"md"} boxShadow={"md"} borderWidth={"1px"} bgColor={"white"} color={"primary.200"} borderColor={"gray.200"}
+            _hover={{bgColor:"primary.300",color:"primary.500"}}>Começar</Button>
+          </Box>
+        </Box>
+      </Box>
       <Box
         id="contact"
         height={["100%", "100vh"]}
@@ -480,7 +609,7 @@ const HomePage = () => {
         px={["6", "24"]} // Menor padding em telas pequenas
         pt={["80px", "120px"]} // Ajuste do padding superior para telas pequenas
         bgColor={"primary.100"}
-        flexDirection={["column-reverse", "row"]} // Coluna em telas pequenas, linha em desktop
+        flexDirection={["column", "row"]} // Coluna em telas pequenas, linha em desktop
       >
         <Box
           width={["100%", "50%"]} // 100% de largura em telas pequenas
