@@ -202,7 +202,7 @@ const HomePage = () => {
                 Gestão completa de <strong>agenda, clientes,estoque</strong><br /> e uma série de recursos em uma <strong>única </strong>ferramenta
 
               </Text>
-              <Link href="#recursos">
+              <Link href="#resource">
                 <Button
                   width={["66%", "33%"]}
                   bgGradient="linear(to-r, primary.250, primary.300)"
@@ -419,22 +419,47 @@ const HomePage = () => {
           my={6}
 
         >
-          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
-            <Text
-              fontWeight="bold"
-              fontSize={["xl", "2xl"]}
-              color={"primary.300"}
-            >
+          <Box display="flex" flexDirection="column" alignItems="center" position="relative">
+            {/* Animação centralizada */}
+            <MotionBox
+              position="absolute"
+              top="-20%"  // Centraliza horizontalmente dentro do container pai
+              transform="translate(-50%, -50%)" // Ajusta o ponto de origem para o centro
+              w="160px"
+              h="160px"
+              borderRadius="full"
+              bgGradient="radial(primary.300, transparent)"
+              initial={{ scale: 1, opacity: 0.6 }}
+              animate={{
+                scale: [1, 1.5, 2],
+                opacity: [0.6, 0.3, 0],
+                transition: {
+                  duration: 2,
+                  repeat: Infinity, // Repete infinitamente
+                  ease: "easeInOut", 
+                  repeatDelay: 2
+                },
+              }}
+              pointerEvents="none"
+            />
+
+            {/* Texto "Sobre nós" */}
+            <Text fontWeight="bold" fontSize={["xl", "2xl"]} color="primary.300">
               Sobre nós
             </Text>
-            <Text
-              color={"primary.100"}
-              fontWeight="bold"
-              fontSize={["3xl", "4xl"]} // Responsivo: maior no desktop
-              mb="12"
-            >
-              A Empresa
-            </Text>
+
+            {/* Texto "A Empresa" com posição relativa para centralizar a animação */}
+            <Box position="relative">
+              <Text
+                color="primary.100"
+                fontWeight="bold"
+                fontSize={["3xl", "4xl"]} // Responsivo: maior no desktop
+                mb="12"
+                cursor={"pointer"}
+              >
+                A Empresa
+              </Text>
+            </Box>
           </Box>
           <Flex mb={"12"} flexDirection={["column", "row"]} justifyContent={["center", "space-between"]} alignItems={["center", "space-between"]}>
             <Box width={["100%", "30%"]} my={4} mx={2} display={"flex"} flexDirection={"column"} alignItems={"center"}>
@@ -477,7 +502,7 @@ const HomePage = () => {
         display="flex"
         px={["6", "24"]} // Menor padding em telas pequenas
         pt={["80px", "120px"]} // Ajuste do padding superior para telas pequenas
-        bgColor="primary.100"
+        bgColor={"primary.100"}
         flexDirection={["column-reverse", "row"]} // Coluna em telas pequenas, linha em desktop
       >
         <Box
@@ -512,18 +537,18 @@ const HomePage = () => {
           <Box display={"flex"} width={"100%"} flexDirection={"row"}>
             <Box mr={6}>
               <Text fontWeight={"bold"} color={"primary.200"} fontSize={"lg"}>Suporte</Text>
-              <Text color={"gray.500"} fontSize={["xs","sm"]}>Somos uma empresa pequena, porém que presa pelo suporte a nossos usuarios.</Text>
+              <Text color={"gray.500"} fontSize={["xs", "sm"]}>Somos uma empresa pequena, porém que presa pelo suporte a nossos usuarios.</Text>
             </Box>
             <Box mr={6}>
               <Text fontWeight={"bold"} color={"primary.200"} fontSize={"lg"}>Feedback</Text>
-              <Text color={"gray.500"} fontSize={["xs","sm"]}>Sujestão de melhoria? nova funcionalidade?, estamos com nosso canal aberto para te ouvir.</Text>
+              <Text color={"gray.500"} fontSize={["xs", "sm"]}>Sujestão de melhoria? nova funcionalidade?, estamos com nosso canal aberto para te ouvir.</Text>
             </Box>
             <Box>
               <Text fontWeight={"bold"} color={"primary.200"} fontSize={"lg"}>Mídias</Text>
-              <Text color={"gray.500"} fontSize={["xs","sm"]}>Siga-nos no instagram, e tenha conteúdo relacionado ao mundo pet e a nossa ferramenta.</Text>
+              <Text color={"gray.500"} fontSize={["xs", "sm"]}>Siga-nos no instagram, e tenha conteúdo relacionado ao mundo pet e a nossa ferramenta.</Text>
             </Box>
           </Box>
-      </Box>
+        </Box>
 
         <Box
           width={["100%", "50%"]} // 100% de largura em telas pequenas
@@ -567,7 +592,7 @@ const HomePage = () => {
                 />
               </FormControl>
             </Box>
-            <Box width={"100%"}> 
+            <Box width={"100%"}>
               <FormControl id="phone" mb={4}>
                 <FormLabel>Telefone</FormLabel>
                 <Input
@@ -599,7 +624,7 @@ const HomePage = () => {
                 bgColor="primary.300"
                 color="primary.500"
                 width="100%"
-                _hover={{ backgroundColor: "primary.400",color:"white" }}
+                _hover={{ backgroundColor: "primary.400", color: "white" }}
               >
                 Enviar
               </Button>
@@ -611,7 +636,7 @@ const HomePage = () => {
 
       </Box>
 
-      <Box display="flex" flexDirection="column" alignItems="center" pt="60px" bgColor="primary.250" color="white">
+      <Box display="flex" flexDirection="column" alignItems="center" pt="60px"  bgGradient="linear(to-b, primary.250 70%, primary.200 100%)" color="white">
         <Box
           display="flex"
           width="80%"
