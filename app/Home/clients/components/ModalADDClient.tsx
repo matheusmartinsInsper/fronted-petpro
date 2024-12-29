@@ -1,6 +1,7 @@
 import { Input, Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, useDisclosure, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 import axios from 'axios';
+import { useAppContext } from "../../../context/AppContext";
 
 interface InviteModalProps {
   isOpen: boolean;
@@ -8,6 +9,7 @@ interface InviteModalProps {
 }
 
 const InviteModal = ({ isOpen, onClose }: InviteModalProps) => {
+   const {state} = useAppContext()
   const [email, setEmail] = useState('');
   const toast = useToast(); // Hook do Chakra UI para toasts
 
@@ -17,7 +19,7 @@ const InviteModal = ({ isOpen, onClose }: InviteModalProps) => {
 
   const handleConfirmInvite = async () => {
     try {
-      const token = localStorage.getItem('Authorization'); // Pega o token do localStorage
+      const token = state.token // Pega o token do localStorage
       if (!token) {
         throw new Error('Token not found');
       }

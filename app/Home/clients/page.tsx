@@ -39,6 +39,7 @@ import { useState, useEffect } from "react";
 import axios from "../../../utils/axiosConfig";
 import { ModalAgenda } from "./components/ModalAgenda"
 import  RemoveClient  from "./components/RemoveClient"
+import { useAppContext } from "../../context/AppContext";
 
 interface PetOutput {
   age: string;
@@ -62,6 +63,7 @@ export interface OutPutClientDTO {
 
 
 const Clients = ()=>{
+  const { state } = useAppContext();
   const [clients, setClients] = useState<OutPutClientDTO[]>([]);
   const [filteredclients, setfilteredclients] = useState<OutPutClientDTO[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -100,7 +102,7 @@ useEffect(() => {
   
   const fetchClients = async () => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Authorization');
+      const token = state.token;
       console.log(token)
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

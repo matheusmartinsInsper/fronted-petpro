@@ -35,6 +35,7 @@ import { color } from 'framer-motion';
 import {ServiceRow} from "./ServiceRow"
 import {OutPutClientDTO} from "../page"
 import { MdBorderColor, MdOutlineBorderColor } from 'react-icons/md';
+import { useAppContext } from "../../../context/AppContext";
 
   
   
@@ -81,7 +82,7 @@ export  interface Service {
   }
 
 export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggleStateapi: string,user:OutPutClientDTO }> = ({ isOpen, onClose,toggleStateapi,user }) => {
-
+ const {state} = useAppContext()
   const toast = useToast();
   const [selectedVaccines, setSelectedVaccines] = useState<string[]>([]);
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
@@ -111,7 +112,7 @@ export const ModalAgenda: React.FC<{ isOpen: boolean, onClose: () => void,toggle
 
   const fetchServices = async () => {
     if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Authorization');
+      const token = state.token
       if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       }

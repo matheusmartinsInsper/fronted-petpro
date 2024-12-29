@@ -16,7 +16,8 @@ import {
   Text,
   useDisclosure,
   useToast,
-  Image
+  Image,
+  Link
 } from "@chakra-ui/react";
 import {
   SearchIcon,
@@ -111,8 +112,8 @@ const Prontuarios = ({ params }: { params: { username: string } }) => {
 
     const filtered = prontuarios.filter(prontuario =>
       prontuario.pet.petname.toLowerCase().includes(query)
-      ||prontuario.tutor.name.toLowerCase().includes(query)
-      ||prontuario.tutor.email.toLowerCase().includes(query)
+      || prontuario.tutor.name.toLowerCase().includes(query)
+      || prontuario.tutor.email.toLowerCase().includes(query)
     );
 
     setfilteredProntuario(query ? filtered : prontuarios);
@@ -175,8 +176,8 @@ const Prontuarios = ({ params }: { params: { username: string } }) => {
             <Box display="flex" height="100%">
               <Box flex="1" display="flex" justifyContent="center" alignItems="start" flexDirection={"column"}>
                 <Flex textAlign={"center"}>
-                <Text color={"primary.100"} bgColor={"primary.300"} fontWeight={"bold"} p={"1"} px={2} fontSize={"lg"} borderRadius={"sm"}>Gerencie</Text>
-                <Text color={"primary.200"} bgColor={"primary.100"} fontWeight={"bold"} p={"1"} fontSize={"lg"} borderRadius={"sm"}>o histórico de atendimento dos seus pacientes!</Text>
+                  <Text color={"primary.100"} bgColor={"primary.300"} fontWeight={"bold"} p={"1"} px={2} fontSize={"lg"} borderRadius={"sm"}>Gerencie</Text>
+                  <Text color={"primary.200"} bgColor={"primary.100"} fontWeight={"bold"} p={"1"} fontSize={"lg"} borderRadius={"sm"}>o histórico de atendimento dos seus pacientes!</Text>
                 </Flex>
                 <Text fontSize={"sm"} color={"gray.500"}>Selecione um prontuario e vizualise solicitações, atendimentos, agenda, prescrições,anexos,pagamentos e muitos mais</Text>
               </Box>
@@ -219,14 +220,17 @@ const Prontuarios = ({ params }: { params: { username: string } }) => {
                     <Td>{prontuario.tutor.phone}</Td>
                     <Td paddingY={"2"}>
                       <Flex>
-                        <IconButton
-                          aria-label="Expandir detalhes"
-                          icon={<ExpandIcon />}
-                          size="sm"
-                          color="blue.500"
-                          backgroundColor="white"
-                          _hover={{ backgroundColor: "primary.100" }}
-                        />
+                        <Link href={`/Home/prontuarios/${prontuario.idprontuario}`}>
+                          <IconButton
+                            aria-label="Expandir detalhes"
+                            icon={<ExpandIcon />}
+                            size="sm"
+                            color="blue.500"
+                            backgroundColor="white"
+                            _hover={{ backgroundColor: "primary.100" }}
+                          />
+                        </Link>
+
                       </Flex>
                     </Td>
                   </Tr>

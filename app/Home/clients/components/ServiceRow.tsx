@@ -20,10 +20,12 @@ import {
 } from '@chakra-ui/react';
 import { ChevronDownIcon, ChevronUpIcon, CheckCircleIcon, WarningIcon,InfoOutlineIcon,CheckIcon } from '@chakra-ui/icons';
 import { Service } from "./ModalAgenda";
+import { useAppContext } from "../../../context/AppContext";
 
 export const ServiceRow: React.FC<{ service: Service,selectservice: (service: Service)=>void,key: string }> = ({ service,selectservice,key }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {state} = useAppContext()
 
   const statusColors = {
     Confirmado: 'primary.300',

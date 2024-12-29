@@ -2,15 +2,11 @@ import { Box, FormControl, FormLabel, Input, VStack, Button, useToast,Text,Check
 import { useState,createContext, useContext } from 'react';
 import axios from '../../../utils/axiosConfig';
 import { useRouter } from 'next/navigation';
+import { useAppContext } from "../../context/AppContext";
 
-interface UserContextProps {
-  name: string;
-  setName: (name: string) => void;
-}
-
-const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 const ClinicSignin = () => {
+  const { setState } = useAppContext();
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,6 +30,12 @@ const ClinicSignin = () => {
       // Redireciona o usuário para a tela Home
       setName(response.data.nameuser);
       router.push('/Home');
+      setState({
+        nameuser: response.data.nameuser,
+        email: response.data.email,
+        typeuser: response.data.typeuser,
+        token: token
+      });
 
       toast({
         title: 'Login bem-sucedido.',
@@ -112,13 +114,6 @@ const ClinicSignin = () => {
   );
 };
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-  if (!context) {
-    throw new Error("useUser must be used within a UserProvider");
-  }
-  return context;
-};
 
 export default ClinicSignin;
 

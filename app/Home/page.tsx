@@ -10,6 +10,7 @@ import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
   ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon, WarningIcon, InfoOutlineIcon
 } from '@chakra-ui/icons';
+import { useAppContext } from "../context/AppContext";
 
 interface BarData {
   day: string;
@@ -50,6 +51,7 @@ const faturamentoSemanal: BarData[] = [
 ];
 
 const UserPage: React.FC = () => {
+  const { state } = useAppContext();
   const theme = useTheme();
   const [isLoading, setIsLoading] = useState(true); // Estado para controlar o carregamento
   const [isCollapsed, setIsCollapsed] = useState(false);
