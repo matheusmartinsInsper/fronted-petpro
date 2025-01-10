@@ -74,12 +74,11 @@ const Products = () => {
     const [lastTransiction, setlastTransiction] = useState<any>();
     const [despesa, setdespesa] = useState<number>(0);
     const [receita, setreceita] = useState<number>(0);
-    const itemsPerPage = 10;
+    const itemsPerPage = 9;
     const [filteredProducts, setfilteredProducts] = useState<Item[]>([]);
     const [Products, setProducts] = useState<Item[]>([]);
-    const [lucroBruto, setLucroBruto] = useState<number>(0);
-    const [margemLucro, setMargemLucro] = useState<number>(0);
-    const [sortConfig, setSortConfig] = useState([{ key: 'quantity', direction: 'ascending' }, { key: 'priceunity', direction: 'ascending' }, { key: 'datecreate', direction: 'ascending' }]);
+    const { isOpen, onOpen, onClose } = useDisclosure(); // Modal state
+    const [selectedProduct, setSelectedProduct] = useState<Item | null>(null);
 
     useEffect(() => {
         fetchProducts()
@@ -110,7 +109,51 @@ const Products = () => {
         }
     }
     const handlePageChange = (direction: "next" | "prev") => {
-
+        if (
+            direction === "next" &&
+            currentPage * itemsPerPage < filteredProducts.length
+        ) {
+            setCurrentPage(currentPage + 1);
+        } else if (direction === "prev" && currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+    const handleDeleteClick = (product: Item) => {
+        setSelectedProduct(product);
+        onOpen(); // Open the modal
+    };
+    const handleConfirmDelete = async () => {
+        if (selectedProduct) {
+            if (typeof window !== 'undefined') {
+                const token = localStorage.getItem('Authorization');
+                console.log(token)
+                if (token) {
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+                }
+            }
+            try {
+                await axios.delete('/Item', {
+                    params: { iditem: selectedProduct.itemid }
+                });
+                onClose();
+                toast({
+                    title: "Produto deletado",
+                    description: "Produto deletado do catalogo com sucesso",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } catch (error) {
+                console.error('Erro ao buscar colaboradores:', error);
+                toast({
+                    title: "Erro ao buscar colaboradores",
+                    description: "Ocorreu um erro ao tentar buscar os colaboradores. Tente novamente mais tarde.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
+        }
     };
     // Calcula os dados paginados diretamente a partir de `filteredTransactions`
     const paginatedProducts = filteredProducts.slice(
@@ -157,13 +200,14 @@ const Products = () => {
                                             mr={1}
                                         />
                                         <IconButton
-                                            aria-label="Expandir detalhes"
+                                            aria-label="Deletar item"
                                             icon={<DeleteIcon />}
                                             size="xs"
                                             color="primary.600"
                                             backgroundColor="white"
                                             boxShadow={"md"}
-                                            _hover={{ backgroundColor: "primary.100" }}
+                                            _hover={{ backgroundColor: "primary.600",color:"primary.100" }}
+                                            onClick={() => handleDeleteClick(product)}
                                         />
 
                                     </Flex>
@@ -215,7 +259,24 @@ const Products = () => {
                     color={"primary.300"}
                 />
             </Flex>
-
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Deletar produto</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <Text>Tem certeza de que deseja excluir o produto <strong>{selectedProduct?.name}?</strong> </Text>
+                    </ModalBody>
+                    <ModalFooter display={"flex"} justifyContent={"space-between"}>
+                        <Button bgColor={"primary.600"} color={"primary.100"} _hover={{ bgColor: "primary.600" }} mr={3} onClick={handleConfirmDelete}>
+                            Confirmar
+                        </Button>
+                        <Button variant="ghost" onClick={onClose}>
+                            Cancelar
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
         </>
     );
 };

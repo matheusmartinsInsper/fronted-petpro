@@ -1,5 +1,5 @@
 "use client"
-import { Box, Heading, Flex, Text, SimpleGrid, Card, CardBody, Icon, useTheme, Button, Link, IconButton, Spinner, Image } from '@chakra-ui/react';
+import { Box, Heading, Flex, Text, SimpleGrid, Card, CardBody, Icon, useTheme, Button, Link, IconButton, Spinner, Image, Circle } from '@chakra-ui/react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, AreaChart, Area } from 'recharts';
 import { FaEnvelope } from 'react-icons/fa';
 import { useState, useEffect } from "react";
@@ -8,7 +8,7 @@ import Sidebar from './components/Sidebar';
 import Header from "./components/headers";
 import {
   ArrowBackIcon, BellIcon, CalendarIcon, EditIcon, SettingsIcon, ExternalLinkIcon, ChatIcon,
-  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon, WarningIcon, InfoOutlineIcon
+  ChevronLeftIcon, ChevronRightIcon, AttachmentIcon, ChevronDownIcon, ChevronUpIcon, WarningIcon, InfoOutlineIcon, AtSignIcon
 } from '@chakra-ui/icons';
 import { useAppContext } from "../context/AppContext";
 
@@ -142,7 +142,7 @@ const UserPage: React.FC = () => {
               borderTop={"1px"}
               borderTopColor={"primary.100"}
               backgroundColor="primary.200"
-              height="140px" // Ajuste para ocupar até a metade dos cards
+              height="120px" // Ajuste para ocupar até a metade dos cards
               position="absolute"
               top={0}
               left={0}
@@ -150,66 +150,78 @@ const UserPage: React.FC = () => {
               px="4"
               zIndex={1}
             >
-              <Heading as="h1" mb="1" mt="6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>Best Clinic</Text></Heading>
-              <Text color={"gray.500"} mb={"1"}>Acompanhe suas metricas semanais e mensais! </Text>
+              <Heading as="h1" mb="1" mt="6" size={"md"} color="primary.100" display={"flex"} flexDirection={"row"} fontWeight={"semi-bold"}>Seja bem-vindo, <Text color='primary.100' opacity={"100%"} fontWeight={"bold"}>{state.nameuser}</Text></Heading>
+
             </Box>
 
 
-            <SimpleGrid zIndex={2} mt="20" columns={{ base: 1, md: 2, lg: 4 }} spacing="2" position={"relative"}>
+            <SimpleGrid zIndex={2} mt="14" columns={{ base: 1, md: 2, lg: 4 }} spacing="2" position={"relative"}>
               <Link href='Home/solicitations' _hover={{ textDecoration: 'none', color: 'inherit' }}  >
-                <Card zIndex={2}>
-                  <CardBody color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                <Card height={"14vh"}>
+                  <CardBody className="group" color="gray.500" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                    <Box position="absolute" top="6" right="6">
+                      <Icon as={BellIcon} borderWidth={"1px"} borderColor={"primary.400"} borderRadius={"md"} boxSize={6} color="primary.400" bgColor={"primary.500"} p={1} _groupHover={{ bgColor: "primary.300", color: "primary.500", borderColor: "primary.500" }} />
+                    </Box>
+                    <Flex align="center">
 
-                    <Flex align="center" >
-                      <Icon as={BellIcon} boxSize={4} mr={"2"} />
-                      <Heading size="sm" >Solicitações</Heading>
+                      <Text fontSize="sm" >Solicitações pendentes</Text>
                     </Flex>
-                    <Flex align={"end"} mt={2}>
-                      <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>{solicitacoes} </Text>
-                      <Text fontSize="sm" color="gray.500" >Pendentes </Text>
+                    <Flex align={"center"} mt={2}>
+                      {/* <Icon as={MdPets} boxSize={4} mr={2} color={"primary.200"}/> */}
+                      <Text _groupHover={{ color: "gray.100" }} fontSize="2xl" fontWeight="bold" mr={2} mb={-1} color={"primary.200"}>{colaboradores} </Text>
                     </Flex>
-
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href='Home/agenda' _hover={{ textDecoration: 'none', color: 'inherit' }} >
-                <Card>
-                  <CardBody color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                <Card height={"14vh"}>
+                  <CardBody className="group" color="gray.500" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                    <Box position="absolute" top="6" right="6">
+                      <Icon as={CalendarIcon} borderWidth={"1px"} borderColor={"primary.400"} borderRadius={"md"} boxSize={6} color="primary.400" bgColor={"primary.500"} p={1} _groupHover={{ bgColor: "primary.300", color: "primary.500", borderColor: "primary.500" }} />
+                    </Box>
                     <Flex align="center">
-                      <Icon as={CalendarIcon} boxSize={4} mr={2} />
-                      <Heading size="sm" >Agendamentos</Heading>
+
+                      <Text fontSize="sm" >Atendimentos para hoje</Text>
                     </Flex>
-                    <Flex align={"end"} mt={2}>
-                      <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>{agendamentos} </Text>
-                      <Text fontSize="sm" color="gray.500" >Confirmados para hoje </Text>
+                    <Flex align={"center"} mt={2}>
+                      {/* <Icon as={MdPets} boxSize={4} mr={2} color={"primary.200"}/> */}
+                      <Text _groupHover={{ color: "gray.100" }} fontSize="2xl" fontWeight="bold" mr={2} mb={-1} color={"primary.200"}>13</Text>
                     </Flex>
                   </CardBody>
                 </Card>
               </Link>
 
               <Link href='Home/prontuarios' _hover={{ textDecoration: 'none', color: 'inherit' }} >
-                <Card>
-                  <CardBody color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                <Card height={"14vh"}>
+                  <CardBody className="group" color="gray.500" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                    <Box position="absolute" top="6" right="6">
+                      <Icon as={MdPets} borderWidth={"1px"} borderColor={"primary.400"} borderRadius={"md"} boxSize={6} color="primary.400" bgColor={"primary.500"} p={1} _groupHover={{ bgColor: "primary.300", color: "primary.500", borderColor: "primary.500" }} />
+                    </Box>
                     <Flex align="center">
-                      <Icon as={MdPets} boxSize={4} mr={2} />
-                      <Heading size="sm" >Pets</Heading>
+
+                      <Text fontSize="sm" >Pets registrados</Text>
                     </Flex>
-                    <Flex align={"end"} mt={2}>
-                      <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>{colaboradores} </Text>
+                    <Flex align={"center"} mt={2}>
+                      {/* <Icon as={MdPets} boxSize={4} mr={2} color={"primary.200"}/> */}
+                      <Text _groupHover={{ color: "gray.100" }} fontSize="2xl" fontWeight="bold" mr={2} mb={-1} color={"primary.200"}>56 </Text>
                     </Flex>
                   </CardBody>
                 </Card>
               </Link>
               <Link href='Home/clients' _hover={{ textDecoration: 'none', color: 'inherit' }}>
-                <Card>
-                  <CardBody color="primary.250" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                <Card height={"14vh"}>
+                  <CardBody className="group" color="gray.500" _hover={{ backgroundColor: "primary.300", color: "primary.100", borderRadius: "md", transition: "0.2" }} transition={"1"} cursor={"pointer"}>
+                    <Box position="absolute" top="6" right="6">
+                      <Icon as={AtSignIcon} borderWidth={"1px"} borderColor={"primary.400"} borderRadius={"md"} boxSize={6} color="primary.400" bgColor={"primary.500"} p={1} _groupHover={{ bgColor: "primary.300", color: "primary.500", borderColor: "primary.500" }} />
+                    </Box>
                     <Flex align="center">
-                      <Icon as={EditIcon} boxSize={4} mr={2} />
-                      <Heading size="sm" >Clientes</Heading>
+
+                      <Text fontSize="sm" >Clientes registrados</Text>
                     </Flex>
-                    <Flex align={"end"} mt={2}>
-                      <Text fontSize="xl" fontWeight="bold" mr={2} mb={-1}>{estoque} </Text>
+                    <Flex align={"center"} mt={2}>
+                      {/* <Icon as={MdPets} boxSize={4} mr={2} color={"primary.200"}/> */}
+                      <Text _groupHover={{ color: "gray.100" }} fontSize="2xl" fontWeight="bold" mr={2} mb={-1} color={"primary.200"}>{colaboradores} </Text>
                     </Flex>
                   </CardBody>
                 </Card>
@@ -295,9 +307,9 @@ const UserPage: React.FC = () => {
                       </PieChart>
                     </ResponsiveContainer>
 
-                    <Text color={"gray.500"} mt="-2" mb="2" >
+                    {/* <Text color={"gray.500"} mt="-2" mb="2" >
                       <InfoOutlineIcon color={"gray.400"} boxSize={"3"} /> Esse é o valor total recebido no mês
-                    </Text>
+                    </Text> */}
 
                     <Box>
                       <Heading size="md" mb="12" mt={"4"} color={"primary.250"}>
@@ -329,25 +341,22 @@ const UserPage: React.FC = () => {
                   </Text> */}
                     <Flex mb="10" justify={"space-between"}>
                       <Box>
-                        <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Atendidos</Text>
-                        <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.300"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"} fontWeight={"bold"}><Text fontSize="sm">{totalAtendimentosSemana}</Text></Box>
+                        <Text alignItems={"center"} display={"flex"} flexDirection={"row"} fontSize="md" color="primary.250" mb={'1'}><Circle mr={2} size="10px" color={"primary.300"} bgColor={"primary.300"} />Atendidos</Text>
+                        <Text fontSize="sm" fontWeight={"bold"}>{totalAtendimentosSemana}</Text>
                       </Box>
                       <Box>
-                        <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Receita</Text>
-                        <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.300"} textAlign={"center"} maxWidth={"80px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"} fontWeight={"bold"}><Text fontSize="sm">R${totalFaturadoSemana}</Text></Box>
+                        <Text alignItems={"center"} display={"flex"} flexDirection={"row"} fontSize="md" color="primary.250" mb={'1'}><Circle mr={2} size="10px" color={"primary.300"} bgColor={"primary.300"} />Receita</Text>
+                        <Text fontSize="sm" fontWeight={"bold"}>R$ {totalFaturadoSemana}</Text>
                       </Box>
                       <Box>
-                        <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Despesas</Text>
-                        <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.600"} textAlign={"center"} maxWidth={"80px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"} fontWeight={"bold"}><Text fontSize="sm">R${totalDespesa}</Text></Box>
+                        <Text alignItems={"center"} display={"flex"} flexDirection={"row"} fontSize="md" color="primary.250" mb={'1'}><Circle mr={2} size="10px" color={"primary.600"} bgColor={"primary.600"} />Despesa</Text>
+                        <Text fontSize="sm" fontWeight={"bold"}>R$ {totalDespesa}</Text>
                       </Box>
                       <Box>
-                        <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Cancelados</Text>
-                        <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"#FF407D"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"} fontWeight={"bold"}><Text fontSize="sm">49</Text></Box>
+                        <Text alignItems={"center"} display={"flex"} flexDirection={"row"} fontSize="md" color="primary.250" mb={'1'}><Circle mr={2} size="10px" color={"primary.700"} bgColor={"primary.700"} />Cancelados</Text>
+                        <Text fontSize="sm" fontWeight={"bold"}>400</Text>
                       </Box>
-                      <Box>
-                        <Text fontSize="md" fontWeight="bold" color="primary.250" mb={'1'}>Perdas</Text>
-                        <Box p={1} backgroundColor={"white"} boxShadow={"md"} color={"primary.700"} textAlign={"center"} maxWidth={"60px"} border={"1px"} borderRadius={"md"} borderColor={"gray.200"} fontWeight={"bold"}><Text fontSize="sm">R${totalPerdido}</Text></Box>
-                      </Box>
+                     
 
 
                     </Flex>

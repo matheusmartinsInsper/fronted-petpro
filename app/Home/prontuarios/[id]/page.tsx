@@ -25,11 +25,11 @@ import {
     SimpleGrid,
     Checkbox,
     DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, Drawer, DrawerOverlay, DrawerFooter, useDisclosure,
-    TagLeftIcon,IconButton
+    TagLeftIcon, IconButton
 } from '@chakra-ui/react';
 import Sidebar from "../../components/Sidebar";
 import Header from "../../components/headers";
-import { CheckCircleIcon, WarningIcon, InfoOutlineIcon, AddIcon, ChevronRightIcon, ArrowLeftIcon,SearchIcon } from '@chakra-ui/icons';
+import { CheckCircleIcon, WarningIcon, InfoOutlineIcon, AddIcon, ChevronRightIcon, ArrowLeftIcon, SearchIcon } from '@chakra-ui/icons';
 import axios from "../../../../utils/axiosConfig";
 import { AxiosError } from 'axios';
 import CardContraindication from '../../agenda/attendance/components/CardContraindication';
@@ -223,12 +223,12 @@ const Atendimento = () => {
                         </Box>
                     </Flex>
                     <Flex direction="row" height="calc(100vh - 120px)" mx="4">
-                        <Box width="22%" borderRadius="md" boxShadow="md" height="100%" zIndex={9} bg="white" mr="4">
+                        <Box width="23%" borderRadius="md" boxShadow="md" height="calc(100vh - 120px)" overflowY="hidden" zIndex={9} bg="white" mr="4">
                             {/* Dados do Pet */}
                             <Box mb="2" display={"flex"} flexDirection={"column"}>
                                 <Flex bgColor={"primary.200"} borderTopRadius={"md"} justifyContent={"center"} height={"80px"} >
-                                    <Box boxShadow={"md"} boxSize="80px" borderRadius="50%" overflow="hidden" mt="40px" >
-                                        <Image src="/petperfil.jpeg" alt={`Foto do pet ${prontuarioData.pet.petname}`} borderRadius={"sm"} />
+                                    <Box boxShadow={"md"} boxSize="80px" borderRadius="50%" overflow="hidden" mt="40px" display={"flex"} justifyContent={'center'} alignItems={"center"}>
+                                        <Image mt='2'  bgColor={"primary.100"} src="/perfilpet2.webp" alt={`Foto do pet ${prontuarioData.pet.petname}`} borderRadius={"full"} />
                                     </Box>
                                 </Flex>
 
@@ -269,15 +269,16 @@ const Atendimento = () => {
 
                             {/* Dados do Tutor */}
                             <Box px="4" borderBottomColor={"primary.100"} borderBottomWidth={"2px"} pb={"2"}>
-                                <Text fontSize="md" fontWeight="bold" mb="2">Tutor</Text>
+                                <Text fontSize="md" fontWeight="bold">{prontuarioData.tutor.name}</Text>
+
                                 <Box fontSize={"sm"}>
-                                    <Text my={'1'}><strong>Nome:</strong> {prontuarioData.tutor.name}</Text>
-                                    <Text my={'1'}><strong>E-mail:</strong> {prontuarioData.tutor.email}</Text>
+                                    <Text my={'1'}><strong>Email: </strong>{prontuarioData.tutor.email}</Text>
                                     <Text my={'1'}><strong>Telefone:</strong> {prontuarioData.tutor.phone}</Text>
+                                    <Text my={'1'}><strong>Endereço:</strong> Av. jardins mende</Text>
                                 </Box>
                             </Box>
                             <Text fontSize="md" fontWeight="bold" mb="2" mx={4} mt={"2"}>Contra indicações</Text>
-                            <Box p="2" bgColor="white" overflowY="auto" maxHeight={"132px"}>
+                            <Box  p="2" bgColor="white" overflowY="auto" maxHeight={"132px"}>
 
                                 {prontuarioData.pet.contraindications.map((contraindication) => <CardContraindication key={contraindication.idcontraindication} contraindication={contraindication} />)}
                             </Box>
@@ -294,12 +295,16 @@ const Atendimento = () => {
                                             color="primary.200"
                                             boxShadow={selectedButton === 'Atendimentos' ? 'md' : 'none'}
                                             _hover={{ bg: 'primary.100' }}
+                                            borderWidth={"1px"}
+                                            borderColor={selectedButton === 'Atendimentos' ? 'gray.200' : 'white'}
                                             fontWeight="bold" mr={"4"}>Atendimentos</Button>
                                         <Button
                                             size="sm"
                                             onClick={() => handleButtonClick('Solicitações')}
                                             bg="white"
                                             color="primary.200"
+                                            borderWidth={"1px"}
+                                            borderColor={selectedButton === 'Solicitações' ? 'gray.200' : 'white'}
                                             boxShadow={selectedButton === 'Solicitações' ? 'md' : 'none'}
                                             _hover={{ bg: 'primary.100' }}
                                             fontWeight="bold" mr={"4"}>Solicitações</Button>
@@ -308,6 +313,8 @@ const Atendimento = () => {
                                             onClick={() => handleButtonClick('Prescrições')}
                                             bg="white"
                                             color="primary.200"
+                                            borderWidth={"1px"}
+                                            borderColor={selectedButton === 'Prescrições' ? 'gray.200' : 'white'}
                                             boxShadow={selectedButton === 'Prescrições' ? 'md' : 'none'}
                                             _hover={{ bg: 'primary.100' }}
                                             fontWeight="bold" mr={"4"}>Prescrições</Button>
@@ -316,6 +323,8 @@ const Atendimento = () => {
                                             onClick={() => handleButtonClick('Protocolos')}
                                             bg="white"
                                             color="primary.200"
+                                            borderWidth={"1px"}
+                                            borderColor={selectedButton === 'Protocolos' ? 'gray.200' : 'white'}
                                             boxShadow={selectedButton === 'Protocolos' ? 'md' : 'none'}
                                             _hover={{ bg: 'primary.100' }}
                                             fontWeight="bold" mr={"4"}>Protocolos</Button>
@@ -324,6 +333,8 @@ const Atendimento = () => {
                                             onClick={() => handleButtonClick('Pagamentos')}
                                             bg="white"
                                             color="primary.200"
+                                            borderWidth={"1px"}
+                                            borderColor={selectedButton === 'Pagamentos' ? 'gray.200' : 'white'}
                                             boxShadow={selectedButton === 'Pagamentos' ? 'md' : 'none'}
                                             _hover={{ bg: 'primary.100' }}
                                             fontWeight="bold" mr={"4"}>Pagamentos</Button>
@@ -332,6 +343,8 @@ const Atendimento = () => {
                                             onClick={() => handleButtonClick('Agenda')}
                                             bg="white"
                                             color="primary.200"
+                                            borderWidth={"1px"}
+                                            borderColor={selectedButton === 'Agenda' ? 'gray.200' : 'white'}
                                             boxShadow={selectedButton === 'Agenda' ? 'md' : 'none'}
                                             _hover={{ bg: 'primary.100' }}
                                             fontWeight="bold" mr={"4"}>Agenda</Button>
@@ -344,7 +357,7 @@ const Atendimento = () => {
                                 )}
                                 {selectedButton === 'Solicitações' && (
                                     <>
-                                        <Box width={"100%"} px={4} overflowY="auto" height={"100%"}>
+                                        <Box width={"100%"} px={6} overflowY="auto" height={"100%"}>
                                             <Box px={0.5} mt={2} display={"flex"} flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"}>
                                                 <Text fontWeight={"bold"}>Histórico de solicitações</Text>
                                                 <Box ml="auto">

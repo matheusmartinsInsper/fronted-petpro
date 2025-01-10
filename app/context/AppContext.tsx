@@ -29,8 +29,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     setIsHydrated(true); // Marca que estamos no cliente
     const storedState = sessionStorage.getItem("appState");
+    const storagesdataname = localStorage.getItem("nameuser")?.toString()||"";
+    const storagesdatatypeuser = localStorage.getItem("typeuser")?.toString()||"";
+    const storagesdataemail = localStorage.getItem("emailuser")?.toString()||"";
+    const storagesdatatoken = localStorage.getItem("Authorization")?.toString()||"";
+    const datastorage: AppState = {
+        nameuser: storagesdataname,
+        email: storagesdataemail,
+        typeuser: storagesdatatypeuser,
+        token: storagesdatatoken
+    }
     if (storedState) {
-      setState(JSON.parse(storedState));
+      setState(datastorage);
     }
   }, []);
 

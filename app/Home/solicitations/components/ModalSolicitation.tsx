@@ -213,7 +213,7 @@ export const ServiceDetailsModal: React.FC<{ isOpen: boolean, onClose: () => voi
           <Box border="1px" borderColor="gray.200" borderRadius="md" p={4} width={"100%"} boxShadow={"md"}>
             <Flex align="start" mb={4}>
               <Box boxSize="100px" borderRadius="full" overflow="hidden" mr={4}>
-                <Image src="https://avatars.githubusercontent.com/u/96667690?s=400&u=4f8546bf37989b834e06c9f8537efde6fddc1312&v=4" alt="Tutor Image" />
+                <Image src='/user.png' alt="Tutor Image" opacity={"70%"}/>
               </Box>
               <Box>
               <Text fontSize="md" fontWeight="bold" display={"flex"} flexDirection={"row"} textAlign={"center"} alignItems={"center"}>Tutor <Text bgColor={"white"} p={1} borderLeftWidth={"7px"} borderRadius={"md"} borderLeftColor={getPriorityColor(service.priority)} boxShadow={"md"} fontSize={"xs"} ml={2} color={getPriorityColor(service.priority)}>{service.priority}</Text></Text>

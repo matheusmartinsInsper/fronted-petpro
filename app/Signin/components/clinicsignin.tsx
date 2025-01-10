@@ -27,6 +27,7 @@ const ClinicSignin = () => {
       localStorage.setItem('Authorization', token);
       localStorage.setItem('typeuser', response.data.typeuser);
       localStorage.setItem('emailuser', response.data.email);
+      localStorage.setItem('nameuser', response.data.nameuser);
       // Redireciona o usuário para a tela Home
       setName(response.data.nameuser);
       router.push('/Home');

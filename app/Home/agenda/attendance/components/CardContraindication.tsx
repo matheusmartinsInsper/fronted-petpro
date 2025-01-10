@@ -75,7 +75,7 @@ const CardContraindication:React.FC<{ contraindication: Contraindication,key: st
 
   const IconComponent = categoryIcons[category];
     return (
-        <Box  boxShadow={"sm"} display={"flex"} mb={2} key={key} height={"120px"} bgColor={"white"} fontSize={"sm"} border={"1px"} borderColor={"gray.200"} borderRadius={"md"} p="2" py={4} flexDirection={'row'}>
+        <Box overflowX={"hidden"}  boxShadow={"sm"} display={"flex"} mb={2} key={key} height={"120px"} bgColor={"white"} fontSize={"sm"} border={"1px"} borderColor={"gray.200"} borderRadius={"md"} p="2" py={4} flexDirection={'row'}>
         <Flex flexDirection={'column'} mx={2}>
         <Box mr={2} borderRadius={"50%"} bgColor={"primary.500"} display={"flex"} justifyContent={"center"} alignItems={"center"} boxSize={8}>
             <Icon  as={IconComponent} color="primary.300" boxSize="5" />

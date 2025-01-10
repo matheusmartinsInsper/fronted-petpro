@@ -87,7 +87,6 @@ export const Orderprontuario: React.FC<{ order: Order, key: string }> = ({ order
                 borderRadius="md"
                 mb={1}
                 boxShadow="md"
-                position="relative"
                 key={key}
                 zIndex={isExpanded ? "20" : "0"}
                 display={"flex"}
@@ -122,11 +121,11 @@ export const Orderprontuario: React.FC<{ order: Order, key: string }> = ({ order
                         <Text color={statusColors[order.status]} fontWeight={"bold"}>{order.status}</Text>
                     </HStack>
                     <HStack mr={4}>
-                        <Text>Data solicitação:</Text>
+                        <Text>Data da solicitação:</Text>
                         <Text fontWeight={"bold"}>{format(order.datesolicitation, "dd/MM/yy HH:mm")}</Text>
                     </HStack>
                     <HStack mr={4}>
-                        <Text >Data agendamento:</Text>
+                        <Text >Data do agendamento:</Text>
                         <Text fontWeight={"bold"}>{format(order.dateappointed, "dd/MM/yy HH:mm")}</Text>
                     </HStack>
                     <HStack mr={4}>

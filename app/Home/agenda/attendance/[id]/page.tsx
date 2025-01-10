@@ -560,7 +560,7 @@ const Atendimento = () => {
               <Box mb="2" display={"flex"} flexDirection={"column"}>
                 <Flex bgColor={"primary.200"} borderTopRadius={"md"} justifyContent={"center"} height={"80px"} >
                   <Box boxShadow={"md"} boxSize="80px" borderRadius="50%" overflow="hidden" mt="40px" >
-                    <Image src="/petperfil.jpeg" alt={`Foto do pet ${attendanceData.pet.petname}`} borderRadius={"sm"} />
+                    <Image bgColor={"primary.100"} src="/perfilpet2.webp"alt={`Foto do pet ${attendanceData.pet.petname}`} borderRadius={"sm"} />
                   </Box>
                 </Flex>
 

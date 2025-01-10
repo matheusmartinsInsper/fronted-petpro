@@ -38,51 +38,61 @@ const HomePage = () => {
 
   const slides = [
     {
+      page: "agenda",
       image: "/homepage.png",
       title: "Gestão",
       description: "Tenha uma visão geral e detalhada de tudo que acontece na sua empresa, seja relacionado a finanças, clientes, funcionarios ou metas pessoais.",
     },
     {
+      page: "agenda",
       image: "/agenda3.png",
       title: "Agenda",
       description: "Gerencie sua agenda em poucos cliques, agende atendimentos para novos clientes, cancele ou inicie o atendimento, organize-se por prioridade e deixe lembretes a sua equipe.",
     },
     {
+      page: "agenda",
       image: "/atend.png",
       title: "Atendimento",
       description: "Realize prescrições, criação de protocolos,link para pagamento, agende retorno e saiba em detalhes tudo sobre seu cliente e pet.",
     },
     {
+      page: "agenda.tsx",
       image: "/anamnese2.png",
       title: "Anamnese",
       description: "Crie formulários de anamnese de forma dinâmica, e utilize os furmularios criados para serem preenchidos dentro dos atendimentos. ",
     },
     {
+      page: "agenda.tsx",
       image: "/solicitations5.png",
       title: "Solicitações",
       description: "Receba solicitações para agendamentos feito pelos tutores, atribua atendimento a funcionarios/colaboradores ou rejeita a solicitação.",
     },
     {
+      page: "agenda.tsx",
       image: "/tutores.png",
       title: "Clientes",
       description: "Gestão completa da sua carteira de clientes, com varias ações como chat, agendamento, gerar pagamentos,visualizar perfil dentre outras.",
     },
     {
+      page: "agenda.tsx",
       image: "/prontuario.png",
       title: "Prontuarios",
       description: "Com a criação automatica do prontuario, tenha o histórico de atendimento, solicitações, anexos, protocolos, pagamentos e muito mais.",
     },
     {
+      page: "agenda.tsx",
       image: "/colaborator2.png",
       title: "Rede",
       description: "Veterinários e estabelecimentos agora podem trabalhar em conjunto, basta enviar o convite ao médico, após a confirmação o profissional ja está integrado a rede.",
     },
     {
+      page: "agenda.tsx",
       image: "/stock2.png",
       title: "Estoque",
       description: "Dentro dos recuros de estoque além de disponibilizar seus produtos no app de tutores, você pode acompanhar o balanço geral, por item, por período etc. ",
     },
     {
+      page: "agenda.tsx",
       image: "/service3.png",
       title: "Serviços",
       description: "Organize sue catalogo de serviços prestados, atualize quando quiser ou exclua-os e disponibilize os mesmos no app para todos os tutores.",
@@ -377,9 +387,8 @@ const HomePage = () => {
               bgColor={"transparent"}
               color={"primary.200"}
               _hover={{ bgcolo: "transparent", color: "primary.300" }}
-              onClick={() =>
-                alert(`Learn more about: ${slides[currentIndex].title}`)
-              }
+              as = {"a"}
+              href={`/Resources/${slides[currentIndex].page}`}
             >
               Saiba mais
             </Button>
@@ -486,7 +495,15 @@ const HomePage = () => {
           <Box my={[4, 0]} p={8} mx={6} boxShadow={"md"} bgColor={"white"} display={"flex"} flexDirection={"column"} borderWidth={"1px"} borderColor={"gray.200"} borderRadius={"18"} >
             <Text mb={2} alignItems={"center"} justifyContent={"center"} textAlign={"center"} width={"100px"} p={2} bgColor={"primary.300"} fontWeight={"bold"} borderRadius={"md"} color={"primary.100"}>Vet PRO</Text>
             <Text mb={8} color={"gray.500"}>Ideal para <strong>veterinarios</strong> que atendam particular e trabalham em um ou mais estabelecimentos.</Text>
-            <Text mb={2} fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 97,00</Text>
+            
+            <HStack>
+            <Text  fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 97,00</Text>
+            <Text   opacity={"60%"} > Anual</Text>
+            </HStack>
+            <HStack>
+              <Text opacity={"60%"} >ou</Text>
+              <Text mb={2} fontWeight={"bold"} color={"primary.300"}  fontSize={"2xl"}>R$ 129,00/M</Text>
+            </HStack>
             <Divider color={"gray.500"} bgColor={"gray.500"} />
             <VStack my={8} alignItems="start" spacing={3}>
               <HStack>
@@ -537,7 +554,14 @@ const HomePage = () => {
           <Box my={[4, 0]} p={8} mx={6} boxShadow={"md"} bgColor={"white"} display={"flex"} flexDirection={"column"} borderWidth={"1px"} borderColor={"gray.200"} borderRadius={"18"} >
             <Text mb={2} alignItems={"center"} justifyContent={"center"} textAlign={"center"} width={"100px"} p={2} bgColor={"primary.300"} fontWeight={"bold"} borderRadius={"md"} color={"primary.100"}>PREMIUM</Text>
             <Text mb={8} color={"gray.500"}>Para <strong>estabelecimentos</strong>  que desejam gerenciar não só seus recursos mas funcionarios e colaboradores.</Text>
-            <Text fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 132,00</Text>
+            <HStack>
+            <Text  fontWeight={"bold"} color={"primary.200"} fontSize={"3xl"}>R$ 132,00</Text>
+            <Text   opacity={"60%"} > Anual</Text>
+            </HStack>
+            <HStack>
+              <Text opacity={"60%"} >ou</Text>
+              <Text mb={2} fontWeight={"bold"} color={"primary.300"}  fontSize={"2xl"}>R$ 176,00/M</Text>
+            </HStack>
             <Divider color={"gray.500"} bgColor={"gray.500"} />
             <VStack my={8} alignItems="start" spacing={3}>
               <HStack>

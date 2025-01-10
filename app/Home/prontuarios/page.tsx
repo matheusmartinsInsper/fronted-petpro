@@ -64,6 +64,7 @@ interface Payload {
 const Prontuarios = ({ params }: { params: { username: string } }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [prontuarios, setProntuarios] = useState<Payload[]>([]);
+  const [prontuariosfixed, setProntuariosfixed] = useState<Payload[]>([]);
   const [filteredProntuario, setfilteredProntuario] = useState<Payload[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
@@ -92,6 +93,7 @@ const Prontuarios = ({ params }: { params: { username: string } }) => {
       const response = await axios.get('/Prontuario'); // Substitua pela URL da sua API
       if (response.data.status === 'confirmed') {
         setProntuarios(response.data.data);
+        setProntuariosfixed(response.data.data)
         setfilteredProntuario(response.data.data);
       }
     } catch (error) {
@@ -110,7 +112,7 @@ const Prontuarios = ({ params }: { params: { username: string } }) => {
     const query = event.target.value.toLowerCase();
     setSearchTerm(query);
 
-    const filtered = prontuarios.filter(prontuario =>
+    const filtered = prontuariosfixed.filter(prontuario =>
       prontuario.pet.petname.toLowerCase().includes(query)
       || prontuario.tutor.name.toLowerCase().includes(query)
       || prontuario.tutor.email.toLowerCase().includes(query)
@@ -209,7 +211,7 @@ const Prontuarios = ({ params }: { params: { username: string } }) => {
                 {paginatedProntuarios.map((prontuario, index) => (
                   <Tr key={index} paddingY={"2"}>
                     <Td>
-                      <Image src="/petperfil.jpeg" alt={`Foto do pet ${prontuario.pet.petname}`} borderRadius={"17px"} width={"34px"} height={"34px"} />
+                      <Image  bgColor={"primary.100"} src="/perfilpet2.webp"  alt={`Foto do pet ${prontuario.pet.petname}`} borderRadius={"full"} width={"34px"} height={"34px"} />
                     </Td>
                     <Td>{prontuario.pet.petname}</Td>
                     <Td>{prontuario.pet.species}</Td>

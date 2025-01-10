@@ -13,6 +13,7 @@ const RootLayout = ({ children }: { children: ReactNode }) => {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
         />
+         <link rel="icon" sizes="35px" href="/logopetpro.jpg" />
       </head>
       <body>
         <AppProvider>
